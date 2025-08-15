@@ -1,6 +1,7 @@
 import meshtastic
 import meshtastic.serial_interface
 from threading import Thread
+from threading import Event
 from pubsub import pub
 import time
 import datetime
@@ -13,7 +14,8 @@ class meshInterface(Thread):
         super().__init__()
         self.port = port
         self.interface = None
-        self.data_queue = data_queue  # Coda per inviare dati al thread principale
+        self.data_queue = data_queue
+        self.stop_event = Event()  # ➕ Flag per fermare il thread
 
     def setInterface(self):
         try:
@@ -31,9 +33,14 @@ class meshInterface(Thread):
         if not self.setInterface():
             return
 
-        # il thread si mette in ascolto passivamente
-        while True:
-            time.sleep(0.1)  # evita CPU al 100%, ma il lavoro ora avviene su onReceive()
+        # ➕ Verifica il flag di stop
+        while not self.stop_event.is_set():
+            time.sleep(0.1)
+
+        print("meshInterface stopping...")
+
+    def stop(self):
+        self.stop_event.set()  # ➕ Metodo per richiedere lo stop del thread
 
     def onReceive(self, packet, interface):
         ts = datetime.datetime.now().strftime("%H:%M:%S.%f")
@@ -55,10 +62,11 @@ class callDB():
             print("Errore ininsertTrackeing")
             return
         
-        query = "insert into tracking (data,ora,node_id,lat,lon,alt,batt,temperat,pressione,umidita) values('"
+        query = "insert into tracking (data,ora,node_id,lat,lon,alt,batt,temperat,pressione,umidita,longname) values('"
         query += data+"','"+ora+"','"+dati['node_id']+"','"+str(dati['lat'])+"','"+str(dati['lon'])+"','"
-        query += str(dati['alt'])+','+str(dati['batt'])+"','"+str(dati['temperat'])+"','"+str(dati['pressione'])+"','"
-        query += str(dati['umidita'])+"')"
+        query += str(dati['alt'])+"','"+str(dati['batt'])+"','"+str(dati['temperat'])+"','"+str(dati['pressione'])+"','"
+        query += str(dati['umidita'])+"','"+dati['longname']+"')"
+        #print(query)
         cur = conn.cursor()
         try:
             cur.execute(query)
@@ -251,7 +259,7 @@ if __name__ == "__main__":
                                 pdict.update({'pressione': result[0][5]})
                                 pdict.update({'umidita': result[0][6]})
                                 pdict.update({'node_id': result[0][7]})
-                                callDB.insertTracking(pdict)
+                                callDB.insertTracking(None,pdict)
                         # aggiorna Db
                         pdict = {}
                         pdict.update({'lon': packet['decoded']['position']['longitude']})
@@ -291,12 +299,6 @@ if __name__ == "__main__":
                             pdict.update({'chiave': from_})
                             pdict.update({'node_id': node_id})
                             calldb.execInsUpdtDB(pdict)
-                        #if('channelUtilization' in packet['decoded']['telemetry']['deviceMetrics']):
-                        #    chanutil  = packet['decoded']['telemetry']['deviceMetrics']['channelUtilization']
-                        #if('airUtilTx' in packet['decoded']['telemetry']['deviceMetrics']):
-                        #    airutil   = packet['decoded']['telemetry']['deviceMetrics']['airUtilTx'] 
-                        #if(packet['from'] == mynodeId):
-                        #    ora = "Ore "+datetime.datetime.now().strftime("%T")
                         else: 
                             try:
                                 #updateTelemetry(packet['from'],battlvl,chanutil,airutil) 
@@ -350,5 +352,9 @@ if __name__ == "__main__":
                 pass  # Nessun dato ricevuto in questo intervallo
     except KeyboardInterrupt:
         print("\n🛑 Arresto richiesto.")
+        lancio.stop()      # ➕ Ferma il thread
+        lancio.join()      # ➕ Attende la sua chiusura
+        print("✅ Thread terminato correttamente.")
+        
 
     
