@@ -41,11 +41,35 @@ class meshInterface(Thread):
         if self.data_queue:
             self.data_queue.put(packet)
 
-class callDB():
+class callDB(): 
 
-#CREATE TABLE "meshnodes" ("data"	TEXT,"ora"	TEXT,"nodenum"	INTEGER UNIQUE PRIMARY KEY, \
-#	"longname"	TEXT,"alt"	INTEGER,"lat"	REAL,"lon"	REAL,"batt"	INTEGER,"snr"	REAL, \
-#	"pressione" REAL,"temperat" REAL,"umidita" REAL) 
+    def insertTracking(self,dati):
+        data = datetime.datetime.now().strftime("%y/%m/%d") 
+        ora  = datetime.datetime.now().strftime("%T")
+        try:
+            conn = dba.connect('app.db')
+            #print("callDB conn.dba..")
+        except dba.Error as er:
+            print('SQLite error: %s' % (' '.join(er.args)))
+            print("Exception class is: ", er.__class__)
+            print("Errore ininsertTrackeing")
+            return
+        
+        query = "insert into tracking (data,ora,node_id,lat,lon,alt,batt,temperat,pressione,umidita) values('"
+        query += data+"','"+ora+"','"+dati['node_id']+"','"+str(dati['lat'])+"','"+str(dati['lon'])+"','"
+        query += str(dati['alt'])+','+str(dati['batt'])+"','"+str(dati['temperat'])+"','"+str(dati['pressione'])+"','"
+        query += str(dati['umidita'])+"')"
+        cur = conn.cursor()
+        try:
+            cur.execute(query)
+            conn.commit()
+        except dba.Error as er:
+            print('SQLite error: %s' % (' '.join(er.args)))
+            print("Exception class is: ", er.__class__)
+            print(f"errore insert: {query}")
+        cur.close()
+        conn.close()
+        
 
     # ottieni coordinate gps di nodenum richiesto
     def getCoord(self,nodenum):
@@ -210,8 +234,8 @@ if __name__ == "__main__":
                             coord2 = [packet['decoded']['position']['latitude'],packet['decoded']['position']['longitude']]
                             distance = haversine(coord1,coord2)
                             print(f"Distanza dalla pecedente posizione: {distance}")
-                            # se la distanza fra i due punti è > 100 inserisci in tracking
-                            if abs(distance) > 100.0:
+                            # se la distanza fra i due punti è > 10 mt inserisci in tracking
+                            if abs(distance) > 10.0:
                                 print("Inserisco record di tracking")
                                 # inserisci nuovo record in tracking
                                 pdict = {}
@@ -227,14 +251,13 @@ if __name__ == "__main__":
                                 pdict.update({'pressione': result[0][5]})
                                 pdict.update({'umidita': result[0][6]})
                                 pdict.update({'node_id': result[0][7]})
-                                #callDB.insertTracking(pdict)
+                                callDB.insertTracking(pdict)
                         # aggiorna Db
                         pdict = {}
                         pdict.update({'lon': packet['decoded']['position']['longitude']})
                         pdict.update({'lat': packet['decoded']['position']['latitude']})
                         #pdict.update({'lon': coord2[1]})
                         if('altitude' in packet['decoded']['position']):
-                            #updateUser(from_,coord2,packet['decoded']['position']['altitude'],distance,rilev)
                             pdict.update({'alt': packet['decoded']['position']['altitude']})
                             pdict.update({'chiave': from_})
                             pdict.update({'node_id': node_id})
