@@ -243,7 +243,7 @@ if __name__ == "__main__":
                             distance = haversine(coord1,coord2)
                             print(f"Distanza dalla pecedente posizione: {distance}")
                             # se la distanza fra i due punti è > 10 mt inserisci in tracking
-                            if abs(distance) > 10.0:
+                            if abs(distance) > 75.0:
                                 print("Inserisco record di tracking")
                                 # inserisci nuovo record in tracking
                                 pdict = {}
@@ -260,21 +260,38 @@ if __name__ == "__main__":
                                 pdict.update({'umidita': result[0][6]})
                                 pdict.update({'node_id': result[0][7]})
                                 callDB.insertTracking(None,pdict)
-                        # aggiorna Db
-                        pdict = {}
-                        pdict.update({'lon': packet['decoded']['position']['longitude']})
-                        pdict.update({'lat': packet['decoded']['position']['latitude']})
-                        #pdict.update({'lon': coord2[1]})
-                        if('altitude' in packet['decoded']['position']):
-                            pdict.update({'alt': packet['decoded']['position']['altitude']})
-                            pdict.update({'chiave': from_})
-                            pdict.update({'node_id': node_id})
-                            calldb.execInsUpdtDB(pdict)
+                                #inserito tracking aggiorna meshnodes con nuova posizione
+                                pdict = {}
+                                pdict.update({'lon': packet['decoded']['position']['longitude']})
+                                pdict.update({'lat': packet['decoded']['position']['latitude']})
+                                #pdict.update({'lon': coord2[1]})
+                                if('altitude' in packet['decoded']['position']):
+                                    pdict.update({'alt': packet['decoded']['position']['altitude']})
+                                    pdict.update({'chiave': from_})
+                                    pdict.update({'node_id': node_id})
+                                    calldb.execInsUpdtDB(pdict)
+                                else:
+                                    pdict.update({'alt': 0})
+                                    pdict.update({'chiave': from_})
+                                    pdict.update({'node_id': node_id})
+                                    calldb.execInsUpdtDB(pdict)
+                            else:
+                                # aggiorna solo data ora
+                                pdict = {}
+                                pdict.update({'chiave': from_})
+                                pdict.update({'node_id': node_id})
+                                calldb.execInsUpdtDB(pdict)
                         else:
-                            #updateUser(from_,coord2,'0',distance,rilev)
-                            pdict.update({'alt': 0})
+                            # assenza di coordinate precedenti, inserisci quelle attuali
+                            pdict ={}
                             pdict.update({'chiave': from_})
                             pdict.update({'node_id': node_id})
+                            pdict.update({'lon': packet['decoded']['position']['longitude']})
+                            pdict.update({'lat': packet['decoded']['position']['latitude']})
+                            if('altitude' in packet['decoded']['position']):
+                                pdict.update({'alt': packet['decoded']['position']['altitude']})
+                            else:
+                                pdict.update({'alt': 0})
                             calldb.execInsUpdtDB(pdict)
 
                 if('rxSnr' in packet):
