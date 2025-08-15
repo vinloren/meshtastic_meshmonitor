@@ -1,5 +1,9 @@
-##mesh_controller.py##
+#Meshtastic_meshmonitor
+E' il nome del progetto orientato al controllo dalla rete meshtastic cui siamo affiliati. 
+Il progetto fa affidamento sulla applicazione python di seguiguito descritta.
 
+
+##mesh_controller.py
 L’obiettivo da raggiungere è quello di poter porre in mappa OpenStreet map la posizione dei nodi che vediamo dal nodo centrale della nostra rete su una mappa e volendo, rendere questa accessibile in rete al mondo esterno. Occorre così per prima cosa che, grazie alla
 interfaccia API meshtastic, mesh_controller.py vedendo via collegamento seriale una unita Tlora che riceve i messaggi di protocollo in rete meshtastic via radio, è in grado di elaborare questi messaggi salvandone i risultati su un DB Sqlite3.
 
