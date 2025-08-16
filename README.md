@@ -30,6 +30,7 @@ Che insieme a DATA e ORA vanno a riempire / aggiornare la tabella "meshnodes" ne
 I record sono registrati in tabella avendo come chuave primaria non duplicabile 'nodenum' che è l'identificatico del nodo sorgente del messaggio in arrivo. Da 'nodenum', che è l'esprssione in numero intero del MAC del nodo, si ricava 'node_id' senza cercarlo nel corpo del messaggio (anche perché spesso assente) semplicemente traducendolo in espressione esadecimale per poi apporvi in testa un punto esclamativo. 
 
 L'aggiornamento della tabella "meshnodes" ha luogo pr ciascun singolo messaggio di tipo 1. 2. o 3. Infine in tabella avremo le caratteristiche di ciascun nodo visto in rete con data e ora dell'ulima comparsa. Più in dettaglio abbiamo:
+
  CREATE TABLE "meshnodes" (
 	"data"	TEXT,
 	"ora"	TEXT,
@@ -52,6 +53,7 @@ L'aggiornamento della tabella "meshnodes" ha luogo pr ciascun singolo messaggio 
 
 ### Il tracking dei nodi
 Ad ogni messaggio di POSITION ricevuto da un 'nodenum'/'node_id', se in 'meshnodes' è già presente sotto chiave 'nodenum' una registrazione gps, viene misurata la distanza in metri fra la precedente posizione e quella attuale da registrare. Se la distanza è inferiora a 75mt la nuova posizione non viene registrata ma solo aggiornato 'data' e 'ora' del messaggio. Se il record non conteneva coordinate gps il record in 'meshnodes' viene aggiornato con quelle ricevute con data e ora. Se la distanza rilevata è > 75mt viene interessata la tabella 'tracking' prima di aggiornare 'meshnodes'. La tabella tracking è così costituita:
+
 CREATE TABLE "tracking" (
 	"node_id"	TEXT,
 	"longname" TEXT,
@@ -76,7 +78,7 @@ Occore sapere su quale port seriale  connessa la nostra Tlora e per fare questo 
 1. Su Windows battere tasto WinLogo + x poi all'apparizione della lista menu battere lettera g (gestione dispositivi) per poi cliccare su 'Porte (COM e LPT' per veder la COMn dove n è il numero che definisce la COM dove si trova il driver CH340 del Tlora). 
 2. Su Linux da finestra di terminale battere sudo dmesg | grep tty per avere la lista delle porte USB cui è connesso un device in seriale. ttyUSBx o ttyACMx sono risposte tipiche
 
-una volta trovata la seriele connessa lanciare python mesh_controller.py /dev/ttyUSBx o /dev/ttyACMx se in Linux ovvero python mesh_controller.py COMx se in Windows.
+una volta trovata la seriale connessa lanciare python mesh_controller.py /dev/ttyUSBx o /dev/ttyACMx se in Linux ovvero python mesh_controller.py COMx se in Windows.
 
 
 ## Stato dello sviluppo del progetto
