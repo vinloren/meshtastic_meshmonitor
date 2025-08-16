@@ -2,6 +2,17 @@
 E' il nome del progetto orientato al controllo dalla rete meshtastic cui siamo affiliati. 
 Il progetto fa affidamento sulla applicazione python di seguiguito descritta.
 
+## Requisiti python
+Occorre avere installato python 3.11.x o superiore. Pur non essendo indispensabile lvorare in ambiente virtuale python, è bene farlo per circoscrivere l'installazione in un ambiente che non sarà modificato in seguito da aggiornamenti che potrebbero disturbare il funzionamento dell'applicazione.
+
+### Creazione ambiente virtuale
+Posizionati sulla directory base del progetto battere python -m ven venv per creare l'ambiente virtuale che andremo poi ad attivare. Al termine dell'operazione se su Windows battere venv/Scripts/activate mentre su Linux battere source/bin/activate. In entrambi i casi apparirà (venv) in verde a sinistra del prompt. 
+
+A questo punto tutti i comandi di gestione python saranno sotto controllo dell'installazione virtuale separata dall'installazione globale. Ora si tratta di installare i moduli python necessari all'applicazione che nel nostro caso consistono nell'installatione delle librerie python meshtastic da eseguire col comando pip install meshtastic.
+
+Ora tutto è pronto per l'esecuzione dell'applicazione in ambiente virtuale. Fare attenzione ogni volta che si riaccende il computer per eseguire questa applicazione di eseguire venv/Scripts/activate o in Linux source/bin/activate per entrare in ambiente virtuale.
+
+
 ## mesh_controller.py
 L’obiettivo da raggiungere è quello di poter porre in mappa OpenStreet map la posizione dei nodi che vediamo dal nodo centrale della nostra rete, e volendo, rendere questa accessibile al mondo esterno. Occorre così per prima cosa che, grazie alla
 interfaccia API meshtastic, mesh_controller.py veda via collegamento seriale un' unita Tlora che riceve i messaggi di protocollo in rete meshtastic via radio, sia in grado di elaborare questi messaggi salvandone i risultati su un DB Sqlite3.
@@ -56,6 +67,17 @@ CREATE TABLE "tracking" (
 )
 
 Sulla risorsa Server ci sarà un accesso riservato all'elaborazione dei dati tracking per la rappresentazione dei percorsi evvettuati nel tempo dai nodi mobili. Avremo allora due situazioni rappresedue: una di tipo foto istantanea dove non gioca selezione di data e che riguarda la mappa in tempo reale, l'altra di tipo storico selezionabile per data che riguarda i nodi in movimeto tracciati in tabella 'tracking'.
+
+## Come lanciare applicazione
+Avendo collegato un Tlora alla seriale USB ci posizioniamo, da finestra Windows Power Shell su Win10/11 o da finestra terminal in Linux, sulla directory che contiene applicazione pythos e Db app.db
+
+Occore sapere su quale port seriale  connessa la nostra Tlora e per fare questo abbiamo due strade:
+
+1. Su Windows battere tasto WinLogo + x poi all'apparizione della lista menu battere lettera g (gestione dispositivi) per poi cliccare su 'Porte (COM e LPT' per veder la COMn dove n è il numero che definisce la COM dove si trova il driver CH340 del Tlora). 
+2. Su Linux da finestra di terminale battere sudo dmesg | grep tty per avere la lista delle porte USB cui è connesso un device in seriale. ttyUSBx o ttyACMx sono risposte tipiche
+
+una volta trovata la seriele connessa lanciare python mesh_controller.py /dev/ttyUSBx o /dev/ttyACMx se in Linux ovvero python mesh_controller.py COMx se in Windows.
+
 
 ## Stato dello sviluppo del progetto
 Alla data di oggi 16 Agosto 2025 mesh_controller.py è funzionante e pronto ad essere utilizzato in campo. Già ora semplicemente utilizzando indifferentemente su Win10/11 o su Linux DBbrowser for Sqlite (scaricabile gratuitamente per Windows e installabile via apt-get install su Linux) si può avere contezza di come gira il fumo rinfrescano la visione delle tabelle su menzionate attraverso di esso.
