@@ -6,13 +6,14 @@ Il progetto fa affidamento sulla applicazione python di seguiguito descritta.
 L’obiettivo da raggiungere è quello di poter porre in mappa OpenStreet map la posizione dei nodi che vediamo dal nodo centrale della nostra rete, e volendo, rendere questa accessibile al mondo esterno. Occorre così per prima cosa che, grazie alla
 interfaccia API meshtastic, mesh_controller.py veda via collegamento seriale un' unita Tlora che riceve i messaggi di protocollo in rete meshtastic via radio, sia in grado di elaborare questi messaggi salvandone i risultati su un DB Sqlite3.
 
-Questo stessa DB, messo in comune con altra applicazione Python Flask, sarà la base da cui il Server Flask (che vedremo in seguito come capitolo a parte) farà riferimento in sola lettura per pubblicare i dati su una mappa OpenStreet.
+Questo stesso DB, messo in comune con altra applicazione Python Flask, sarà la base da cui il Server Flask (che vedremo in seguito come capitolo a parte) farà riferimento in sola lettura per pubblicare i dati su una mappa OpenStreet.
 
 ## Descrizione funzionalità
 Fra tutti i mesaggi di protocollo ricevuti dal nodo di controllo collegato in seriele vengono elaborati:
 1. NODEINFO
 2. POSITION
 3. TELEMETRY
+
 Che insieme a DATA e ORA vanno a riempire / aggiornare la tabella "meshnodes" nel Db app.db residente nella stessa directoty che ospita l'applicazione. 
 
 I record sono registrati in tabella avendo come chuave primaria non duplicabile 'nodenum' che è l'identificatico del nodo sorgente del messaggio in arrivo. Da 'nodenum', che è l'esprssione in numero intero del MAC del nodo, si ricava 'node_id' senza cercarlo nel corpo del messaggio (anche perché spesso assente) semplicemente traducendolo in espressione esadecimale per poi apporvi in testa un punto esclamativo. 
