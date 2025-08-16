@@ -34,6 +34,7 @@ L'aggiornamento della tabella "meshnodes" ha luogo pr ciascun singolo messaggio 
 	"temperat" REAL,
 	"umidita" REAL
 	)
+
     Elementi questi sufficienti e necessari a qualificare il nodo in tutti li aspetti che lo caratterizzano, rappresentabili poi su una mappa geografica tramite ulteriore risorsa che va ad accedere al Db app.db in lettura. Verosimilmente quasta risorsa sarà costituita da un Server accessibile da internet, come nel caso del Python Flask Server che andrò a costruire sullo stile semplificato del già attivo vinmqtt.hopto.org (non fatevi ingannare dal nome, non sitratta di mqtt ma di https, il nome è rimasto quello che anni or sono identivicava davvero mqtt).
 
     In mappa (OpenStreetMap) avremo quindi la posizione dei nodi in tempo reale così come sono posizioneti fissi o mobili che siano in stile foto istantanea. Se vogliamo anche identificare i percorsi seguiti nel tempo da nodi mobili dobbiamo allora fare affidamento a una tabella aggiuntiva (che chiamiamo 'tracking') e ad un'elaborazione ulteriore in mesh_controller.py
@@ -53,6 +54,7 @@ CREATE TABLE "tracking" (
 	"pressione"	REAL,
 	"umidita"	REAL
 )
+
 Sulla risorsa Server ci sarà un accesso riservato all'elaborazione dei dati tracking per la rappresentazione dei percorsi evvettuati nel tempo dai nodi mobili. Avremo allora due situazioni rappresedue: una di tipo foto istantanea dove non gioca selezione di data e che riguarda la mappa in tempo reale, l'altra di tipo storico selezionabile per data che riguarda i nodi in movimeto tracciati in tabella 'tracking'.
 
 ## Stato dello sviluppo del progetto
