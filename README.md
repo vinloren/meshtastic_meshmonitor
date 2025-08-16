@@ -3,7 +3,7 @@ E' il nome del progetto orientato al controllo dalla rete meshtastic cui siamo a
 Il progetto fa affidamento sulla applicazione python di seguiguito descritta.
 
 ## Requisiti python
-Occorre avere installato python 3.11.x o superiore. Pur non essendo indispensabile lvorare in ambiente virtuale python, è bene farlo per circoscrivere l'installazione in un ambiente che non sarà modificato in seguito da aggiornamenti che potrebbero disturbare il funzionamento dell'applicazione.
+Occorre avere installato python 3.11.x o superiore. Pur non essendo indispensabile lavorare in ambiente virtuale python, è bene farlo per circoscrivere l'installazione in un ambiente che non sarà modificato in seguito da aggiornamenti che potrebbero disturbare il funzionamento dell'applicazione.
 
 ### Creazione ambiente virtuale
 Posizionati sulla directory base del progetto battere python -m ven venv per creare l'ambiente virtuale che andremo poi ad attivare. Al termine dell'operazione se su Windows battere venv/Scripts/activate mentre su Linux battere source/bin/activate. In entrambi i casi apparirà (venv) in verde a sinistra del prompt. 
