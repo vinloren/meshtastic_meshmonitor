@@ -49,7 +49,7 @@ L'aggiornamento della tabella "meshnodes" ha luogo pr ciascun singolo messaggio 
 
     Elementi questi sufficienti e necessari a qualificare il nodo in tutti li aspetti che lo caratterizzano, rappresentabili poi su una mappa geografica tramite ulteriore risorsa che va ad accedere al Db app.db in lettura. Verosimilmente quasta risorsa sarà costituita da un Server accessibile da internet, come nel caso del Python Flask Server che andrò a costruire sullo stile semplificato del già attivo vinmqtt.hopto.org (non fatevi ingannare dal nome, non sitratta di mqtt ma di https, il nome è rimasto quello che anni or sono identivicava davvero mqtt).
 
-    In mappa (OpenStreetMap) avremo quindi la posizione dei nodi in tempo reale così come sono posizioneti fissi o mobili che siano in stile foto istantanea. Se vogliamo anche identificare i percorsi seguiti nel tempo da nodi mobili dobbiamo allora fare affidamento a una tabella aggiuntiva (che chiamiamo 'tracking') e ad un'elaborazione ulteriore in mesh_controller.py
+    In mappa (OpenStreetMap) avremo quindi la posizione dei nodi in tempo reale così come sono posizionati, fissi o mobili che siano, in stile foto istantanea. Se vogliamo anche identificare i percorsi seguiti nel tempo da nodi mobili dobbiamo allora fare affidamento a una tabella aggiuntiva (che chiamiamo 'tracking') e ad un'elaborazione ulteriore in mesh_controller.py
 
 ### Il tracking dei nodi
 Ad ogni messaggio di POSITION ricevuto da un 'nodenum'/'node_id', se in 'meshnodes' è già presente sotto chiave 'nodenum' una registrazione gps, viene misurata la distanza in metri fra la precedente posizione e quella attuale da registrare. Se la distanza è inferiora a 75mt la nuova posizione non viene registrata ma solo aggiornato 'data' e 'ora' del messaggio. Se il record non conteneva coordinate gps il record in 'meshnodes' viene aggiornato con quelle ricevute con data e ora. Se la distanza rilevata è > 75mt viene interessata la tabella 'tracking' prima di aggiornare 'meshnodes'. La tabella tracking è così costituita:
@@ -71,9 +71,9 @@ CREATE TABLE "tracking" (
 Sulla risorsa Server ci sarà un accesso riservato all'elaborazione dei dati tracking per la rappresentazione dei percorsi evvettuati nel tempo dai nodi mobili. Avremo allora due situazioni rappresedue: una di tipo foto istantanea dove non gioca selezione di data e che riguarda la mappa in tempo reale, l'altra di tipo storico selezionabile per data che riguarda i nodi in movimeto tracciati in tabella 'tracking'.
 
 ## Come lanciare applicazione
-Avendo collegato un Tlora alla seriale USB ci posizioniamo, da finestra Windows Power Shell su Win10/11 o da finestra terminal in Linux, sulla directory che contiene applicazione pythos e Db app.db
+Avendo collegato un Tlora alla seriale USB ci posizioniamo, da finestra Windows Power Shell su Win10/11 o da finestra terminal in Linux, sulla directory che contiene applicazione python e Db app.db
 
-Occore sapere su quale port seriale  connessa la nostra Tlora e per fare questo abbiamo due strade:
+Occore sapere su quale porta seriale  è connessa la nostra Tlora e per fare questo abbiamo due strade:
 
 1. Su Windows battere tasto WinLogo + x poi all'apparizione della lista menu battere lettera g (gestione dispositivi) per poi cliccare su 'Porte (COM e LPT' per veder la COMn dove n è il numero che definisce la COM dove si trova il driver CH340 del Tlora). 
 2. Su Linux da finestra di terminale battere sudo dmesg | grep tty per avere la lista delle porte USB cui è connesso un device in seriale. ttyUSBx o ttyACMx sono risposte tipiche
