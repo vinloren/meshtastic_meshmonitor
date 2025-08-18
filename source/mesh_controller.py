@@ -49,12 +49,13 @@ class meshInterface(Thread):
             self.data_queue.put(packet)
 
 class callDB(): 
+    Db = '../app.db'
 
     def insertTracking(self,dati):
         data = datetime.datetime.now().strftime("%y/%m/%d") 
         ora  = datetime.datetime.now().strftime("%T")
         try:
-            conn = dba.connect('app.db')
+            conn = dba.connect(self.Db)
             #print("callDB conn.dba..")
         except dba.Error as er:
             print('SQLite error: %s' % (' '.join(er.args)))
@@ -82,7 +83,7 @@ class callDB():
     # ottieni coordinate gps di nodenum richiesto
     def getCoord(self,nodenum):
         qr = "select lat,lon,longname,batt,temperat,pressione,umidita,node_id from meshnodes where nodenum = "+str(nodenum)
-        conn = dba.connect('app.db')
+        conn = dba.connect(self.Db)
         cur  = conn.cursor()
         rows = cur.execute(qr)
         datas = rows.fetchall()
@@ -100,7 +101,7 @@ class callDB():
         qr = "select count(*) from meshnodes where nodenum = "+str(chiave)
         data = datetime.datetime.now().strftime("%y/%m/%d") 
         ora  = datetime.datetime.now().strftime("%T") 
-        conn = dba.connect('app.db')
+        conn = dba.connect(self.Db)
         cur  = conn.cursor()
         rows = cur.execute(qr)
         datas = rows.fetchall()
@@ -139,7 +140,7 @@ class callDB():
         #print("callDB: Insert/Update")
         #print(query)
         try:
-            conn = dba.connect('app.db')
+            conn = dba.connect(self.Db)
             #print("callDB conn.dba..")
         except:
             print("conn time-out in InsUpdtDB")
@@ -259,7 +260,7 @@ if __name__ == "__main__":
                                 pdict.update({'pressione': result[0][5]})
                                 pdict.update({'umidita': result[0][6]})
                                 pdict.update({'node_id': result[0][7]})
-                                callDB.insertTracking(None,pdict)
+                                calldb.insertTracking(pdict)
                                 #inserito tracking aggiorna meshnodes con nuova posizione
                                 pdict = {}
                                 pdict.update({'lon': packet['decoded']['position']['longitude']})
