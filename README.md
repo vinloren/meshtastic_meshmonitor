@@ -87,13 +87,11 @@ Occore sapere su quale porta seriale  è connessa la nostra Tlora e per fare que
 
 una volta trovata la seriale connessa lanciare python mesh_controller.py /dev/ttyUSBx o /dev/ttyACMx se in Linux ovvero python mesh_controller.py COMx se in Windows.
 
-
 ## Stato dello sviluppo del progetto
 
 Alla data di oggi 16 Agosto 2025 mesh_controller.py è funzionante e pronto ad essere utilizzato in campo. Già ora semplicemente utilizzando indifferentemente su Win10/11 o su Linux DBbrowser for Sqlite (scaricabile gratuitamente per Windows e installabile via apt-get install su Linux) si può avere contezza di come gira il fumo rinfrescano la visione delle tabelle su menzionate attraverso di esso.
 
 Riferimenti al Server Flask che devo allestire riguardo al progetto Meshtastic_meshmonitor qui accennato li darò via via che lo sviluppo procede.
-
 
 ## Struttura del Server
 
@@ -103,7 +101,6 @@ Ipotizzo un server Flask semplificato con le seguenti caratteristiche di base:
 2. Semplice HTTP, no HTTPS / SSL
 3. Scelta fra mappa in tempo reale e traking per data e nodo in lista
 4. Nginx non necessario, basta Gunicorn
-
 
 ## Installazione moduli python a supporto
 
