@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
+from sqlalchemy import func
 from app import db
 
 # Caratteristiche dei nodi in rete
@@ -11,9 +12,19 @@ class Modes(db.Model):
     freq: so.Mapped[int] = so.mapped_column(sa.Integer)
     mode: so.Mapped[str] = so.mapped_column(sa.String(14))
 
+    @staticmethod
+    def getMode(nodeid):
+        modi = db.session.query(Modes.freq, Modes.mode).filter(Modes.node_id == nodeid).limit(1).first()
+        return modi
+
+    def __repr__(self):
+        return f"<Modes node_id={self.node_id}>"
+
 
 # Definizione nodi in rete con posizione gps
 class Meshnodes(db.Model):
+    __tablename__ = 'meshnodes'
+
     data: so.Mapped[str] = so.mapped_column(sa.String(8))
     ora: so.Mapped[str] = so.mapped_column(sa.String(8))
     nodenum: so.Mapped[int] = so.mapped_column(sa.Integer,primary_key=True)
@@ -27,6 +38,33 @@ class Meshnodes(db.Model):
     pressione: so.Mapped[float] = so.mapped_column(sa.Float)
     temperat: so.Mapped[float] = so.mapped_column(sa.Float)
     umidita: so.Mapped[float] = so.mapped_column(sa.Float)
+
+
+    def get_nodi():
+        nodi = db.session.query(Meshnodes.longname).order_by(Meshnodes.longname.asc()).all()
+        return nodi
+    
+    def chiamaNodi():
+        nodi_validi = db.session.query(Meshnodes).filter(
+            Meshnodes.lat.isnot(None),
+            Meshnodes.lon.isnot(None),
+            Meshnodes.longname.isnot(None)
+        ).all()
+        return nodi_validi
+    
+
+    @staticmethod
+    def get_ndcnt():
+        try:
+            count = db.session.query(func.count(Meshnodes.node_id)).scalar()
+            return count
+        except Exception as e:
+            print(f"Errore in get_ndcnt: {e}")
+            return 0 
+
+    def __repr__(self):
+        return '<Node {}>'
+
 
 class Tracking(db.Model):
     node_id: so.Mapped[str] = so.mapped_column(sa.String(9))

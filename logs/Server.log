@@ -1,0 +1,816 @@
+2025-08-19 12:15:18,684 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 13:51:25,622 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 15:10:29,084 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 15:45:50,895 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 15:51:41,160 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 15:55:51,041 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 16:00:03,213 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 16:08:20,858 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 16:25:04,062 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 16:25:21,231 ERROR: Exception on /showmap [GET] [in D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\routes.py", line 35, in showmap
+    nodes = Meshnodes.query.all()
+            ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'function' object has no attribute 'all'
+2025-08-19 16:29:03,010 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 16:41:47,791 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:24]
+2025-08-19 16:45:03,804 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:25]
+2025-08-19 16:50:40,830 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:25]
+2025-08-19 17:05:59,039 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:25]
+2025-08-19 17:14:28,744 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:25]
+2025-08-19 17:15:36,552 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:25]
+2025-08-19 17:20:50,355 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:25]
+2025-08-19 17:25:52,778 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:26]
+2025-08-19 17:31:24,305 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 17:31:52,075 ERROR: Exception on /showmap [GET] [in D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: meshnodes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\routes.py", line 51, in showmap
+    nodes = Meshnodes.query.all()
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: meshnodes
+[SQL: SELECT meshnodes.data AS meshnodes_data, meshnodes.ora AS meshnodes_ora, meshnodes.nodenum AS meshnodes_nodenum, meshnodes.node_id AS meshnodes_node_id, meshnodes.longname AS meshnodes_longname, meshnodes.alt AS meshnodes_alt, meshnodes.lat AS meshnodes_lat, meshnodes.lon AS meshnodes_lon, meshnodes.batt AS meshnodes_batt, meshnodes.snr AS meshnodes_snr, meshnodes.pressione AS meshnodes_pressione, meshnodes.temperat AS meshnodes_temperat, meshnodes.umidita AS meshnodes_umidita 
+FROM meshnodes]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-08-19 17:34:50,275 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 17:35:03,029 ERROR: Exception on /showmap [GET] [in D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such column: modes.freq
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\routes.py", line 54, in showmap
+    modi = Modes.getMode(node.node_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\models.py", line 17, in getMode
+    modi = db.session.query(Modes.freq, Modes.mode).filter(Modes.node_id == nodeid).limit(1).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: modes.freq
+[SQL: SELECT modes.freq AS modes_freq, modes.mode AS modes_mode 
+FROM modes 
+WHERE modes.node_id = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('!00d93bdc', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-08-19 17:46:59,785 INFO: Non trovato in Modes:!00d93bdc [in D:\meshtastic_meshmonitor\app\routes.py:63]
+2025-08-19 17:46:59,883 ERROR: Exception on /showmap [GET] [in D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\folium\utilities.py", line 103, in validate_location
+    float(coord)
+TypeError: float() argument must be a string or a real number, not 'NoneType'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\routes.py", line 85, in showmap
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\folium\map.py", line 451, in __init__
+    self.location = validate_location(location) if location is not None else None
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\folium\utilities.py", line 105, in validate_location
+    raise ValueError(
+ValueError: Location should consist of two numerical values, but None of type <class 'NoneType'> is not convertible to float.
+2025-08-19 17:58:37,022 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 17:58:49,793 INFO: Nodo: None [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 17:58:49,928 INFO: Non trovato in Modes:!050c33d8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 17:58:50,637 ERROR: Exception on /showmap [GET] [in D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\routes.py", line 70, in showmap
+    popup=node.longname + " giorno " + node.data + " ora " + node.ora,
+          ~~~~~~~~~~~~~~^~~~~~~~~~~~
+TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+2025-08-19 18:01:22,389 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 18:01:41,050 INFO: Nodo: IU1HIA_868 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:41,052 INFO: Non trovato in Modes:!088ab730 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:41,118 INFO: Non trovato in Modes:!088c28fc [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:41,242 INFO: Non trovato in Modes:!088c37a8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:41,377 INFO: Non trovato in Modes:!088c3ee4 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:41,797 INFO: Non trovato in Modes:!08a6d7d5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:42,102 INFO: Nodo: TORINO-Campidoglio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:42,114 INFO: Non trovato in Modes:!08ab8688 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:48,082 INFO: Non trovato in Modes:!08bb8614 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:50,899 INFO: Non trovato in Modes:!1d42f1c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:51,299 INFO: Nodo: Eupilio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:51,329 INFO: Non trovato in Modes:!205b3fc0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:51,914 INFO: Non trovato in Modes:!20fd31de [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:53,523 INFO: Nodo: Meshtastic 524c [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:53,554 INFO: Non trovato in Modes:!3499524c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:53,798 INFO: Nodo: LowAndrea 5116 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:53,813 INFO: Non trovato in Modes:!351f5116 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:53,974 INFO: Nodo: Renato46  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:53,999 INFO: Non trovato in Modes:!433ab264 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:55,040 INFO: Non trovato in Modes:!433def7c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:55,521 INFO: Nodo: Ayato  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:55,536 INFO: Non trovato in Modes:!433ed134 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:55,805 INFO: Nodo: Lugano Gate [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:55,858 INFO: Non trovato in Modes:!4d9440ac [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:55,990 INFO: Nodo: HB9ODI-Scereda 900m [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:56,025 INFO: Non trovato in Modes:!69b6ba91 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:56,159 INFO: Nodo: IZ2BKG  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:56,176 INFO: Non trovato in Modes:!6c740d4c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:58,041 INFO: Non trovato in Modes:!6d08841c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:58,132 INFO: Nodo: Moncalieri Ponzy 2.5.18 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:58,171 INFO: Non trovato in Modes:!75e069c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:58,547 INFO: Nodo: Sdomotica NRF [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:58,625 INFO: Non trovato in Modes:!7d584a42 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:58,693 INFO: Nodo: Link Valle d Intelvi HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:58,727 INFO: Non trovato in Modes:!87aac7a5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:58,976 INFO: Nodo: Sant Anna dei Boschi [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:59,054 INFO: Non trovato in Modes:!919de85c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:59,360 INFO: Nodo: DZX-JPOLE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:59,393 INFO: Non trovato in Modes:!95a58140 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:01:59,872 INFO: Nodo: eliaxs_faketec2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:01:59,943 INFO: Non trovato in Modes:!96dcabd7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:01,552 INFO: Non trovato in Modes:!a0cc7318 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:02,070 INFO: Nodo: Meshtastic cca8 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:02,101 INFO: Non trovato in Modes:!a0cccca8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:02,985 INFO: Non trovato in Modes:!ab3fe285 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:03,528 INFO: Nodo: RADIO PICO PALACE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:03,536 INFO: Non trovato in Modes:!aedee7b0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:03,661 INFO: Nodo: Meshtastic 4240 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:03,677 INFO: Non trovato in Modes:!b03b4240 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:04,845 INFO: Nodo: SalHome 85a0 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:04,889 INFO: Non trovato in Modes:!b03d85a0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:05,578 INFO: Nodo: HB9ODI/P [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:05,708 INFO: Non trovato in Modes:!b9029ee7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:06,674 INFO: Nodo: Orti Mobile [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:06,737 INFO: Non trovato in Modes:!bca22528 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:07,044 INFO: Nodo: HighAndrea 3c64 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:07,152 INFO: Non trovato in Modes:!c2063c64 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:09,846 INFO: Non trovato in Modes:!db296c80 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:10,098 INFO: Nodo: S. Nicolao Test HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:10,111 INFO: Non trovato in Modes:!e013633a [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:10,924 INFO: Nodo: IU1MPF NRF2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:02:10,972 INFO: Non trovato in Modes:!ee8f56ec [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:02:13,674 INFO: Non trovato in Modes:!fe9d7106 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:20,582 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 18:08:48,871 INFO: Nodo: IU1HIA_868 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:48,875 INFO: Non trovato in Modes:!088ab730 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:48,945 INFO: Non trovato in Modes:!088c28fc [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:49,062 INFO: Non trovato in Modes:!088c37a8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:49,255 INFO: Non trovato in Modes:!088c3ee4 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:49,838 INFO: Non trovato in Modes:!08a6d7d5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:49,878 INFO: Nodo: TORINO-Campidoglio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:49,886 INFO: Non trovato in Modes:!08ab8688 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:50,311 INFO: Non trovato in Modes:!08bb8614 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:50,764 INFO: Non trovato in Modes:!1d42f1c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:50,814 INFO: Nodo: Eupilio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:50,818 INFO: Non trovato in Modes:!205b3fc0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:50,977 INFO: Non trovato in Modes:!20fd31de [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:50,997 INFO: Nodo: Meshtastic 524c [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:51,003 INFO: Non trovato in Modes:!3499524c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:51,017 INFO: Nodo: LowAndrea 5116 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:51,025 INFO: Non trovato in Modes:!351f5116 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:51,266 INFO: Nodo: Renato46  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:51,286 INFO: Non trovato in Modes:!433ab264 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:51,966 INFO: Non trovato in Modes:!433def7c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:51,987 INFO: Nodo: Ayato  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:52,015 INFO: Non trovato in Modes:!433ed134 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:52,069 INFO: Nodo: Lugano Gate [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:52,099 INFO: Non trovato in Modes:!4d9440ac [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:52,188 INFO: Nodo: HB9ODI-Scereda 900m [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:52,233 INFO: Non trovato in Modes:!69b6ba91 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:52,322 INFO: Nodo: IZ2BKG  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:52,374 INFO: Non trovato in Modes:!6c740d4c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:52,817 INFO: Non trovato in Modes:!6d08841c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:52,837 INFO: Nodo: Moncalieri Ponzy 2.5.18 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:52,853 INFO: Non trovato in Modes:!75e069c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:52,877 INFO: Nodo: Sdomotica NRF [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:52,886 INFO: Non trovato in Modes:!7d584a42 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:52,900 INFO: Nodo: Link Valle d Intelvi HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:52,905 INFO: Non trovato in Modes:!87aac7a5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:52,955 INFO: Nodo: Sant Anna dei Boschi [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:52,990 INFO: Non trovato in Modes:!919de85c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:53,056 INFO: Nodo: DZX-JPOLE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:53,072 INFO: Non trovato in Modes:!95a58140 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:53,113 INFO: Nodo: eliaxs_faketec2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:53,120 INFO: Non trovato in Modes:!96dcabd7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:53,936 INFO: Non trovato in Modes:!a0cc7318 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:54,024 INFO: Nodo: Meshtastic cca8 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:08:54,144 INFO: Non trovato in Modes:!a0cccca8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:59,871 INFO: Non trovato in Modes:!ab3fe285 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:08:59,972 INFO: Nodo: RADIO PICO PALACE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:09:00,055 INFO: Non trovato in Modes:!aedee7b0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:00,108 INFO: Nodo: Meshtastic 4240 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:09:00,209 INFO: Non trovato in Modes:!b03b4240 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:02,021 INFO: Nodo: SalHome 85a0 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:09:02,044 INFO: Non trovato in Modes:!b03d85a0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:02,084 INFO: Nodo: HB9ODI/P [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:09:02,107 INFO: Non trovato in Modes:!b9029ee7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:03,766 INFO: Nodo: Orti Mobile [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:09:03,809 INFO: Non trovato in Modes:!bca22528 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:03,932 INFO: Nodo: HighAndrea 3c64 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:09:03,939 INFO: Non trovato in Modes:!c2063c64 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:05,106 INFO: Non trovato in Modes:!db296c80 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:05,149 INFO: Nodo: S. Nicolao Test HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:09:05,192 INFO: Non trovato in Modes:!e013633a [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:05,305 INFO: Nodo: IU1MPF NRF2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:09:05,318 INFO: Non trovato in Modes:!ee8f56ec [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:09:06,274 INFO: Non trovato in Modes:!fe9d7106 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:23:22,737 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:27]
+2025-08-19 18:23:52,173 ERROR: Exception on /showmap [GET] [in D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: meshnodes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\routes.py", line 35, in showmap
+    nodes = Meshnodes.chiamaNodi()
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\models.py", line 52, in chiamaNodi
+    ).all()
+      ^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: meshnodes
+[SQL: SELECT meshnodes.data AS meshnodes_data, meshnodes.ora AS meshnodes_ora, meshnodes.nodenum AS meshnodes_nodenum, meshnodes.node_id AS meshnodes_node_id, meshnodes.longname AS meshnodes_longname, meshnodes.alt AS meshnodes_alt, meshnodes.lat AS meshnodes_lat, meshnodes.lon AS meshnodes_lon, meshnodes.batt AS meshnodes_batt, meshnodes.snr AS meshnodes_snr, meshnodes.pressione AS meshnodes_pressione, meshnodes.temperat AS meshnodes_temperat, meshnodes.umidita AS meshnodes_umidita 
+FROM meshnodes 
+WHERE meshnodes.lat IS NOT NULL AND meshnodes.lon IS NOT NULL AND meshnodes.longname IS NOT NULL]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-08-19 18:25:58,977 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 18:26:15,978 ERROR: Exception on /showmap [GET] [in D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: meshnodes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\routes.py", line 35, in showmap
+    nodes = Meshnodes.chiamaNodi()
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\models.py", line 52, in chiamaNodi
+    ).all()
+      ^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: meshnodes
+[SQL: SELECT meshnodes.data AS meshnodes_data, meshnodes.ora AS meshnodes_ora, meshnodes.nodenum AS meshnodes_nodenum, meshnodes.node_id AS meshnodes_node_id, meshnodes.longname AS meshnodes_longname, meshnodes.alt AS meshnodes_alt, meshnodes.lat AS meshnodes_lat, meshnodes.lon AS meshnodes_lon, meshnodes.batt AS meshnodes_batt, meshnodes.snr AS meshnodes_snr, meshnodes.pressione AS meshnodes_pressione, meshnodes.temperat AS meshnodes_temperat, meshnodes.umidita AS meshnodes_umidita 
+FROM meshnodes 
+WHERE meshnodes.lat IS NOT NULL AND meshnodes.lon IS NOT NULL AND meshnodes.longname IS NOT NULL]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-08-19 18:27:26,831 ERROR: Exception on /showmap [GET] [in D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py:875]
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: meshnodes
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\routes.py", line 35, in showmap
+    nodes = Meshnodes.chiamaNodi()
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\app\models.py", line 52, in chiamaNodi
+    ).all()
+      ^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\meshtastic_meshmonitor\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: meshnodes
+[SQL: SELECT meshnodes.data AS meshnodes_data, meshnodes.ora AS meshnodes_ora, meshnodes.nodenum AS meshnodes_nodenum, meshnodes.node_id AS meshnodes_node_id, meshnodes.longname AS meshnodes_longname, meshnodes.alt AS meshnodes_alt, meshnodes.lat AS meshnodes_lat, meshnodes.lon AS meshnodes_lon, meshnodes.batt AS meshnodes_batt, meshnodes.snr AS meshnodes_snr, meshnodes.pressione AS meshnodes_pressione, meshnodes.temperat AS meshnodes_temperat, meshnodes.umidita AS meshnodes_umidita 
+FROM meshnodes 
+WHERE meshnodes.lat IS NOT NULL AND meshnodes.lon IS NOT NULL AND meshnodes.longname IS NOT NULL]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-08-19 18:29:19,844 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 18:29:42,294 INFO: Nodo: IU1HIA_868 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:42,429 INFO: Non trovato in Modes:!088ab730 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:43,643 INFO: Non trovato in Modes:!088c28fc [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:44,644 INFO: Non trovato in Modes:!088c37a8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:45,314 INFO: Non trovato in Modes:!088c3ee4 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:46,248 INFO: Non trovato in Modes:!08a6d7d5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:46,529 INFO: Nodo: TORINO-Campidoglio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:46,581 INFO: Non trovato in Modes:!08ab8688 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:48,448 INFO: Non trovato in Modes:!08bb8614 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:52,611 INFO: Non trovato in Modes:!1d42f1c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:53,713 INFO: Nodo: Eupilio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:53,914 INFO: Non trovato in Modes:!205b3fc0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:56,253 INFO: Non trovato in Modes:!20fd31de [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:56,381 INFO: Nodo: Meshtastic 524c [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:56,427 INFO: Non trovato in Modes:!3499524c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:56,465 INFO: Nodo: LowAndrea 5116 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:56,489 INFO: Non trovato in Modes:!351f5116 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:56,775 INFO: Nodo: Renato46  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:56,820 INFO: Non trovato in Modes:!433ab264 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:58,148 INFO: Non trovato in Modes:!433def7c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:58,261 INFO: Nodo: Ayato  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:58,350 INFO: Non trovato in Modes:!433ed134 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:58,435 INFO: Nodo: Lugano Gate [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:58,492 INFO: Non trovato in Modes:!4d9440ac [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:58,592 INFO: Nodo: HB9ODI-Scereda 900m [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:58,680 INFO: Non trovato in Modes:!69b6ba91 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:58,746 INFO: Nodo: IZ2BKG  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:29:58,777 INFO: Non trovato in Modes:!6c740d4c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:29:59,986 INFO: Non trovato in Modes:!6d08841c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:00,024 INFO: Nodo: Moncalieri Ponzy 2.5.18 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:00,096 INFO: Non trovato in Modes:!75e069c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:00,120 INFO: Nodo: Sdomotica NRF [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:00,134 INFO: Non trovato in Modes:!7d584a42 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:00,150 INFO: Nodo: Link Valle d Intelvi HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:00,167 INFO: Non trovato in Modes:!87aac7a5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:00,297 INFO: Nodo: Sant Anna dei Boschi [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:00,343 INFO: Non trovato in Modes:!919de85c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:00,413 INFO: Nodo: DZX-JPOLE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:00,534 INFO: Non trovato in Modes:!95a58140 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:00,601 INFO: Nodo: eliaxs_faketec2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:00,659 INFO: Non trovato in Modes:!96dcabd7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:02,201 INFO: Non trovato in Modes:!a0cc7318 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:02,416 INFO: Nodo: Meshtastic cca8 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:02,439 INFO: Non trovato in Modes:!a0cccca8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:03,940 INFO: Non trovato in Modes:!ab3fe285 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:04,023 INFO: Nodo: RADIO PICO PALACE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:04,045 INFO: Non trovato in Modes:!aedee7b0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:04,067 INFO: Nodo: Meshtastic 4240 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:04,077 INFO: Non trovato in Modes:!b03b4240 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:04,283 INFO: Nodo: SalHome 85a0 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:04,294 INFO: Non trovato in Modes:!b03d85a0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:04,366 INFO: Nodo: HB9ODI/P [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:04,425 INFO: Non trovato in Modes:!b9029ee7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:04,868 INFO: Nodo: Orti Mobile [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:04,912 INFO: Non trovato in Modes:!bca22528 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:05,033 INFO: Nodo: HighAndrea 3c64 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:05,126 INFO: Non trovato in Modes:!c2063c64 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:06,945 INFO: Non trovato in Modes:!db296c80 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:07,051 INFO: Nodo: S. Nicolao Test HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:07,085 INFO: Non trovato in Modes:!e013633a [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:07,138 INFO: Nodo: IU1MPF NRF2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:30:07,154 INFO: Non trovato in Modes:!ee8f56ec [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:30:08,402 INFO: Non trovato in Modes:!fe9d7106 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:34:39,175 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 18:34:52,067 INFO: Nodo: IU1HIA_868 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:34:52,366 INFO: Non trovato in Modes:!088ab730 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:34:53,708 INFO: Non trovato in Modes:!088c28fc [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:34:55,001 INFO: Non trovato in Modes:!088c37a8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:34:55,916 INFO: Non trovato in Modes:!088c3ee4 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:34:58,851 INFO: Non trovato in Modes:!08a6d7d5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:34:58,986 INFO: Nodo: TORINO-Campidoglio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:34:59,065 INFO: Non trovato in Modes:!08ab8688 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:04,331 INFO: Non trovato in Modes:!08bb8614 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:06,285 INFO: Non trovato in Modes:!1d42f1c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:06,646 INFO: Nodo: Eupilio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:06,674 INFO: Non trovato in Modes:!205b3fc0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:08,447 INFO: Non trovato in Modes:!20fd31de [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:08,704 INFO: Nodo: Meshtastic 524c [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:08,727 INFO: Non trovato in Modes:!3499524c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:08,751 INFO: Nodo: LowAndrea 5116 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:08,763 INFO: Non trovato in Modes:!351f5116 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:08,855 INFO: Nodo: Renato46  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:08,866 INFO: Non trovato in Modes:!433ab264 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:09,440 INFO: Non trovato in Modes:!433def7c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:09,474 INFO: Nodo: Ayato  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:09,499 INFO: Non trovato in Modes:!433ed134 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:09,530 INFO: Nodo: Lugano Gate [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:09,548 INFO: Non trovato in Modes:!4d9440ac [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:09,566 INFO: Nodo: HB9ODI-Scereda 900m [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:09,592 INFO: Non trovato in Modes:!69b6ba91 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:09,681 INFO: Nodo: IZ2BKG  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:09,756 INFO: Non trovato in Modes:!6c740d4c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:13,820 INFO: Non trovato in Modes:!6d08841c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:14,078 INFO: Nodo: Moncalieri Ponzy 2.5.18 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:14,324 INFO: Non trovato in Modes:!75e069c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:14,977 INFO: Nodo: Sdomotica NRF [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:15,412 INFO: Non trovato in Modes:!7d584a42 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:15,968 INFO: Nodo: Link Valle d Intelvi HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:16,367 INFO: Non trovato in Modes:!87aac7a5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:16,601 INFO: Nodo: Sant Anna dei Boschi [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:16,772 INFO: Non trovato in Modes:!919de85c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:17,080 INFO: Nodo: DZX-JPOLE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:17,612 INFO: Non trovato in Modes:!95a58140 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:18,029 INFO: Nodo: eliaxs_faketec2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:18,351 INFO: Non trovato in Modes:!96dcabd7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:20,814 INFO: Non trovato in Modes:!a0cc7318 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:20,893 INFO: Nodo: Meshtastic cca8 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:20,899 INFO: Non trovato in Modes:!a0cccca8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:22,624 INFO: Non trovato in Modes:!ab3fe285 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:22,692 INFO: Nodo: RADIO PICO PALACE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:22,710 INFO: Non trovato in Modes:!aedee7b0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:22,767 INFO: Nodo: Meshtastic 4240 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:22,779 INFO: Non trovato in Modes:!b03b4240 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:22,976 INFO: Nodo: SalHome 85a0 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:23,021 INFO: Non trovato in Modes:!b03d85a0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:23,046 INFO: Nodo: HB9ODI/P [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:23,061 INFO: Non trovato in Modes:!b9029ee7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:23,363 INFO: Nodo: Orti Mobile [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:23,392 INFO: Non trovato in Modes:!bca22528 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:23,473 INFO: Nodo: HighAndrea 3c64 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:23,590 INFO: Non trovato in Modes:!c2063c64 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:26,442 INFO: Non trovato in Modes:!db296c80 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:26,807 INFO: Nodo: S. Nicolao Test HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:26,970 INFO: Non trovato in Modes:!e013633a [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:27,261 INFO: Nodo: IU1MPF NRF2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 18:35:27,432 INFO: Non trovato in Modes:!ee8f56ec [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 18:35:28,703 INFO: Non trovato in Modes:!fe9d7106 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:06,205 INFO: Server startup [in D:\meshtastic_meshmonitor\app\__init__.py:28]
+2025-08-19 19:41:52,731 INFO: Nodo: IU1HIA_868 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:52,734 INFO: Non trovato in Modes:!088ab730 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:52,781 INFO: Non trovato in Modes:!088c28fc [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:52,827 INFO: Non trovato in Modes:!088c37a8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:52,866 INFO: Non trovato in Modes:!088c3ee4 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:52,910 INFO: Non trovato in Modes:!08a6d7d5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:52,918 INFO: Nodo: TORINO-Campidoglio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:52,921 INFO: Non trovato in Modes:!08ab8688 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:52,984 INFO: Non trovato in Modes:!08bb8614 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,045 INFO: Non trovato in Modes:!1d42f1c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,061 INFO: Nodo: Eupilio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,064 INFO: Non trovato in Modes:!205b3fc0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,121 INFO: Non trovato in Modes:!20fd31de [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,128 INFO: Nodo: Meshtastic 524c [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,133 INFO: Non trovato in Modes:!3499524c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,141 INFO: Nodo: LowAndrea 5116 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,145 INFO: Non trovato in Modes:!351f5116 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,162 INFO: Nodo: Renato46  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,165 INFO: Non trovato in Modes:!433ab264 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,248 INFO: Non trovato in Modes:!433def7c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,257 INFO: Nodo: Ayato  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,261 INFO: Non trovato in Modes:!433ed134 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,274 INFO: Nodo: Lugano Gate [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,278 INFO: Non trovato in Modes:!4d9440ac [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,285 INFO: Nodo: HB9ODI-Scereda 900m [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,289 INFO: Non trovato in Modes:!69b6ba91 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,295 INFO: Nodo: IZ2BKG  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,302 INFO: Non trovato in Modes:!6c740d4c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,375 INFO: Non trovato in Modes:!6d08841c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,384 INFO: Nodo: Moncalieri Ponzy 2.5.18 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,390 INFO: Non trovato in Modes:!75e069c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,398 INFO: Nodo: Sdomotica NRF [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,404 INFO: Non trovato in Modes:!7d584a42 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,414 INFO: Nodo: Link Valle d Intelvi HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,420 INFO: Non trovato in Modes:!87aac7a5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,429 INFO: Nodo: Sant Anna dei Boschi [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,434 INFO: Non trovato in Modes:!919de85c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,445 INFO: Nodo: DZX-JPOLE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,454 INFO: Non trovato in Modes:!95a58140 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,464 INFO: Nodo: eliaxs_faketec2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,476 INFO: Non trovato in Modes:!96dcabd7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,567 INFO: Non trovato in Modes:!a0cc7318 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,586 INFO: Nodo: Meshtastic cca8 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,591 INFO: Non trovato in Modes:!a0cccca8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,670 INFO: Non trovato in Modes:!ab3fe285 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,677 INFO: Nodo: RADIO PICO PALACE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,681 INFO: Non trovato in Modes:!aedee7b0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,690 INFO: Nodo: Meshtastic 4240 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,695 INFO: Non trovato in Modes:!b03b4240 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,723 INFO: Nodo: SalHome 85a0 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,728 INFO: Non trovato in Modes:!b03d85a0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,735 INFO: Nodo: HB9ODI/P [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,741 INFO: Non trovato in Modes:!b9029ee7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,770 INFO: Nodo: Orti Mobile [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,775 INFO: Non trovato in Modes:!bca22528 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,788 INFO: Nodo: HighAndrea 3c64 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,792 INFO: Non trovato in Modes:!c2063c64 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,893 INFO: Non trovato in Modes:!db296c80 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,909 INFO: Nodo: S. Nicolao Test HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,914 INFO: Non trovato in Modes:!e013633a [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:53,925 INFO: Nodo: IU1MPF NRF2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:41:53,929 INFO: Non trovato in Modes:!ee8f56ec [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:41:54,036 INFO: Non trovato in Modes:!fe9d7106 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:20,458 INFO: Nodo: IU1HIA_868 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:20,476 INFO: Non trovato in Modes:!088ab730 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:22,035 INFO: Non trovato in Modes:!088c28fc [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:22,942 INFO: Non trovato in Modes:!088c37a8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:25,829 INFO: Non trovato in Modes:!088c3ee4 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:27,839 INFO: Non trovato in Modes:!08a6d7d5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:27,859 INFO: Nodo: TORINO-Campidoglio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:27,873 INFO: Non trovato in Modes:!08ab8688 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:34,749 INFO: Non trovato in Modes:!08bb8614 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:39,638 INFO: Non trovato in Modes:!1d42f1c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:39,771 INFO: Nodo: Eupilio [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:39,865 INFO: Non trovato in Modes:!205b3fc0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:42,160 INFO: Non trovato in Modes:!20fd31de [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:42,189 INFO: Nodo: Meshtastic 524c [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:42,212 INFO: Non trovato in Modes:!3499524c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:42,235 INFO: Nodo: LowAndrea 5116 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:42,292 INFO: Non trovato in Modes:!351f5116 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:42,969 INFO: Nodo: Renato46  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:43,380 INFO: Non trovato in Modes:!433ab264 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:45,726 INFO: Non trovato in Modes:!433def7c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:45,787 INFO: Nodo: Ayato  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:45,803 INFO: Non trovato in Modes:!433ed134 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:45,822 INFO: Nodo: Lugano Gate [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:45,835 INFO: Non trovato in Modes:!4d9440ac [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:45,866 INFO: Nodo: HB9ODI-Scereda 900m [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:45,875 INFO: Non trovato in Modes:!69b6ba91 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:45,896 INFO: Nodo: IZ2BKG  [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:45,904 INFO: Non trovato in Modes:!6c740d4c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:47,045 INFO: Non trovato in Modes:!6d08841c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:47,081 INFO: Nodo: Moncalieri Ponzy 2.5.18 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:47,089 INFO: Non trovato in Modes:!75e069c0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:47,128 INFO: Nodo: Sdomotica NRF [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:47,139 INFO: Non trovato in Modes:!7d584a42 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:47,165 INFO: Nodo: Link Valle d Intelvi HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:47,232 INFO: Non trovato in Modes:!87aac7a5 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:47,378 INFO: Nodo: Sant Anna dei Boschi [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:47,433 INFO: Non trovato in Modes:!919de85c [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:47,793 INFO: Nodo: DZX-JPOLE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:47,957 INFO: Non trovato in Modes:!95a58140 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:48,105 INFO: Nodo: eliaxs_faketec2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:48,186 INFO: Non trovato in Modes:!96dcabd7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:48,960 INFO: Non trovato in Modes:!a0cc7318 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:49,052 INFO: Nodo: Meshtastic cca8 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:49,084 INFO: Non trovato in Modes:!a0cccca8 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:50,073 INFO: Non trovato in Modes:!ab3fe285 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:50,517 INFO: Nodo: RADIO PICO PALACE [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:50,770 INFO: Non trovato in Modes:!aedee7b0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:50,903 INFO: Nodo: Meshtastic 4240 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:50,963 INFO: Non trovato in Modes:!b03b4240 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:52,141 INFO: Nodo: SalHome 85a0 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:52,838 INFO: Non trovato in Modes:!b03d85a0 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:53,832 INFO: Nodo: HB9ODI/P [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:54,056 INFO: Non trovato in Modes:!b9029ee7 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:55,003 INFO: Nodo: Orti Mobile [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:55,544 INFO: Non trovato in Modes:!bca22528 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:47:56,309 INFO: Nodo: HighAndrea 3c64 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:47:57,131 INFO: Non trovato in Modes:!c2063c64 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:48:00,009 INFO: Non trovato in Modes:!db296c80 [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:48:00,036 INFO: Nodo: S. Nicolao Test HB9ODI [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:48:00,169 INFO: Non trovato in Modes:!e013633a [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:48:00,332 INFO: Nodo: IU1MPF NRF2 [in D:\meshtastic_meshmonitor\app\routes.py:46]
+2025-08-19 19:48:00,642 INFO: Non trovato in Modes:!ee8f56ec [in D:\meshtastic_meshmonitor\app\routes.py:47]
+2025-08-19 19:48:02,213 INFO: Non trovato in Modes:!fe9d7106 [in D:\meshtastic_meshmonitor\app\routes.py:47]

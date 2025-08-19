@@ -109,4 +109,27 @@ Avendo attivato ambiente virtuale:
 1. pip install flask
 2. pip install python-dotenv nota: se si ha errore di interpretazione file al lancio di flask run usare notepad++ per leggere .flaslenv e riscriverlo in formato utf-8 (default è utf-16 non supportato da python)
 3. pip install flask_sqlalchemy
-4. pip install flask_migrate
+4. pip install 
+5. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask attraverso il processo di Flask migrate eseguendo in sequenza flask db init, flask db update, flask db upgrade. A seguito di future modifiche alle tabelle del Db questo processo andrà ripetuto
+6. pip install folium a supporto del display delle mappe
+
+### Note particolari
+
+Per esecuzione corretta dell'applicazione occore che il percorso di accesso al Db sia esplcitato per intero come qui ad esempio nel file __init__.py
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///D:/meshtastic_meshmonitor/app.db"
+Sostituire i riferimenti della propria installazione rferita a disco e percorso.
+
+### Esecuzione
+
+Occorre aprire due terminali, uno per meh_controller.py, l'atro per il server.
+
+1. si entra da un terminale nella directory base del progetto e si esegue venv/Scripts/activate se in windows, source/bin/activate se il Linux
+2. si va su ./source e da lì si lancia python mesh_controller.py COMx (Windows) o /dev/ttyUSBx o ACMx se in Linux. Ora dobbiamo far partire il server..
+3. si apre un secondo terminale e dalla directory base del progetto si fa di nuovo venv/Script/activate o source/bin/activate se in Linux
+4. eseguire 'flask run' (senza apici) per far partire il server
+5. Si apra un browser e si batta lo url 'localhost:5000/showmap' (senza apici) per vedere la mappa attuale in real time
+
+Allo stato attuale di sviluppo è attiva solo showmap della rete Brianza Bergamasca e Pavese a livello foto istantanea da aggiornare con reload della pagina di tanto in tanto. Funzioni più elaborate e selezioni specifiche saranno aggiunte via via.
+
+Se dovessero essere inseriti nuovi nodi di iscritti alla rete questi vanno aggiunti in tabella Modes usando DBBrowser for Sqlite strumento indispensabile sia su Windows che su Linux. Leggendo la tabella è intuitivo capire come i nuovi record vanno aggiunti, il colore dei marker è determinato dal campo 'mode' e per ragioni storiche che non sto qui a spiegare per avere il blu mode = MEDIUM_FAST, per il verde LONG_FAST e freq = 433, per il rosso freq = 868 e mode = LONG_SLOW. anche se sappiamo che anche qui lavoriamo in MEDIUM_FAST. Ci sono ragioni storiche come accennato prima e lascio tutto così anche se in apparenza questi dati sembrano fuorvianti.
+

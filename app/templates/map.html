@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_7a1a19b45a4ecb5fc27b52ade6f4800d {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+        <div style="
+        position: fixed;
+        top: 10px;
+        left: 50px;
+        width: 300px;
+        padding: 15px;
+        background-color: white;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        z-index: 9999;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        ">
+        <h4>Rete Meshtastic Brianza Bergamasca e Pavese</h4>
+        <p><b>I colori dei marker mostrano:</b><br>
+	<font color="red"><b>Rosso:</b></font> questa rete medium_fast 868Mhz<br>
+	<font color="blue"><b>Blu:</b></font> rete LoraItalia medium_fast 868Mhz<br>
+	<font color="green"><b>Verde:</b></font> questa rete long_fast 433Mhz</p>
+        </div>
+    
+    
+            <div class="folium-map" id="map_7a1a19b45a4ecb5fc27b52ade6f4800d" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_7a1a19b45a4ecb5fc27b52ade6f4800d = L.map(
+                "map_7a1a19b45a4ecb5fc27b52ade6f4800d",
+                {
+                    center: [45.71167, 9.31603],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_50d50995b95c5de34f52bc56e4b7c2b7 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_50d50995b95c5de34f52bc56e4b7c2b7.addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var marker_f05f01eba6ee680203a5ada9c6b2cd41 = L.marker(
+                [45.7116, 9.318],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_6f39ad5237be6ccf3950acf001754aa2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3e4cfc48b17dfe4650620f34ecfe2854 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fe0dccdda6f7f9c8de4c06ac5855df50 = $(`<div id="html_fe0dccdda6f7f9c8de4c06ac5855df50" style="width: 100.0%; height: 100.0%;">Home </div>`)[0];
+                popup_3e4cfc48b17dfe4650620f34ecfe2854.setContent(html_fe0dccdda6f7f9c8de4c06ac5855df50);
+            
+        
+
+        marker_f05f01eba6ee680203a5ada9c6b2cd41.bindPopup(popup_3e4cfc48b17dfe4650620f34ecfe2854)
+        ;
+
+        
+    
+    
+                marker_f05f01eba6ee680203a5ada9c6b2cd41.setIcon(icon_6f39ad5237be6ccf3950acf001754aa2);
+            
+    
+            var marker_0903fd4778bb9b5bed2edaef51933f4b = L.marker(
+                [45.6412, 9.1151],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_aab5e40c175368d282ecf27a9bbf3c35 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7bce47960bc2e49471b451ecc20ab923 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cf0b4f0e280e3c5d52aae71ac4102601 = $(`<div id="html_cf0b4f0e280e3c5d52aae71ac4102601" style="width: 100.0%; height: 100.0%;">IU2RPO_0970 giorno 25/08/18 ora 18:36:15</div>`)[0];
+                popup_7bce47960bc2e49471b451ecc20ab923.setContent(html_cf0b4f0e280e3c5d52aae71ac4102601);
+            
+        
+
+        marker_0903fd4778bb9b5bed2edaef51933f4b.bindPopup(popup_7bce47960bc2e49471b451ecc20ab923)
+        ;
+
+        
+    
+    
+            marker_0903fd4778bb9b5bed2edaef51933f4b.bindTooltip(
+                `<div>
+                     IU2RPO_0970
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0903fd4778bb9b5bed2edaef51933f4b.setIcon(icon_aab5e40c175368d282ecf27a9bbf3c35);
+            
+    
+            var marker_72fa209c81467bed2d286e92754acd32 = L.marker(
+                [45.6412, 9.1151],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_97e3034ea08ab8c5a80b332856abdb67 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eIU2RPO_0970\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_72fa209c81467bed2d286e92754acd32.setIcon(div_icon_97e3034ea08ab8c5a80b332856abdb67);
+            
+    
+            var marker_0f017ef36bcef52c1e1fb2daaf55d29a = L.marker(
+                [45.6412, 9.1152],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_c08d4344fa1621726451cf47bd867fb8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_85e412faa8adc2fc1a92f8fb9385686d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8c36c4c24a60b9c63417c5cfd1606fc6 = $(`<div id="html_8c36c4c24a60b9c63417c5cfd1606fc6" style="width: 100.0%; height: 100.0%;">IU2RPO_e2d8 giorno 25/08/19 ora 19:44:10</div>`)[0];
+                popup_85e412faa8adc2fc1a92f8fb9385686d.setContent(html_8c36c4c24a60b9c63417c5cfd1606fc6);
+            
+        
+
+        marker_0f017ef36bcef52c1e1fb2daaf55d29a.bindPopup(popup_85e412faa8adc2fc1a92f8fb9385686d)
+        ;
+
+        
+    
+    
+            marker_0f017ef36bcef52c1e1fb2daaf55d29a.bindTooltip(
+                `<div>
+                     IU2RPO_e2d8
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0f017ef36bcef52c1e1fb2daaf55d29a.setIcon(icon_c08d4344fa1621726451cf47bd867fb8);
+            
+    
+            var marker_11d178b3935095f82f6a8002528f6f6c = L.marker(
+                [45.6412, 9.1152],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_62f97605873ffb370e17598127292322 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eIU2RPO_e2d8\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_11d178b3935095f82f6a8002528f6f6c.setIcon(div_icon_62f97605873ffb370e17598127292322);
+            
+    
+            var marker_8a8430e0f68db6cf9b09cb3f5c602ff8 = L.marker(
+                [45.9559999, 8.942],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_7cdf4787a8ecf1e0e169763db288b931 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_82bc7159c4142d23815cf101c7404ec5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eef8595bf89106ced4dee38f31fe73f5 = $(`<div id="html_eef8595bf89106ced4dee38f31fe73f5" style="width: 100.0%; height: 100.0%;">Melide 🇨🇭 HB9ODI giorno 25/08/18 ora 18:07:13</div>`)[0];
+                popup_82bc7159c4142d23815cf101c7404ec5.setContent(html_eef8595bf89106ced4dee38f31fe73f5);
+            
+        
+
+        marker_8a8430e0f68db6cf9b09cb3f5c602ff8.bindPopup(popup_82bc7159c4142d23815cf101c7404ec5)
+        ;
+
+        
+    
+    
+            marker_8a8430e0f68db6cf9b09cb3f5c602ff8.bindTooltip(
+                `<div>
+                     Melide 🇨🇭 HB9ODI
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8a8430e0f68db6cf9b09cb3f5c602ff8.setIcon(icon_7cdf4787a8ecf1e0e169763db288b931);
+            
+    
+            var marker_61f1bcc186eddc0ebc64ebca7355f58a = L.marker(
+                [45.9559999, 8.942],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_78c4de40b4f4e5009c3a44bf44ffc202 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eMelide \ud83c\udde8\ud83c\udded HB9ODI\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_61f1bcc186eddc0ebc64ebca7355f58a.setIcon(div_icon_78c4de40b4f4e5009c3a44bf44ffc202);
+            
+    
+            var marker_6dfdcfcd1053c92b2c8b38c3586839a2 = L.marker(
+                [45.5868416, 9.043968],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_b46c5206f23c07ac6e21fa9f3c67b45d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_60aec7df2b6f8d920b7207e685f04ca2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5bab60b27e30e02711d7c3a01795fd57 = $(`<div id="html_5bab60b27e30e02711d7c3a01795fd57" style="width: 100.0%; height: 100.0%;">Caronno Pertusella Solar giorno 25/08/19 ora 19:45:34</div>`)[0];
+                popup_60aec7df2b6f8d920b7207e685f04ca2.setContent(html_5bab60b27e30e02711d7c3a01795fd57);
+            
+        
+
+        marker_6dfdcfcd1053c92b2c8b38c3586839a2.bindPopup(popup_60aec7df2b6f8d920b7207e685f04ca2)
+        ;
+
+        
+    
+    
+            marker_6dfdcfcd1053c92b2c8b38c3586839a2.bindTooltip(
+                `<div>
+                     Caronno Pertusella Solar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6dfdcfcd1053c92b2c8b38c3586839a2.setIcon(icon_b46c5206f23c07ac6e21fa9f3c67b45d);
+            
+    
+            var marker_62d655202ce766ee357713adb824c00a = L.marker(
+                [45.5868416, 9.043968],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_a947e33726451e4cf03907dd8e519b0a = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eCaronno Pertusella Solar\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_62d655202ce766ee357713adb824c00a.setIcon(div_icon_a947e33726451e4cf03907dd8e519b0a);
+            
+    
+            var marker_56eda4e466f982d410d263233bc87f85 = L.marker(
+                [45.8760192, 8.9546752],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_603998996e1ae2fc0f204a3e410a1554 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bb50124afb51358f555c2032e45f6ab3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_89a63f609d4fbf717bfe76de2d1ac61e = $(`<div id="html_89a63f609d4fbf717bfe76de2d1ac61e" style="width: 100.0%; height: 100.0%;">TREMONA 🇨🇭 giorno 25/08/15 ora 21:25:38</div>`)[0];
+                popup_bb50124afb51358f555c2032e45f6ab3.setContent(html_89a63f609d4fbf717bfe76de2d1ac61e);
+            
+        
+
+        marker_56eda4e466f982d410d263233bc87f85.bindPopup(popup_bb50124afb51358f555c2032e45f6ab3)
+        ;
+
+        
+    
+    
+            marker_56eda4e466f982d410d263233bc87f85.bindTooltip(
+                `<div>
+                     TREMONA 🇨🇭
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_56eda4e466f982d410d263233bc87f85.setIcon(icon_603998996e1ae2fc0f204a3e410a1554);
+            
+    
+            var marker_941d801e13dc6a486a59178a89736973 = L.marker(
+                [45.8760192, 8.9546752],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_7e4e6d013772e9aaf657e9cd5c296731 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eTREMONA \ud83c\udde8\ud83c\udded\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_941d801e13dc6a486a59178a89736973.setIcon(div_icon_7e4e6d013772e9aaf657e9cd5c296731);
+            
+    
+            var marker_439355b1fef6cce545791ec42fac10be = L.marker(
+                [45.902, 8.97],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_10fe85444b27384db01925232fa4aeed = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5207ca58df6ecb96264cf2d143bac7de = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c19d87c313317d11c414a26820607634 = $(`<div id="html_c19d87c313317d11c414a26820607634" style="width: 100.0%; height: 100.0%;">Base-HB9ODI giorno 25/08/18 ora 17:37:07</div>`)[0];
+                popup_5207ca58df6ecb96264cf2d143bac7de.setContent(html_c19d87c313317d11c414a26820607634);
+            
+        
+
+        marker_439355b1fef6cce545791ec42fac10be.bindPopup(popup_5207ca58df6ecb96264cf2d143bac7de)
+        ;
+
+        
+    
+    
+            marker_439355b1fef6cce545791ec42fac10be.bindTooltip(
+                `<div>
+                     Base-HB9ODI
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_439355b1fef6cce545791ec42fac10be.setIcon(icon_10fe85444b27384db01925232fa4aeed);
+            
+    
+            var marker_8b7454afe5768d2036db62f81d65cf61 = L.marker(
+                [45.902, 8.97],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_d4c7a5b8dd76fb6dcee6a3545d29fbea = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eBase-HB9ODI\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_8b7454afe5768d2036db62f81d65cf61.setIcon(div_icon_d4c7a5b8dd76fb6dcee6a3545d29fbea);
+            
+    
+            var marker_ffff648b89366868671a3b9d43aed01e = L.marker(
+                [45.8489856, 9.1488256],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_718da99f31f4e1a569a288176c484edd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c13423c3bcf44fc4b46b6f5b2774e4b8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_46a88ea69528820fc8e8d94b213d35e2 = $(`<div id="html_46a88ea69528820fc8e8d94b213d35e2" style="width: 100.0%; height: 100.0%;">Monte Boletto 🇮🇹 giorno 25/08/18 ora 18:38:27</div>`)[0];
+                popup_c13423c3bcf44fc4b46b6f5b2774e4b8.setContent(html_46a88ea69528820fc8e8d94b213d35e2);
+            
+        
+
+        marker_ffff648b89366868671a3b9d43aed01e.bindPopup(popup_c13423c3bcf44fc4b46b6f5b2774e4b8)
+        ;
+
+        
+    
+    
+            marker_ffff648b89366868671a3b9d43aed01e.bindTooltip(
+                `<div>
+                     Monte Boletto 🇮🇹
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ffff648b89366868671a3b9d43aed01e.setIcon(icon_718da99f31f4e1a569a288176c484edd);
+            
+    
+            var marker_8dbe0436451955da2216208bc65f8686 = L.marker(
+                [45.8489856, 9.1488256],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_05fe4e9c7c8e791f8e2eb1be18573b3c = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eMonte Boletto \ud83c\uddee\ud83c\uddf9\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_8dbe0436451955da2216208bc65f8686.setIcon(div_icon_05fe4e9c7c8e791f8e2eb1be18573b3c);
+            
+    
+            var marker_ad5ec71de965456e7124a9bc42f97daa = L.marker(
+                [45.873943, 8.945134],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_2c6f8f49a6d39942f93c3a2cf2036cf8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c2370a6d82403d688e62039ddc1a5288 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c3ef1b23064d3d95b07f30d949871dd6 = $(`<div id="html_c3ef1b23064d3d95b07f30d949871dd6" style="width: 100.0%; height: 100.0%;">HB9HTR base giorno 25/08/15 ora 16:57:18</div>`)[0];
+                popup_c2370a6d82403d688e62039ddc1a5288.setContent(html_c3ef1b23064d3d95b07f30d949871dd6);
+            
+        
+
+        marker_ad5ec71de965456e7124a9bc42f97daa.bindPopup(popup_c2370a6d82403d688e62039ddc1a5288)
+        ;
+
+        
+    
+    
+            marker_ad5ec71de965456e7124a9bc42f97daa.bindTooltip(
+                `<div>
+                     HB9HTR base
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ad5ec71de965456e7124a9bc42f97daa.setIcon(icon_2c6f8f49a6d39942f93c3a2cf2036cf8);
+            
+    
+            var marker_394b40e3fcd77bf55befe9f40063eec9 = L.marker(
+                [45.873943, 8.945134],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_ce4aabc689f7fba4cd13a1fc7d681d6f = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eHB9HTR base\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_394b40e3fcd77bf55befe9f40063eec9.setIcon(div_icon_ce4aabc689f7fba4cd13a1fc7d681d6f);
+            
+    
+            var marker_a1aa6564f3ee43f84df52bbb28864c6b = L.marker(
+                [45.6415, 9.1151],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_a87231da8b1e875d425eaf32d1582fe2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_36c8ea786041e5740637a1226a69b86c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_62e9724e223c3a1a4442ecf35b4feedf = $(`<div id="html_62e9724e223c3a1a4442ecf35b4feedf" style="width: 100.0%; height: 100.0%;">IU2RPO_8560 giorno 25/08/19 ora 19:45:03</div>`)[0];
+                popup_36c8ea786041e5740637a1226a69b86c.setContent(html_62e9724e223c3a1a4442ecf35b4feedf);
+            
+        
+
+        marker_a1aa6564f3ee43f84df52bbb28864c6b.bindPopup(popup_36c8ea786041e5740637a1226a69b86c)
+        ;
+
+        
+    
+    
+            marker_a1aa6564f3ee43f84df52bbb28864c6b.bindTooltip(
+                `<div>
+                     IU2RPO_8560
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a1aa6564f3ee43f84df52bbb28864c6b.setIcon(icon_a87231da8b1e875d425eaf32d1582fe2);
+            
+    
+            var marker_e6b6ca5eba485b75888d01f97a5a6401 = L.marker(
+                [45.6415, 9.1151],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_e939cb991a336cb7d1a10a69cb1289c1 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eIU2RPO_8560\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_e6b6ca5eba485b75888d01f97a5a6401.setIcon(div_icon_e939cb991a336cb7d1a10a69cb1289c1);
+            
+    
+            var marker_6dac5b07b149c2726a0ecdb007e4662d = L.marker(
+                [45.8891299, 8.91535],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_83f3993ac2f42ab10c8e1cd2be4431a7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ad05403bdd320cc5532fb73eb9461138 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0abcf9aa9e82f62fc3e5b3dc95440b23 = $(`<div id="html_0abcf9aa9e82f62fc3e5b3dc95440b23" style="width: 100.0%; height: 100.0%;">Monte Orsa 🇮🇹 giorno 25/08/18 ora 18:15:42</div>`)[0];
+                popup_ad05403bdd320cc5532fb73eb9461138.setContent(html_0abcf9aa9e82f62fc3e5b3dc95440b23);
+            
+        
+
+        marker_6dac5b07b149c2726a0ecdb007e4662d.bindPopup(popup_ad05403bdd320cc5532fb73eb9461138)
+        ;
+
+        
+    
+    
+            marker_6dac5b07b149c2726a0ecdb007e4662d.bindTooltip(
+                `<div>
+                     Monte Orsa 🇮🇹
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6dac5b07b149c2726a0ecdb007e4662d.setIcon(icon_83f3993ac2f42ab10c8e1cd2be4431a7);
+            
+    
+            var marker_24917dab552d5f5030ed5652318b3a33 = L.marker(
+                [45.8891299, 8.91535],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_8ee9a9bfaa1776b9baaf562386178b13 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eMonte Orsa \ud83c\uddee\ud83c\uddf9\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_24917dab552d5f5030ed5652318b3a33.setIcon(div_icon_8ee9a9bfaa1776b9baaf562386178b13);
+            
+    
+            var marker_f7814c8b47552970e0809a34a010df55 = L.marker(
+                [45.638, 9.115],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var icon_f4170b94765dddbbad3644330f721516 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2541d074cafc9378d0d27b1ce13e35aa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_97af78283746cd15a8d7a247d19576e3 = $(`<div id="html_97af78283746cd15a8d7a247d19576e3" style="width: 100.0%; height: 100.0%;">IU2RPO_3508 giorno 25/08/19 ora 19:44:05</div>`)[0];
+                popup_2541d074cafc9378d0d27b1ce13e35aa.setContent(html_97af78283746cd15a8d7a247d19576e3);
+            
+        
+
+        marker_f7814c8b47552970e0809a34a010df55.bindPopup(popup_2541d074cafc9378d0d27b1ce13e35aa)
+        ;
+
+        
+    
+    
+            marker_f7814c8b47552970e0809a34a010df55.bindTooltip(
+                `<div>
+                     IU2RPO_3508
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f7814c8b47552970e0809a34a010df55.setIcon(icon_f4170b94765dddbbad3644330f721516);
+            
+    
+            var marker_ece3c93ee42a16ad4db8b2f321fda272 = L.marker(
+                [45.638, 9.115],
+                {
+}
+            ).addTo(map_7a1a19b45a4ecb5fc27b52ade6f4800d);
+        
+    
+            var div_icon_2b8f459591f2955023df70920c0dfb5b = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12px; color: black;\"\u003eIU2RPO_3508\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [0, 0],
+  "className": "empty",
+});
+        
+    
+                marker_ece3c93ee42a16ad4db8b2f321fda272.setIcon(div_icon_2b8f459591f2955023df70920c0dfb5b);
+            
+</script>
+</html>
