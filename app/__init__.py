@@ -7,9 +7,13 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
+basedir = os.path.join(basedir, 'app.db')
+basedir = basedir.replace('\\','/')
+basedir = basedir.replace('/app/','/')
+basedir = 'sqlite:///' + basedir
+app.config['SQLALCHEMY_DATABASE_URI'] = basedir
 print(basedir)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db')
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///D:/meshtastic_meshmonitor/app.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///D:/meshtastic_meshmonitor/app.db"
 #app.config["SQLALCHEMY_ECHO"] = True
 db.init_app(app)
 migrate = Migrate(app, db)

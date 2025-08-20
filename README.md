@@ -91,7 +91,7 @@ una volta trovata la seriale connessa lanciare python mesh_controller.py /dev/tt
 
 Alla data di oggi 16 Agosto 2025 mesh_controller.py è funzionante e pronto ad essere utilizzato in campo. Già ora semplicemente utilizzando indifferentemente su Win10/11 o su Linux DBbrowser for Sqlite (scaricabile gratuitamente per Windows e installabile via apt-get install su Linux) si può avere contezza di come gira il fumo rinfrescano la visione delle tabelle su menzionate attraverso di esso.
 
-Riferimenti al Server Flask che devo allestire riguardo al progetto Meshtastic_meshmonitor qui accennato li darò via via che lo sviluppo procede.
+Riferimenti al Server Flask che sto allestendo riguardo al progetto Meshtastic_meshmonitor qui accennato li darò via via che lo sviluppo procede.
 
 ## Struttura del Server
 
@@ -109,15 +109,9 @@ Avendo attivato ambiente virtuale:
 1. pip install flask
 2. pip install python-dotenv nota: se si ha errore di interpretazione file al lancio di flask run usare notepad++ per leggere .flaslenv e riscriverlo in formato utf-8 (default è utf-16 non supportato da python)
 3. pip install flask_sqlalchemy
-4. pip install 
-5. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask attraverso il processo di Flask migrate eseguendo in sequenza flask db init, flask db update, flask db upgrade. A seguito di future modifiche alle tabelle del Db questo processo andrà ripetuto
+4. pip install flask_migrate
+5. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask ovvero Flask migrate che per il Db presente in questo repositpry è già stato effettuato. Andrà ripetuto qualora si aggiungessere tabelle o si modificasse una presente. Il processo di Flask migrate si attua eseguendo in sequenza flask db init, flask db update, flask db upgrade.
 6. pip install folium a supporto del display delle mappe
-
-### Note particolari
-
-Per esecuzione corretta dell'applicazione occore che il percorso di accesso al Db sia esplcitato per intero come qui ad esempio nel file __init__.py
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///D:/meshtastic_meshmonitor/app.db"
-Sostituire i riferimenti della propria installazione rferita a disco e percorso.
 
 ### Esecuzione
 
@@ -133,3 +127,6 @@ Allo stato attuale di sviluppo è attiva solo showmap della rete Brianza Bergama
 
 Se dovessero essere inseriti nuovi nodi di iscritti alla rete questi vanno aggiunti in tabella Modes usando DBBrowser for Sqlite strumento indispensabile sia su Windows che su Linux. Leggendo la tabella è intuitivo capire come i nuovi record vanno aggiunti, il colore dei marker è determinato dal campo 'mode' e per ragioni storiche che non sto qui a spiegare per avere il blu mode = MEDIUM_FAST, per il verde LONG_FAST e freq = 433, per il rosso freq = 868 e mode = LONG_SLOW. anche se sappiamo che anche qui lavoriamo in MEDIUM_FAST. Ci sono ragioni storiche come accennato prima e lascio tutto così anche se in apparenza questi dati sembrano fuorvianti.
 
+### Note
+
+Allo atato attuale sia mesh_controller.py che il server (limitatamente a /showmap senza selezioni) funzionano. Per vedere la mappa basta aprireun browser su localhost:5000/showmap e rinfrescare la pagina ogni tanto per vedere gli aggirnamenti. Se si mette il server in connessione con un dynamic DNS vi si potrà accedere dal mondo esterno via internet. 
