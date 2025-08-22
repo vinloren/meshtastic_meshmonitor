@@ -10,12 +10,12 @@ Whatsapp "Rete Lora Lombardia e Ticino", in blu se appartenenti a non iscritti i
 <p align=justify>
 La data di riferimeto e la scelta di un singolo nodo attengono al tracking ovvero mostrare 
 in mappa il percorso effettuato dal nodo in quella data. Se in lista nodi si sceglie 'tutti'
-verrà mostrata la mappa immagine istantanea della posizione attuale dei nodi fissi o mobili 
+e giorno di tracking = None verrà mostrata la mappa immagine istantanea della posizione attuale dei nodi fissi o mobili 
 che siano, se invece si sceglie un nodo singolo questo appartiene al novero dei nodi mobili 
-e quindi verrà mostrato il tracciamento del percorso fatto o in itinere riferito alla data.
+e quindi verrà mostrato il tracciamento del percorso fatto o in itinere a partire dal giorno.
 </p>
 <hr>
-Giorno di tracking<br>
+Tracking a partire da giorno<br>
 <form action="{{ url_for('showmap') }}" method="post">
     <div class="mb-3">
         <input name="giorno" id="day" type="text" class="form-control" placeholder="Inserisci giorno in formato aa/mm/gg oppure None" required>
