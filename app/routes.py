@@ -35,7 +35,7 @@ def showmap():
     print(f"Oggi = {oggi}")
     print(f"opzione = {opzione}")
     print("========")
-    opzione = "tutti"
+    
     percorso = []
     
     # Creiamo la mappa centrata su una posizione specifica
@@ -43,7 +43,50 @@ def showmap():
     # Aggiungiamo un marker sulla mappa
     folium.Marker([45.7116, 9.318], popup="Home ",icon = folium.Icon(color='black')).add_to(mappa)
     
+    if(opzione is not None and oggi is not None and oggi != 'None' and opzione != 'tutti'):
+        # siamo in tracking
+        nodes = Tracking.getTrack(oggi,opzione)
+        for node in nodes:
+            folium.Marker([node.lat, node.lon], icon=folium.Icon(color='green'),
+                popup=node.longname + " giorno " + node.data + " ora " + node.ora,
+                tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
+            percorso.append([node.lat,node.lon])
+            app.logger.info(f"{opzione}:{percorso}")
+        if len(percorso) > 1:
+            # Collega i marker con una Polyline blu
+            folium.PolyLine(locations=percorso, color="blue", weight=3, opacity=0.6).add_to(mappa)
+        # Riquadro bianco in alto a sinistra
+        html_box = '''
+            <div style="
+            position: fixed;
+            top: 10px;
+            left: 50px;
+            width: 300px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            z-index: 9999;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            ">
+            <h4><b>Rete Lora Lombardia e Canton Ticino</b></h4>
+            <p><b>I colori dei marker mostrano:</b><br>
+	        <font color="red"><b>Rosso:</b></font> questa rete medium_fast 868Mhz<br>
+	        <font color="blue"><b>Blu:</b></font> rete Ticino medium_fast 868Mhz<br>
+	        <font color="green"><b>Verde:</b></font> questa rete long_fast 433Mhz</p>
+            </div>
+        '''
+        mappa.get_root().html.add_child(Element(html_box))
+        mappa.save('app/templates/map.html')
+        # Inserisci un timestamp nell'URL del file JS della mappa
+        #timestamp = int(time.time())
+        #mappa_ts = mappa._repr_html_() + f"?v={timestamp}"
+        oggi = None
+        opzione = None
+        return render_template('map.html')
+
     nodes = Meshnodes.chiamaNodi()
+    opzione = "tutti" #forzo tutti per mappa istantanea non tracking
     #print(f"Nodes: {nodes}")
     for node in nodes:
         modi = Modes.getMode(node.node_id)
@@ -175,7 +218,7 @@ def showmap():
     mappa.get_root().html.add_child(Element(html_box)) 
 
 
-# Salviamo la mappa in un file HTML]
+    # Salviamo la mappa in un file HTML]
     mappa.save('app/templates/map.html')
     # Inserisci un timestamp nell'URL del file JS della mappa
     timestamp = int(time.time())

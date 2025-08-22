@@ -129,4 +129,8 @@ Se dovessero essere inseriti nuovi nodi di iscritti alla rete questi vanno aggiu
 
 ### Note
 
-Allo atato attuale sia mesh_controller.py che il server (limitatamente a /showmap senza selezioni) funzionano. Per vedere la mappa basta aprireun browser su localhost:5000/showmap e rinfrescare la pagina ogni tanto per vedere gli aggirnamenti. Se si mette il server in connessione con un dynamic DNS vi si potrà accedere dal mondo esterno via internet. 
+In data 22 Agosto 2015 completate le funzioni di selezione e ambiente grafico sul server. Per vedere la mappa basta aprire un browser su localhost:5000/ e accedere alle varie scelte proposte
+sul video. per lanciare il server battere flask --debug run da riga di comando se non si mette
+--debug abbiamo un problema di cache in flask che fa sempre vesere l'ultima mappa mostrata
+anche se cambiamo le scelte. Al momento l'unico modo per risolvere il problema è lavorare in
+debug mode. Se si mette il server in connessione con un dynamic DNS vi si potrà accedere dal mondo esterno via internet. 

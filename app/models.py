@@ -81,5 +81,10 @@ class Tracking(db.Model):
         nodi = db.session.query(Tracking.longname,Tracking.node_id).distinct().order_by(Tracking.longname.asc()).all()
         return nodi
 
+    def getTrack(data,nome):
+        nodi = db.session.query(Tracking).filter(Tracking.data >= data,Tracking.longname==nome).order_by(Tracking.data.asc(),Tracking.ora.asc()).all()
+        return nodi
+
+
     def __repr__(self):
         return '<Tracking {}>'
