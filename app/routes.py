@@ -3,6 +3,7 @@ import app as app
 from app import app,db
 from app.models import Meshnodes
 from app.models import Modes
+from app.models import Tracking
 from urllib.parse import urlsplit
 from flask import render_template, flash, redirect, url_for, request
 
@@ -13,20 +14,30 @@ from folium import Element
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hello, World!"
+    return redirect (url_for('listanodi'))
+    #return render_template('index.html')
 
+@app.route("/listanodi")
+def listanodi():
+    nodi = Tracking.get_nodi()   
+    nodi = [nodo[0] for nodo in nodi]
+    return render_template('index.html', nodi=nodi) 
 
-@app.route('/showmap', methods=['GET'])
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
+
+@app.route('/showmap', methods=['GET','POST'])
 def showmap():
-    #oggi = request.form.get("giorno")
-    #opzione = request.form.get('opzione')
+    oggi = request.form.get("giorno")
+    opzione = request.form.get('opzione')
+    print("========")
+    print(f"Oggi = {oggi}")
+    print(f"opzione = {opzione}")
+    print("========")
     opzione = "tutti"
     percorso = []
     
-    #print("========")
-    #print(oggi)
-    #print(opzione)
-    #print("========")
     # Creiamo la mappa centrata su una posizione specifica
     mappa = folium.Map(location=[45.71167, 9.31603], zoom_start=13)  # Milano, Italia
     # Aggiungiamo un marker sulla mappa
@@ -154,10 +165,10 @@ def showmap():
         font-family: Arial, sans-serif;
         font-size: 14px;
         ">
-        <h4>Rete Meshtastic Brianza Bergamasca e Pavese</h4>
+        <h4><b>Rete Lora Lombardia e Canton Ticino</b></h4>
         <p><b>I colori dei marker mostrano:</b><br>
 	<font color="red"><b>Rosso:</b></font> questa rete medium_fast 868Mhz<br>
-	<font color="blue"><b>Blu:</b></font> rete LoraItalia medium_fast 868Mhz<br>
+	<font color="blue"><b>Blu:</b></font> rete Ticino medium_fast 868Mhz<br>
 	<font color="green"><b>Verde:</b></font> questa rete long_fast 433Mhz</p>
         </div>
     '''

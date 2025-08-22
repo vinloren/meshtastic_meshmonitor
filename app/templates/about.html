@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>About Meshtastic</title>
+    
+</head>
+    <h3 align = center>Rete LoRa Meshtastic Lombardia e Ticino</h3>
+    <div>
+        <h4>Cos'è Meshtastic</h4>
+        <p align = justify>
+        Dalla fusione della parola “mesh” con la parola “fantastic” nasce il nome originale che indica 
+        una fantastica rete di nodi Lora (Long Range area retwork) basati su microcontroller ESP32 
+        (et similia) dotati di oled display da 0.96” , di modulo radio UHF (SX1278 433Mhz o SX1276 
+        868Mhz) , modulo WiFi 2.5Ghz, modulo BLE (Bluetooth 4.0), seriale su microUsb o 
+        microUsb-c per collegamento con PC per caricamento firmware o monitor dei collegamenti 
+        in rete o anche alimentazione da pack 5Vdc in sostituzione di batteria interna.  Quelli che 
+        vanno per la maggiore sono i Lilygo LoRa32 in svariati modelli e versioni venduti dal famoso 
+        Aliexpress o direttamente da www.lilygo.cc ad un prezzo che va dai 19 ai 60€ a seconda 
+        delle configurazioni e dei modelli scelti.
+        </p>
+       <h4>Frequenze operative</h4>
+        <p align = justify>Come accennato sopra questi oggetti sono destinati a lavorare in banda libera ISM 868Mhz 
+        o 433Mhz sottostando alle regole previste per questa banda liberalizzata accessibile senza 
+        licenza radioamatoriale. Questi apparecchi possono essere anche configurati per entrare in 
+        banda come radioamatore e in questo caso variano leggermente i limiti relativi a potenza 
+        utilizzabile (si può superare il limite di 100mW massimi consentiti e anche la percentuale 
+        d’uso relativa all’occupazione di banda per trasmissione) ma in questo caso le trasmissioni 
+        non possano essere cifrate come invece avviene con uso libero.
+        </p>
+       <h4>Potenzialità del progetto</h4>
+       <p align = justify>ESP32 è un oggetto molto noto nel mondo IoT segnatamente per telemetria di dati atmosferici 
+        trasmessi via WiFi / internet verso il centro di controllo che avevo avuto modo di sperimentare fin dal 2019. 
+        A fine 2020 spunta in Telegram il progetto meshtastic quando un gruppo di 14 appassionati, composto per lo più da 
+        radioamatori, inizia ad allestire una rete a Torino e dintorni usando la tecnologia descritta 
+        in dettaglio at: www.meshtastic.org. Di passi avanti da allora se ne sono fatti parecchi, 
+        meshtastic.org si è evoluto nel supporto e nella produzione di strumenti d’ausilio alla 
+        configurazione e alla messa in opera degli apparecchi configurati col suo firmware e 
+        anche il gruppo Telegram cui ho fatto cenno sopra è cresciuto a dismisura chiamandosi ora 
+        Meshtastic Italia Community passando dai 14 iscritti del Dicembre 2020 agli attuali oltre 1000. 
+       </p>
+       <h4>Reti LoRa Lombardia e Canton Ticino</h4>
+       <p align= justify>E’ il gruppo Whattsapp che ospita i partecipanti a questa rete che copre sia la banda ism 
+        tradizionale 868Mhz che quella a 433Mhz. Siamo tutti collegati in radio (meshtastic permette 
+        anche collegamenti via internet a un server MQTT per passare messaggi in assenza di 
+        copertura radio) grazie al centro di <b>Guido IU2SKJ a Monticello Brianza</b> dotato di antenne 
+        adeguate e in posizione geografica ottimale oltra ai ripetitori di Monte Boletto, Monte Orsa, Brunate Faro e 
+        i ticinesi Cima di Sassalto e Tremona. I nodi a 868Mhz parte di questa rete sono in MEDIUM_FAST 
+        mentre sono in LONG_FAST i nodi in rete a 433Mhz (il significato di LONG_SLOW, LONG_FAST, MEDIUM_FAST insieme con tutta la filosofia del protocollo 
+        di comunicazione meshtastic è spiegato esaurientemente at ww.meshtastic.org, in sostanza 
+        minore è la velocità di trasmissione maggiore è la distanza raggiungibile dalla 
+        comunicazione). La rete LoraItalia che ha avuto origine a Torino lavora anch'essa in 
+        MEDIUM_FAST con diversi nodi gateway MQTT e conta oltre 120 nodi.
+       </p>
+       <h4>Visibilità della nostra rete</h4>
+       <p align = justify>Il progetto è partito nel Marzo 2025 e personalmente ho curato e sto curando i 
+        processi di controllo della rete e la sua visibilità via internet per chi ne fosse interessato. A 
+        questo proposito il mio programma di controllo accessibile a:<b> 
+        https://github.com/vinloren/meshtastic_broadcast</b>
+        sviluppato nel 2021 per la rete LoraItalia, poi aggiornato fino ai giorni nostri, raccoglie i 
+        messaggi di controllo rete e di comunicazione fra i vari nodi attraverso il nodo collegato in 
+        seriale al PC dove gira questa applicazione python_qt5 che poi trasmette, via internet, ogni 
+        10 minuti i dati elaborati verso il server Flask che ospita DB e architettura https per mostrare in 
+        tempo reale la dislocazione dei nodi di rete su mappa geografica con marker in rosso per i 
+        nodi a 868Mhz appartenenti alla nostra rete, in blu per i nodi in rete LoraItalia che pure vediamo, in verde 
+        per quelli a 433Mhz. Presso ciascun nodo appare un fumetto indicativo di nome data e orario della 
+        posizione cliccandoci sopra oppure nome del nodo sorvolandolo con il mouse.
+        Il server è accessibile all’indirizzo <b>https://vinmqtt.hopto.org</b> via dynamic dns no-ip. Per 
+        l’accesso alla visibilità della nostra rete ho previsto che gli utenti si debbano registrare, non per finalità 
+        inquisitorie, ma solo per darmi la misura di quanti possano essere interessati a questo esperimento. 
+       </p>
+       <h4>Evoluzione del server</h4>
+       <p align = justify>
+        Più recentemente (20 Agosto) ho modificato l'approccio alla rappresentazione in mappa dei nodi della nostra rete 
+        col progetto <b>https://github.com/vinloren/meshtastic_monitor</b> all'interno del quale è 
+        presente la versione di server cui state accedendo ora. L'idea è quella di svincolare la dipendenza del server 
+        dall'uso di una applicazione esterna e remota che alimenti i dati elaborati attraverso il suo 
+        Db. Ora server e alimentatore di dati stanno nella stessa box che gestisce l'applicazione python 
+        che intefaccia il nodo Tlora sulla seriale e al tempo stesso il server che può essere sia in 
+        uso locale che globale se abbiamo un url accessibile da internet.
+        </p>
+        <hr>
+        <p align = justify>
+        Questa nuova versione di server è più snella della precedente perché finalizzata semplicemente alla rappresentazione in mappa 
+        della rete senza bisogno di login e in più prevede una rappresentazione particolare dei nodi 
+        in movimento (tracking) che prima era solo abbozzata. Per contro, essendo questa versione dipendente 
+        da una singola sorgente di alimentazione dati, la visuale sarà quella del singolo nodo di controllo 
+        connesso alla seriale della box Linux o Windows.<br><br>
+        E' previsto, per allargare la visuale, che più server possano in futuro comunicare fra loro 
+        allineando reciprocamente i dati nel Db così da permettere una visione allargata a chiunque 
+        si connetta a qualunque server in rete. Il progetto è in itinere e integrazioni e modifiche 
+        sono fattibili anche in funzione della risposta degli associati al gruppo WA sul campo.
+       </p>
+       <h4>Assaggio del nuovo server</h4>
+       <p align = justify>
+        Al momento è possibile, per chi volesse provare il nuovo server, accedere all'url che ho 
+        previsto per questo scopo: <b>http://vinmqtt.hopto.org:5000</b> dove si vedrà la 
+        rete Lombardia e Ticino vista da parte del mio qth. Il centro rete, come al solito, è 
+        fissato sul qth di Guido IU2SKJ a Monticello Brianza.
+       </p>
+
+    </div>
+    <div class="page-footer">
+        <small>Aggiornamento del 24 Agosto 2025 by IU2RPO</small>
+    </div>
+{% endblock %}

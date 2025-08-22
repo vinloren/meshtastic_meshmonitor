@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p align=justify>
+I nodi vengono mostrati in mappa con colori diversi in base alle loro caratteristiche: quelli in 
+rete 433Mhz hanno marker verde, quelli in rete 868Mhz in rosso se appartenenti a iscritti al gruppo 
+Whatsapp "Rete Lora Lombardia e Ticino", in blu se appartenenti a non iscritti in Canton Ticino.
+</p>
+<hr>
+<p align=justify>
+La data di riferimeto e la scelta di un singolo nodo attengono al tracking ovvero mostrare 
+in mappa il percorso effettuato dal nodo in quella data. Se in lista nodi si sceglie 'tutti'
+verrà mostrata la mappa immagine istantanea della posizione attuale dei nodi fissi o mobili 
+che siano, se invece si sceglie un nodo singolo questo appartiene al novero dei nodi mobili 
+e quindi verrà mostrato il tracciamento del percorso fatto o in itinere riferito alla data.
+</p>
+<hr>
+Giorno di tracking<br>
+<form action="{{ url_for('showmap') }}" method="post">
+    <div class="mb-3">
+        <input name="giorno" id="day" type="text" class="form-control" placeholder="Inserisci giorno in formato aa/mm/gg oppure None" required>
+    </div>
+    <div class="mb-3">
+        <label for="opzioni" class="form-label">Scegli tutti o singolo nodo mobile</label>
+        <select name="opzione" id="opzioni" class="form-control" required>
+            <option value="tutti">Tutti i nodi
+            {% for nodo in nodi %}
+                <option value="{{ nodo }}">{{ nodo }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
+{% endblock %}

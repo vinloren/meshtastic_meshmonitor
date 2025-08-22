@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as so
-from sqlalchemy import func
+from sqlalchemy import func,distinct
 from app import db
 
 # Caratteristiche dei nodi in rete
@@ -39,10 +39,6 @@ class Meshnodes(db.Model):
     temperat: so.Mapped[float] = so.mapped_column(sa.Float)
     umidita: so.Mapped[float] = so.mapped_column(sa.Float)
 
-
-    def get_nodi():
-        nodi = db.session.query(Meshnodes.longname).order_by(Meshnodes.longname.asc()).all()
-        return nodi
     
     def chiamaNodi():
         nodi_validi = db.session.query(Meshnodes).filter(
@@ -63,7 +59,7 @@ class Meshnodes(db.Model):
             return 0 
 
     def __repr__(self):
-        return '<Node {}>'
+        return '<Meshnodes {}>'
 
 
 class Tracking(db.Model):
@@ -81,5 +77,9 @@ class Tracking(db.Model):
     _id: so.Mapped[int] = so.mapped_column(sa.Integer,primary_key=True)
 
 
+    def get_nodi():
+        nodi = db.session.query(Tracking.longname,Tracking.node_id).distinct().order_by(Tracking.longname.asc()).all()
+        return nodi
 
-    
+    def __repr__(self):
+        return '<Tracking {}>'
