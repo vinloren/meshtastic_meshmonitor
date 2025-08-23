@@ -142,8 +142,8 @@ def showmap():
         if opzione == "tutti":
             if caract['freq'] == 433:
                 folium.Marker([node.lat, node.lon], icon=folium.Icon(color='green'),
-                popup=node.nome + " giorno " + node.data + " ora " + node.ora,
-                tooltip=node.nome).add_to(mappa)  # Aggiungi la label con il nome del nodo
+                popup=node.longname + " giorno " + node.data + " ora " + node.ora,
+                tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
                 folium.Marker(location=[node.lat, node.lon],icon=folium.DivIcon(
                     icon_size=(150,36),icon_anchor=(0,0),
                     html=f'<div style="font-size: 12px; color: black;">{node.longname}</div>')
@@ -184,7 +184,7 @@ def showmap():
             if caract['freq'] == 868:
                 if caract['mode'] == "MEDIUM_FAST":
                     folium.Marker([node.lat, node.lon], icon=folium.Icon(color='darkblue'),
-                    popup=node.nome + " giorno " + node.data + " ora " + node.ora,
+                    popup=node.longname + " giorno " + node.data + " ora " + node.ora,
                     tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
                     folium.Marker(location=[node.lat, node.lon],icon=folium.DivIcon(
                     icon_size=(150,36),icon_anchor=(0,0),
@@ -204,7 +204,7 @@ def showmap():
         elif node.longname == opzione:
             if caract['freq'] == 433:
                 folium.Marker([node.lat, node.lon], icon=folium.Icon(color='green'),
-                popup=node.nome + " giorno " + node.data + " ora " + node.ora,
+                popup=node.longname + " giorno " + node.data + " ora " + node.ora,
                 tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
             else:
                 if caract['mode'] =='MEDIUM_FAST':
