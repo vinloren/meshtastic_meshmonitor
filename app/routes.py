@@ -9,6 +9,7 @@ from flask import render_template, flash, redirect, url_for, request
 
 #from datetime import datetime
 import folium, json, time, os
+from folium.plugins import PolyLineTextPath
 from folium import Element
 
 @app.route('/')
@@ -47,6 +48,12 @@ def showmap():
         # siamo in tracking
         nodes = Tracking.getTrack(oggi,opzione)
         numpos = True
+        lat = 0.0
+        lon = 0.0
+        longname = ""
+        data = ""
+        ora = ""
+        day = ""
         for node in nodes:
             if(numpos is True):
                 #marker di start
@@ -58,12 +65,30 @@ def showmap():
                 popup=node.longname + " giorno " + node.data + " ora " + node.ora,
                 tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
             numpos = False
+            lat = node.lat
+            lon = node.lon
+            longname = node.longname
+            day = node.data
+            ora = node.ora
             percorso.append([node.lat,node.lon])
             app.logger.info(f"{opzione}:{percorso}")
         
+        folium.Marker([lat,lon],icon=folium.Icon(color='darkblue'),
+        popup=longname + " giorno " + day + " ora " + ora,
+        tooltip=longname).add_to(mappa)
+        
         if len(percorso) > 1:
             # Collega i marker con una Polyline blu
-            folium.PolyLine(locations=percorso, color="blue", weight=3, opacity=0.6).add_to(mappa)
+            polyline = folium.PolyLine(locations=percorso, color="blue", weight=3, opacity=0.6)
+            polyline.add_to(mappa)
+            # Aggiungi una "freccia" lungo la linea
+            arrow = PolyLineTextPath(
+                polyline,' → ',  # Puoi usare → o ➤ o qualsiasi simbolo freccia
+                repeat=True,
+                offset=10,
+                attributes={'fill': 'blue', 'font-weight': 'bold', 'font-size': '18'}
+            )
+            mappa.add_child(arrow)
         # Riquadro bianco in alto a sinistra
         html_box = '''
             <div style="
@@ -87,11 +112,6 @@ def showmap():
         '''
         mappa.get_root().html.add_child(Element(html_box))
         mappa.save('app/templates/map.html')
-        # Inserisci un timestamp nell'URL del file JS della mappa
-        #timestamp = int(time.time())
-        #mappa_ts = mappa._repr_html_() + f"?v={timestamp}"
-        oggi = None
-        opzione = None
         return render_template('map.html')
 
     nodes = Meshnodes.chiamaNodi()
