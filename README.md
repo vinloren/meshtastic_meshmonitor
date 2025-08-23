@@ -134,3 +134,7 @@ sul video. per lanciare il server battere flask --debug run da riga di comando s
 --debug abbiamo un problema di cache in flask che fa sempre vesere l'ultima mappa mostrata
 anche se cambiamo le scelte. Al momento l'unico modo per risolvere il problema è lavorare in
 debug mode. Se si mette il server in connessione con un dynamic DNS vi si potrà accedere dal mondo esterno via internet. 
+
+Altra nota importante qualora si volesse far accedere al server dall'esterno anziché da localhost riguarda il lancio stesso che se fatto come indicato sopra vincola accesso solo
+da localhost. Occorre allora eseguire python run.py dove in run.py ci sono le direttive per permettere accesso universale.
+
