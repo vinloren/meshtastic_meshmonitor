@@ -260,7 +260,8 @@ if __name__ == "__main__":
                                 pdict.update({'pressione': result[0][5]})
                                 pdict.update({'umidita': result[0][6]})
                                 pdict.update({'node_id': result[0][7]})
-                                calldb.insertTracking(pdict)
+                                if(pdict['longname'] is not None):
+                                    calldb.insertTracking(pdict)
                                 #inserito tracking aggiorna meshnodes con nuova posizione
                                 pdict = {}
                                 pdict.update({'lon': packet['decoded']['position']['longitude']})

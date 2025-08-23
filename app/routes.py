@@ -46,12 +46,21 @@ def showmap():
     if(opzione is not None and oggi is not None and oggi != 'None' and opzione != 'tutti'):
         # siamo in tracking
         nodes = Tracking.getTrack(oggi,opzione)
+        numpos = True
         for node in nodes:
-            folium.Marker([node.lat, node.lon], icon=folium.Icon(color='green'),
+            if(numpos is True):
+                #marker di start
+                folium.Marker([node.lat, node.lon], icon=folium.Icon(color='red'),
+                popup=node.longname + " giorno " + node.data + " ora " + node.ora,
+                tooltip=node.longname).add_to(mappa)
+            else:
+                folium.Marker([node.lat, node.lon], icon=folium.Icon(color='green'),
                 popup=node.longname + " giorno " + node.data + " ora " + node.ora,
                 tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
+            numpos = False
             percorso.append([node.lat,node.lon])
             app.logger.info(f"{opzione}:{percorso}")
+        
         if len(percorso) > 1:
             # Collega i marker con una Polyline blu
             folium.PolyLine(locations=percorso, color="blue", weight=3, opacity=0.6).add_to(mappa)
