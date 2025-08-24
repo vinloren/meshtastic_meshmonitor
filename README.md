@@ -21,6 +21,10 @@ L’obiettivo da raggiungere è quello di poter porre in mappa OpenStreet map la
 
 Questo stesso DB, messo in comune con altra applicazione Python Flask, sarà la base da cui il Server Flask (che vedremo in seguito come capitolo a parte) farà riferimento in sola lettura per pubblicare i dati su una mappa OpenStreet.
 
+Il 24 Agosto, in fase di rifinitura e test dell'insieme Meshtastic_meshmonitor è emersa l'opportunità di integrare il server già attivo at https://vinmqtt.hopto.org fruendo oltre che di broadcast_msg_pyqt5.py anche del nuovo mesh_controller.py permettendo così al suddetto server di fornire informazioni anche sulla parte 433Mhz di chi avesse questi nodi e avesse messo in uso l'approccio attuale anziché broadcast_msg_pyqt5.py. L'aggiornamento del 24 Agosto prevede così questa innovazione.
+
+A riga 337 di mesh_controller.py c'è la chiamata all'invio dati verso https://vinmqtt.hopto.org. Chi non volesse contribuire ad allargare la visuale sulla nostra rete "Lombardia e Canton Ticino" può commentare la riga tranquillamente. Chi non commenta la riga e non ha aperto accesso a internet non avrà comunque nessun danno, tutto funziona ugualmente, solo messaggi nel log diranno che il collegamento non può aver luogo.
+
 ## Descrizione funzionalità
 
 Fra tutti i mesaggi di protocollo ricevuti dal nodo di controllo collegato in seriele vengono elaborati:
@@ -112,6 +116,7 @@ Avendo attivato ambiente virtuale:
 4. pip install flask_migrate
 5. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask ovvero Flask migrate che per il Db presente in questo repositpry è già stato effettuato. Andrà ripetuto qualora si aggiungessere tabelle o si modificasse una presente. Il processo di Flask migrate si attua eseguendo in sequenza flask db init, flask db update, flask db upgrade.
 6. pip install folium a supporto del display delle mappe
+7. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
 
 ### Esecuzione
 

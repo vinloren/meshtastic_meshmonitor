@@ -8,6 +8,42 @@ import datetime
 import sys,math
 import queue
 import sqlite3 as dba
+import requests
+
+class send_node():
+    # Invia la richiesta POST
+    def manda_nodo(self,datas):
+        url = "https://vinmqtt.hopto.org/add_node"
+
+        nodo = {}
+        nodo['date']    = datas[0]
+        nodo['ora']     = datas[1]
+        nodo['lat']     = datas[2]
+        nodo['lon']     = datas[3]
+        nodo['alt']     = datas[4]
+        nodo['nome']    = datas[5]
+        nodo['node_id'] = datas[10]
+        print(f"Nodo= {nodo}")
+        response = requests.post(url, json=nodo,verify=False)
+        # Controlla la risposta
+        if response.status_code == 200:
+            print("Richiesta inviata con successo!")
+            print("Risposta del server:", response.json())  # Se la risposta è in formato JSON
+        else:
+            print(f"Errore nella richiesta: {response.status_code}")
+            print("Dettagli errore:", response.text)
+    
+    def checkNodo(self,nodnum):
+        print("Tento invio dati a server globale")
+        datas = calldb.getCoord(nodnum)
+        if(datas[5] is not None):
+            try:
+                self.manda_nodo(datas)
+            except Exception as e:
+                print("Errore in callFlask: ",e)
+        else:
+            print("Invio dati non fatto per assenza longname.")
+
 
 class meshInterface(Thread):
     def __init__(self, port=None, data_queue=None):
@@ -78,16 +114,15 @@ class callDB():
             print(f"errore insert: {query}")
         cur.close()
         conn.close()
-        
 
     # ottieni coordinate gps di nodenum richiesto
     def getCoord(self,nodenum):
-        qr = "select lat,lon,longname,batt,temperat,pressione,umidita,node_id from meshnodes where nodenum = "+str(nodenum)
+        qr = "select data,ora,lat,lon,alt,longname,batt,temperat,pressione,umidita,node_id from meshnodes where nodenum = "+str(nodenum)
         conn = dba.connect(self.Db)
         cur  = conn.cursor()
         rows = cur.execute(qr)
-        datas = rows.fetchall()
-        print(f"coords={datas}")
+        datas = rows.fetchone()
+        #print(f"Attributi Nodo: {datas}")
         cur.close()
         conn.close()
         return datas
@@ -173,6 +208,7 @@ if __name__ == "__main__":
     lancio.start()
 
     calldb = callDB()
+    sendNode = send_node()
 
     print("🟢 Inizio elaborazione principale")
 
@@ -235,7 +271,7 @@ if __name__ == "__main__":
                     coord1 = None
                     try:  
                         result = calldb.getCoord(from_)
-                        coord1 = [float(result[0][0]),float(result[0][1])]
+                        coord1 = [float(result[2]),float(result[3])] # indici lat lon in result
                     except:
                         print("Assenza coordinate gps precedenti")
                     if('longitude' in  packet['decoded']['position'] and 'latitude' in  packet['decoded']['position']):
@@ -271,12 +307,13 @@ if __name__ == "__main__":
                                     pdict.update({'alt': packet['decoded']['position']['altitude']})
                                     pdict.update({'chiave': from_})
                                     pdict.update({'node_id': node_id})
-                                    calldb.execInsUpdtDB(pdict)
+                                    #calldb.execInsUpdtDB(pdict)
                                 else:
                                     pdict.update({'alt': 0})
                                     pdict.update({'chiave': from_})
                                     pdict.update({'node_id': node_id})
-                                    calldb.execInsUpdtDB(pdict)
+                                    #calldb.execInsUpdtDB(pdict)
+                                calldb.execInsUpdtDB(pdict)
                             else:
                                 # aggiorna solo data ora
                                 pdict = {}
@@ -295,6 +332,10 @@ if __name__ == "__main__":
                             else:
                                 pdict.update({'alt': 0})
                             calldb.execInsUpdtDB(pdict)
+                        #vai a leggere record di from_ in meshnodes e se longname,node_id,lat,lon,alt, presenti
+                        #invia dati a server vinmqtt.hopto.org
+                        sendNode.checkNodo(from_)
+
 
                 if('rxSnr' in packet):
                     #updateSnr(from_,str(packet['rxSnr']))
