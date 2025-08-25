@@ -290,12 +290,13 @@ if __name__ == "__main__":
                                     pdict.update({'alt': packet['decoded']['position']['altitude']})
                                 else:
                                     pdict.update({'alt': '0'})
-                                pdict.update({'longname': result[0][2]}) 
-                                pdict.update({'batt': result[0][3]})
-                                pdict.update({'temperat': result[0][4]})
-                                pdict.update({'pressione': result[0][5]})
-                                pdict.update({'umidita': result[0][6]})
-                                pdict.update({'node_id': result[0][7]})
+                                    #data,ora,lat,lon,alt,longname,batt,temperat,pressione,umidita,node_id 
+                                pdict.update({'longname': result[5]}) 
+                                pdict.update({'batt': result[6]})
+                                pdict.update({'temperat': result[7]})
+                                pdict.update({'pressione': result[8]})
+                                pdict.update({'umidita': result[9]})
+                                pdict.update({'node_id': result[10]})
                                 if(pdict['longname'] is not None):
                                     calldb.insertTracking(pdict)
                                 #inserito tracking aggiorna meshnodes con nuova posizione
