@@ -117,7 +117,12 @@ class Tracking(db.Model):
 
 
     def get_nodi():
-        nodi = db.session.query(Tracking.longname,Tracking.node_id).distinct().order_by(Tracking.longname.asc()).all()
+        nodes = db.session.query(Tracking.longname,Tracking.node_id).distinct().order_by(Tracking.longname.asc()).all()
+        nodi = []
+        for nodo in nodes:
+            if Modes.getMode(nodo[1]):
+                nodi.append(nodo[0])
+                print(nodi)
         return nodi
 
     def getTrack(data,nome):

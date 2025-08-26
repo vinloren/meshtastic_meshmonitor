@@ -69,7 +69,7 @@ def altermodes():
 @app.route("/listanodi")
 def listanodi():
     nodi = Tracking.get_nodi()   
-    nodi = [nodo[0] for nodo in nodi]
+    #nodi = [nodo[0] for nodo in nodi]
     return render_template('index.html', nodi=nodi) 
 
 @app.route('/about', methods=['GET'])
