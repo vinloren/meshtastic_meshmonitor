@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h4>Scelta mappa 'last seen' o tracking nodo mobile</h4>
 <p align=justify>
-I nodi vengono mostrati in mappa con colori diversi in base alle loro caratteristiche: quelli in 
-rete 433Mhz hanno marker verde, quelli in rete 868Mhz in rosso se appartenenti a iscritti al gruppo 
-Whatsapp "Rete Lora Lombardia e Ticino", in blu se appartenenti a non iscritti in Canton Ticino.
-</p>
+I nodi vengono mostrati in mappa con colori diversi in base alle loro caratteristiche e se appartenenti
+omeno a iscritti al gruppo Whatsapp "Rete Lora Lombardia e Ticino".
 <hr>
 <p align=justify>
 La data di riferimeto e la scelta di un singolo nodo attengono al tracking ovvero mostrare 
@@ -14,7 +13,7 @@ e giorno di tracking = None verrà mostrata la mappa immagine istantanea della p
 che siano, se invece si sceglie un nodo singolo questo appartiene al novero dei nodi mobili 
 e quindi verrà mostrato il tracciamento del percorso fatto o in itinere a partire dal giorno.
 </p>
-<hr>
+
 Tracking a partire da giorno<br>
 <form action="{{ url_for('showmap') }}" method="post">
     <div class="mb-3">

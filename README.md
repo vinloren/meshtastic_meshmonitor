@@ -143,3 +143,7 @@ debug mode. Se si mette il server in connessione con un dynamic DNS vi si potrà
 Altra nota importante qualora si volesse far accedere al server dall'esterno anziché da localhost riguarda il lancio stesso che se fatto come indicato sopra vincola accesso solo
 da localhost. Occorre allora eseguire python run.py dove in run.py ci sono le direttive per permettere accesso universale.
 
+Il 26 Agosto 2025 inserito nuova funzionalità sul server che è qualle di permettere inserimento e
+aggiornamento nodi in tabella modes in modo da permettere agevole autorizzazione ad essere visti
+in mappa secondo criteri di banda e di appartenenza al gruppo WA 'Lora Lombardia e Ticino' 
+

@@ -16,7 +16,57 @@ from folium import Element
 @app.route('/index')
 def index():
     return redirect (url_for('listanodi'))
-    #return render_template('index.html')
+
+@app.route("/abilita")
+def abilita():
+    #richiedi attributi e node_id da abilitare
+    return render_template('includi_nodo.html')
+
+@app.route("/altermodes", methods = ['Post'])
+def altermodes():
+    #abilitata nodo con suoi attributi in modes.py
+    freq = request.form.get('freqsel')
+    iscritto = request.form.get('iscritto')
+    node_id = request.form.get('node_id')
+    params = {}
+    params.update({'freq': freq})
+    params.update({'iscritto': iscritto})
+    params.update({'node_id': node_id})
+    #print(params['node_id'])
+    nome = ""
+    mode = ""
+    result = Meshnodes.selNodo(params['node_id'])
+    values = {}
+    if result:
+        nomen = result[0][1]
+        nome = nomen
+        values.update({'freq': freq})
+        if(freq==433):
+            values.update({'mode': 'LONG_FAST'})    #per colore verde
+            mode = 'LONG_FAST'
+        elif(params['iscritto']=='si'):
+            values.update({'mode': 'LONG_SLOW'})    #per colore rosso
+            mode = 'LONG_SLOW'
+        else:
+            values.update({'mode': 'MEDIUM_FAST'})  #per colore blu
+            mode = 'MEDIUM_FAST'
+        values.update({'nome': nomen})
+        values.update({'node_id': params['node_id']})
+        #print(f"Attributi: {values}")
+        result = Modes.getMode(params['node_id'])
+        if result:
+            #return (f"Nodo gia presente in modes: {result[1]}")
+            if Modes.update_mode(values['node_id'],values['nome'],int(values['freq']),values['mode']):
+                flash(f"nodo aggiornato in modes: {values}")
+                return redirect (url_for('abilita'))
+        else:
+            Modes.insert_mode(params['node_id'],nome,int(freq),mode)
+            flash(f"nodo inserito in modes: {values}")
+            return redirect (url_for('abilita'))
+       
+    else:
+        flash("Nodo non presente in meshnodes")
+        return redirect (url_for('abilita'))
 
 @app.route("/listanodi")
 def listanodi():

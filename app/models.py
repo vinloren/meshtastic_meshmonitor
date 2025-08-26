@@ -17,6 +17,41 @@ class Modes(db.Model):
         modi = db.session.query(Modes.freq, Modes.mode).filter(Modes.node_id == nodeid).limit(1).first()
         return modi
 
+    @staticmethod
+    def insert_mode(node_id: str, nome: str, freq: int, mode: str):
+        try:
+            new_mode = Modes(
+                node_id=node_id,
+                nome=nome,
+                freq=freq,
+                mode=mode
+            )
+            db.session.add(new_mode)
+            db.session.commit()
+            return True
+        except Exception as e:
+            db.session.rollback()
+            print(f"Errore durante l'inserimento: {e}")
+            return False
+
+    @staticmethod
+    def update_mode(node_id: str, nome: str, freq: int, mode: str):
+        try:
+            mode_entry = db.session.query(Modes).filter_by(node_id=node_id).first()
+            if mode_entry:
+                mode_entry.nome = nome
+                mode_entry.freq = freq
+                mode_entry.mode = mode
+                db.session.commit()
+                return True
+            else:
+                print(f"Nessuna entry trovata con node_id {node_id}")
+                return False
+        except Exception as e:
+            db.session.rollback()
+            print(f"Errore durante l'aggiornamento: {e}")
+            return False
+
     def __repr__(self):
         return f"<Modes node_id={self.node_id}>"
 
@@ -39,6 +74,10 @@ class Meshnodes(db.Model):
     temperat: so.Mapped[float] = so.mapped_column(sa.Float)
     umidita: so.Mapped[float] = so.mapped_column(sa.Float)
 
+    def selNodo(node_id):
+        target = db.session.query(Meshnodes.node_id,Meshnodes.longname).filter(
+            Meshnodes.node_id == node_id).all()
+        return target
     
     def chiamaNodi():
         nodi_validi = db.session.query(Meshnodes).filter(

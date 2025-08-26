@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Abilita nodo in tabella modes</h3>
+<p align=justify>Qui puoi configurare in tabella modes il nodo riferito dal node_id che hai scelto
+    di poter mostrare in mappa con le caratteristiche di frequenza (868 o 433) e appartenenza a utente 
+    del gruppo WA 'Lombardia e Canton Ticino' o meno.
+</p>
+<hr>
+<p align=justify>La tabella modes contiene i riferimenti ai nodi legittimati ad essere mostrati in mappa
+    i cui marker assumeranno il colore verde se appartenenti a banda 433Mhz. Se invece appartengono a
+    banda 868Mhz avranno marker rosso se il proprietario del nodo è iscritto al gruppo WA sopra detto
+    ovvero il marker sarà in blu altrimenti. I marker in blu saranno prevalentemente riferiti a nodi locati
+    in Canton Ticino oppure a nodi di particolare interesse a discrezione.
+</p>
+<hr>
+<form action="{{ url_for('altermodes') }}" method="post">
+    
+    <div class="mb-3">
+    <input type="radio" id="freq868" name="freqsel" value="868" checked>
+    <label for="868">Freq 868</label>&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="freq433" name="freqsel" value="433">
+    <label for="433">Freq 433</label>
+    <br>
+    <input type="radio" id="si" name="iscritto" value="si" checked>
+    <label for="Scegli1">Proprietario in groppo WA</label>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="no" name="iscritto" value="no">
+    <label for="Scegli2">Proprietario esterno</label>
+    <br><br>
+    <label for="node_id">Node_id di riferimento:</label>
+    <input type="text" id="node_id" name="node_id" style="width: 110px;"required>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
+    
+{% endblock %}

@@ -12,9 +12,9 @@ basedir = basedir.replace('\\','/')
 basedir = basedir.replace('/app/','/')
 basedir = 'sqlite:///' + basedir
 app.config['SQLALCHEMY_DATABASE_URI'] = basedir
-print(basedir)
-#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///D:/meshtastic_meshmonitor/app.db"
-#app.config["SQLALCHEMY_ECHO"] = True
+app.config['SESSION_TYPE'] = 'memcached'
+app.config['SECRET_KEY'] = 'super secret key'
+#print(basedir)
 db.init_app(app)
 migrate = Migrate(app, db)
 
