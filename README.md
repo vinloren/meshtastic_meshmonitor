@@ -32,8 +32,16 @@ Fra tutti i mesaggi di protocollo ricevuti dal nodo di controllo collegato in se
 1. NODEINFO
 2. POSITION
 3. TELEMETRY
+4. TEXT_APP
 
-Che insieme a DATA e ORA vanno a riempire / aggiornare la tabella "meshnodes" nel Db app.db residente nella stessa directoty che ospita l'applicazione.
+Che insieme a DATA e ORA, a parte TEXT_APP, vanno a riempire / aggiornare la tabella "meshnodes" nel Db app.db residente nella stessa directoty che ospita l'applicazione.
+
+### Risposta automatica a qsl?
+
+I messaggi testuali ricevuti sotto TEXT_APP vengono controllati nel contenuto e se questo 
+contiene qsl? o QSL? o qsl? scritto in qualunque forma allora mesh_monitor provvede a inviare
+una risposta automatica sul canale 0. In questo modo si aiuta che fa prove di accesso che vede 
+il suo messaggio passare senza chiedere aiuto a nessuno.
 
 I record sono registrati in tabella avendo come chuave primaria non duplicabile 'nodenum' che è l'identificatico del nodo sorgente del messaggio in arrivo. Da 'nodenum', che è l'esprssione in numero intero del MAC del nodo, si ricava 'node_id' senza cercarlo nel corpo del messaggio (anche perché spesso assente) semplicemente traducendolo in espressione esadecimale per poi apporvi in testa un punto esclamativo.
 

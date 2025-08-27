@@ -46,9 +46,10 @@ class send_node():
 
 
 class meshInterface(Thread):
-    def __init__(self, port=None, data_queue=None):
+    def __init__(self, port=None, data_queue=None, MyName=None):
         super().__init__()
         self.port = port
+        self.MyName = MyName
         self.interface = None
         self.data_queue = data_queue
         self.stop_event = Event()  # ➕ Flag per fermare il thread
@@ -63,6 +64,12 @@ class meshInterface(Thread):
             print(f"Unexpected {err=}, {type(err)=}")
             print("Time out in attesa meshtastic.SerialInterface")
             return False
+
+    def sendImmediate(self,msg):
+        currTime = datetime.datetime.now().strftime("%H:%M:%S")
+        msg = currTime+" "+ msg
+        self.interface.sendText(msg)
+        print("Messaggio mandato su CH0: " + msg)
 
     def run(self):
         print("meshInterface started..")
@@ -194,8 +201,13 @@ class callDB():
 
 # MAIN
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         port = sys.argv[1]
+        MyName = sys.argv[2]
+        print(f"Mio nome: {MyName} port: {port}")
+    elif len(sys.argv) > 1:
+        port = sys.argv[1]
+        MyName = "Mesh_controller"
     else:
         port = None
         print("⚠️ Nessuna porta specificata. Uso default (None).")
@@ -204,7 +216,7 @@ if __name__ == "__main__":
     data_queue = queue.Queue()
 
     # Avvio thread
-    lancio = meshInterface(port=port, data_queue=data_queue)
+    lancio = meshInterface(port=port, data_queue=data_queue, MyName=MyName)
     lancio.start()
 
     calldb = callDB()
@@ -400,6 +412,28 @@ if __name__ == "__main__":
                         except:
                             testo = datetime.datetime.now().strftime("%d/%m/%y %T")+" Dati sporchi in packet[decoded]telemetry]"
                             print(testo)
+
+            elif (packet['decoded']['portnum'] == 'TEXT_MESSAGE_APP'):
+                tipmsg = 'TEXT_MESSAGE_APP'
+                #data,ora,lat,lon,alt,longname,batt,temperat,pressione,umidita,node_id
+                datas = calldb.getCoord(from_)
+                if datas[5]:
+                    msgda = datas[5]
+                    snr = packet['rxSnr']
+                    rssi = packet['rxRssi']
+                    try:
+                        testo = datetime.datetime.now().strftime("%d/%m/%y %T") + \
+                            " "+packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" de "+msgda
+                        #self.ricevuti.append(testo) 
+                        if('QSL?' in testo.upper()):
+                            print(lancio.MyName)
+                            rmsg = "RX qsl da "+lancio.MyName+" a: "
+                            rmsg = rmsg + packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" da "+msgda
+                            rmsg = rmsg.replace('?',' ')  #replace ? with ' ' to avoid mesh flooding if 2+ broadcast_msg_pyq5 running in mesh
+                            lancio.sendImmediate(rmsg)
+                    except:
+                        testo = datetime.datetime.now().strftime("%d/%m/%y %T")+" "+msgda+" Dati sporchi in packet[decoded][text]"
+                        print(testo)
 
     try:
         while True:
