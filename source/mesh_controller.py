@@ -417,6 +417,8 @@ if __name__ == "__main__":
                 tipmsg = 'TEXT_MESSAGE_APP'
                 #data,ora,lat,lon,alt,longname,batt,temperat,pressione,umidita,node_id
                 datas = calldb.getCoord(from_)
+                if not datas:
+                    return
                 if datas[5]:
                     msgda = datas[5]
                     snr = packet['rxSnr']
