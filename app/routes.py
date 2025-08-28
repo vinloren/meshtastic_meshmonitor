@@ -202,7 +202,8 @@ def showmap():
         #print(f"Latitude: {node.lat}")
         #print(f"Longitude: {node.lon}")
         #print(f"Quota: {node.alt}")
-
+        if not isinstance(node.lat,float):
+            continue
         if opzione == "tutti":
             if caract['freq'] == 433:
                 folium.Marker([node.lat, node.lon], icon=folium.Icon(color='green'),
