@@ -4,8 +4,9 @@ from app import app,db
 from app.models import Meshnodes
 from app.models import Modes
 from app.models import Tracking
+from app.models import Messaggi
 from urllib.parse import urlsplit
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 
 #from datetime import datetime
 import folium, json, time, os
@@ -16,6 +17,21 @@ from folium import Element
 @app.route('/index')
 def index():
     return redirect (url_for('listanodi'))
+
+@app.route("/messaggi")
+def messaggi():
+    messaggi_testo = session.pop('messaggi', '')  # Rimuove dalla sessione dopo averlo letto
+    return render_template('messaggi.html', messaggi=messaggi_testo)
+
+@app.route("/getmsgs", methods = ['Post'])
+def getmsgs():
+    result = Messaggi.getMsgs() 
+    try:
+        righe = [str(r.ora)+" "+str(r.msg) for r in result] 
+    except AttributeError:
+        righe = [str(r) for r in result]  # Fallback: conversione generica a stringa
+    session['messaggi'] = '\n'.join(righe)
+    return redirect(url_for('messaggi'))
 
 @app.route("/abilita")
 def abilita():

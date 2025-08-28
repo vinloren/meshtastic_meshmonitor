@@ -38,10 +38,8 @@ Che insieme a DATA e ORA, a parte TEXT_APP, vanno a riempire / aggiornare la tab
 
 ### Risposta automatica a qsl?
 
-I messaggi testuali ricevuti sotto TEXT_APP vengono controllati nel contenuto e se questo 
-contiene qsl? o QSL? o qsl? scritto in qualunque forma allora mesh_monitor provvede a inviare
-una risposta automatica sul canale 0. In questo modo si aiuta che fa prove di accesso che vede 
-il suo messaggio passare senza chiedere aiuto a nessuno.
+I messaggi testuali ricevuti sotto TEXT_APP vengono controllati nel contenuto e se questo
+contiene qsl? o QSL? o qsl? scritto in qualunque forma allora mesh_controller.py provvede a inviare una risposta automatica sul canale 0. In questo modo si aiuta che fa prove di accesso che vede il suo messaggio passare senza chiedere aiuto a nessuno.
 
 I record sono registrati in tabella avendo come chuave primaria non duplicabile 'nodenum' che è l'identificatico del nodo sorgente del messaggio in arrivo. Da 'nodenum', che è l'esprssione in numero intero del MAC del nodo, si ricava 'node_id' senza cercarlo nel corpo del messaggio (anche perché spesso assente) semplicemente traducendolo in espressione esadecimale per poi apporvi in testa un punto esclamativo.
 
@@ -101,9 +99,19 @@ una volta trovata la seriale connessa lanciare python mesh_controller.py /dev/tt
 
 ## Stato dello sviluppo del progetto
 
-Alla data di oggi 16 Agosto 2025 mesh_controller.py è funzionante e pronto ad essere utilizzato in campo. Già ora semplicemente utilizzando indifferentemente su Win10/11 o su Linux DBbrowser for Sqlite (scaricabile gratuitamente per Windows e installabile via apt-get install su Linux) si può avere contezza di come gira il fumo rinfrescano la visione delle tabelle su menzionate attraverso di esso.
+Alla data di oggi 28 Agosto 2025 abbiamo:
 
-Riferimenti al Server Flask che sto allestendo riguardo al progetto Meshtastic_meshmonitor qui accennato li darò via via che lo sviluppo procede.
+1. mesh_controller.py integrato con invio dati a server globale https://vinmqtt.hopto.org 
+ad ogni messaggio di POSITION ricevuto.
+2. mesh_controller.py ora gestisce anche TEXT_MESSAGE_APP nel senso che acqusisce i messaggi di testo ricevuti su ch0 salvandoli in tabella messaggi del Db per poter essere visualizzati su richiesta dal server flask di questo progetto.
+3. mesh_controller.py ora provvede a dare risposta automatica di ricezione ai messaggi testuali che contengono al loro interno la richiesta di qsl?
+4. il server ora permette l'inserimeto e l'aggiornamento dei nodi autorizzati ad apparire in mappa attraverso una pagina dedicata allo scopo.
+5. il server prevede il tracciamento dei nodi mobili attraverso una richiesta specifica basata su data e nome del nodo che appare già in lista alla pagina Home.
+6. il server ora permette la visualizzazione del log messaggi ricevuti su ch0 in una pagina dedicata elencati in una textarea in ordine cronologico per il giorno corrente.
+
+### Prossimo sviluppo
+
+Aggiungere l'invio di messaggi su ch0
 
 ## Struttura del Server
 
@@ -122,7 +130,7 @@ Avendo attivato ambiente virtuale:
 2. pip install python-dotenv nota: se si ha errore di interpretazione file al lancio di flask run usare notepad++ per leggere .flaslenv e riscriverlo in formato utf-8 (default è utf-16 non supportato da python)
 3. pip install flask_sqlalchemy
 4. pip install flask_migrate
-5. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask ovvero Flask migrate che per il Db presente in questo repositpry è già stato effettuato. Andrà ripetuto qualora si aggiungessere tabelle o si modificasse una presente. Il processo di Flask migrate si attua eseguendo in sequenza flask db init, flask db update, flask db upgrade.
+5. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask ovvero Flask migrate che per il Db presente in questo repositpry è già stato effettuato. Andrà ripetuto qualora si aggiungessere tabelle o si modificasse una presente. Il processo di Flask migrate si attua eseguendo in sequenza flask db init, flask db migrate, flask db upgrade.
 6. pip install folium a supporto del display delle mappe
 7. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
 
@@ -136,9 +144,7 @@ Occorre aprire due terminali, uno per meh_controller.py, l'atro per il server.
 4. eseguire 'flask run' (senza apici) per far partire il server
 5. Si apra un browser e si batta lo url 'localhost:5000/showmap' (senza apici) per vedere la mappa attuale in real time
 
-Allo stato attuale di sviluppo è attiva solo showmap della rete Brianza Bergamasca e Pavese a livello foto istantanea da aggiornare con reload della pagina di tanto in tanto. Funzioni più elaborate e selezioni specifiche saranno aggiunte via via.
-
-Se dovessero essere inseriti nuovi nodi di iscritti alla rete questi vanno aggiunti in tabella Modes usando DBBrowser for Sqlite strumento indispensabile sia su Windows che su Linux. Leggendo la tabella è intuitivo capire come i nuovi record vanno aggiunti, il colore dei marker è determinato dal campo 'mode' e per ragioni storiche che non sto qui a spiegare per avere il blu mode = MEDIUM_FAST, per il verde LONG_FAST e freq = 433, per il rosso freq = 868 e mode = LONG_SLOW. anche se sappiamo che anche qui lavoriamo in MEDIUM_FAST. Ci sono ragioni storiche come accennato prima e lascio tutto così anche se in apparenza questi dati sembrano fuorvianti.
+Se dovessero essere inseriti nuovi nodi di iscritti alla rete questi vanno aggiunti in tabella Modes usando il form presente alla pagina Abilita_nodo che va a modificae la tabella modes. Il colore dei marker è determinato dal campo 'mode' e per ragioni storiche che non sto qui a spiegare per avere il blu mode = MEDIUM_FAST, per il verde LONG_FAST e freq = 433, per il rosso freq = 868 e mode = LONG_SLOW. anche se sappiamo che anche qui lavoriamo in MEDIUM_FAST. Quindi niente paura vedendo in rsposta all'inserimento il campo 'mode' come LONG_SLOW quando sappiamo di lavorare in MEDIUM_FAST, in ealtà LONG_SLOW sta per rischiamere il colore rosso nel marker così come LONG_FAST richiama il verde (433Mhz) e il MEDIUM_FAST il blu, questi indicatori non hanno nessuna attinenza con la modalità reale.
 
 ### Note
 
@@ -155,3 +161,8 @@ Il 26 Agosto 2025 inserito nuova funzionalità sul server che è qualle di perme
 aggiornamento nodi in tabella modes in modo da permettere agevole autorizzazione ad essere visti
 in mappa secondo criteri di banda e di appartenenza al gruppo WA 'Lora Lombardia e Ticino' 
 
+Il 27 Agosto 2025 inserita risposta automatica in mesh_controller.py
+il 28 Agosto 2025 inserita visibilità della lista messaggi text ricevuti o trasmessi su ch0
+
+### Importante
+Con l'aggiornamento del 28 Agosto è necessario utilizzare il nuovo cloning del repository perchè è necessario utilizzare il nuovo DB che ha modificato la struttura iniziale. Le tabelle originali della propria installazioni possono essere salvate col DB Browser Squlite e poi caricate nel nuovo Db se si vogliono mantenere i propri dati originali. Il Db qui presente contiene la visuale della rete vista dal mio Qth oltre che i messaggi ricevuti il 28 Agosto.

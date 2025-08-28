@@ -36,13 +36,16 @@ class send_node():
     def checkNodo(self,nodnum):
         print("Tento invio dati a server globale")
         datas = calldb.getCoord(nodnum)
-        if(datas[5] is not None):
-            try:
-                self.manda_nodo(datas)
-            except Exception as e:
-                print("Errore in callFlask: ",e)
+        if datas:
+            if(datas[5] is not None):
+                try:
+                    self.manda_nodo(datas)
+                except Exception as e:
+                    print("Errore in callFlask: ",e)
+            else:
+                print("Invio dati non fatto per assenza longname.")
         else:
-            print("Invio dati non fatto per assenza longname.")
+            print("Invio dati non fatto per assenza record in mesh_nodes.")
 
 
 class meshInterface(Thread):
@@ -93,6 +96,29 @@ class meshInterface(Thread):
 
 class callDB(): 
     Db = '../app.db'
+
+    def insertMsg(self,testo):
+        data = datetime.datetime.now().strftime("%y/%m/%d") 
+        ora  = datetime.datetime.now().strftime("%T")    
+        try:
+            conn = dba.connect(self.Db)
+        except dba.Error as er:
+            print('SQLite error: %s' % (' '.join(er.args)))
+            print("Exception class is: ", er.__class__)
+            print("Errore ininsertTrackeing")
+            return
+        testo = testo.replace("'", ' ')
+        qr = "insert into messaggi (data,ora,msg) values('"+data+"','"+ora+"','"+testo+"')"
+        cur = conn.cursor()
+        try:
+            cur.execute(qr)
+            conn.commit()
+        except dba.Error as er:
+            print('SQLite error: %s' % (' '.join(er.args)))
+            print("Exception class is: ", er.__class__)
+            print(f"errore insert: {qr}")
+        cur.close()
+        conn.close()
 
     def insertTracking(self,dati):
         data = datetime.datetime.now().strftime("%y/%m/%d") 
@@ -424,15 +450,17 @@ if __name__ == "__main__":
                     snr = packet['rxSnr']
                     rssi = packet['rxRssi']
                     try:
-                        testo = datetime.datetime.now().strftime("%d/%m/%y %T") + \
-                            " "+packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" de "+msgda
-                        #self.ricevuti.append(testo) 
+                        testo = packet['decoded']['text']+" snr:"+str(snr)+",rssi:"+str(rssi)+" de "+msgda
+                        #inserisci messaggio in app.db
+                        calldb.insertMsg(testo)
+
                         if('QSL?' in testo.upper()):
                             print(lancio.MyName)
                             rmsg = "RX qsl da "+lancio.MyName+" a: "
                             rmsg = rmsg + packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" da "+msgda
                             rmsg = rmsg.replace('?',' ')  #replace ? with ' ' to avoid mesh flooding if 2+ broadcast_msg_pyq5 running in mesh
                             lancio.sendImmediate(rmsg)
+                            calldb.insertMsg(rmsg)
                     except:
                         testo = datetime.datetime.now().strftime("%d/%m/%y %T")+" "+msgda+" Dati sporchi in packet[decoded][text]"
                         print(testo)

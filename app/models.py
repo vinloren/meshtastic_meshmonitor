@@ -129,6 +129,20 @@ class Tracking(db.Model):
         nodi = db.session.query(Tracking).filter(Tracking.data >= data,Tracking.longname==nome).order_by(Tracking.data.asc(),Tracking.ora.asc()).all()
         return nodi
 
-
     def __repr__(self):
         return '<Tracking {}>'
+
+class Messaggi(db.Model):
+    _id: so.Mapped[int] = so.mapped_column(sa.Integer,primary_key=True)
+    data: so.Mapped[str] = so.mapped_column(sa.String(8))
+    ora: so.Mapped[str] = so.mapped_column(sa.String(8))
+    msg: so.Mapped[str] = so.mapped_column(sa.String(200))
+
+    def getMsgs():
+        oggi = datetime.now().strftime("%y/%m/%d")
+        messg = db.session.query(Messaggi.ora,Messaggi.msg).filter(Messaggi.data == oggi).all()
+        return messg
+
+    def __repr__(self):
+        return '<Messaggi {}>'
+

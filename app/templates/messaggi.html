@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+textarea {
+  font-size: 12px;
+}
+</style>
+
+<h3>Mostra messaggi ricevuti e trasmessi su ch0</h3>
+<p align=justify>Qui puoi vedere i messaggi di testo ricevuti e trasmessi in data odierna su ch0.
+    Per vedere via via il procedere dei messaggi premi il tasto 'LEGGI'.
+</p>
+<hr>
+<form action="{{ url_for('getmsgs') }}" method="post">
+    <textarea id="messaggi" name="messaggi" rows="19" cols="93">{{ messaggi }}
+    </textarea>
+    <br>
+    <button type="submit" class="btn btn-primary" >LEGGI</button>
+</form>
+    
+{% endblock %}
