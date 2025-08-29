@@ -12,10 +12,15 @@ textarea {
 </p>
 <hr>
 <form action="{{ url_for('getmsgs') }}" method="post">
-    <textarea id="messaggi" name="messaggi" rows="19" cols="93">{{ messaggi }}
+    <textarea id="messaggi" name="messaggi" rows="15" cols="93">{{ messaggi }}
     </textarea>
     <br>
     <button type="submit" class="btn btn-primary" >LEGGI</button>
 </form>
-    
+<hr>
+<form action="{{ url_for('sendmsg') }}" method="post">
+    <label for="testo">testo:</label>
+    <input type="text" id="testo" name="testo" style="width: 461px;" required>
+    <button type="submit" class="btn btn-primary" >INVIA</button>
+</form>
 {% endblock %}

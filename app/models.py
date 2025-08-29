@@ -133,16 +133,39 @@ class Tracking(db.Model):
         return '<Tracking {}>'
 
 class Messaggi(db.Model):
+
     _id: so.Mapped[int] = so.mapped_column(sa.Integer,primary_key=True)
     data: so.Mapped[str] = so.mapped_column(sa.String(8))
     ora: so.Mapped[str] = so.mapped_column(sa.String(8))
     msg: so.Mapped[str] = so.mapped_column(sa.String(200))
 
-    def getMsgs():
+    # @classmethod: è meglio usare questo decoratore perché getMsgs() non ha bisogno 
+    # di un'istanza (self) ma agisce sull'intera tabella.
+    @classmethod
+    def getMsgs(cls):
         oggi = datetime.now().strftime("%y/%m/%d")
-        messg = db.session.query(Messaggi.ora,Messaggi.msg).filter(Messaggi.data == oggi).all()
+        db.session.query(cls).filter(cls.data < oggi).delete()
+        db.session.commit()
+        messg = db.session.query(cls.ora,cls.msg).filter(cls.data == oggi).all()
         return messg
 
-    def __repr__(self):
-        return '<Messaggi {}>'
+    @classmethod
+    def sendMsg(cls, testo):
+        try:
+            now = datetime.now()
+            nuovo_messaggio = cls(
+                data=now.strftime("%y/%m/%d"),
+                ora=now.strftime("%H:%M:%S"),
+                msg='^' + testo
+            )
+            db.session.add(nuovo_messaggio)
+            db.session.commit()
+            return True
+        except Exception as e:
+            print(f"Errore in sendMsg: {e}")
+            db.session.rollback()
+            return False
 
+    def __repr__(self):
+        return f'<Messaggi {self.data} {self.ora}: {self.msg}>'
+   

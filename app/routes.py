@@ -33,8 +33,16 @@ def getmsgs():
     session['messaggi'] = '\n'.join(righe)
     return redirect(url_for('messaggi'))
 
+@app.route("/sendmsg", methods = ['Post'])
+def sendmsg():
+    text = request.form.get('testo')
+    if Messaggi.sendMsg(text):
+        return redirect(url_for('messaggi'))
+    else:
+        return(flash("Invio messaggio fallito"))
+
 @app.route("/abilita")
-def abilita():
+def abilita(): 
     #richiedi attributi e node_id da abilitare
     return render_template('includi_nodo.html')
 

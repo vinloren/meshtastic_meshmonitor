@@ -36,14 +36,9 @@ Fra tutti i mesaggi di protocollo ricevuti dal nodo di controllo collegato in se
 
 Che insieme a DATA e ORA, a parte TEXT_APP, vanno a riempire / aggiornare la tabella "meshnodes" nel Db app.db residente nella stessa directoty che ospita l'applicazione.
 
-### Risposta automatica a qsl?
+I record sono registrati in tabella avendo come chiave primaria non duplicabile 'nodenum' che è l'identificatico del nodo sorgente del messaggio in arrivo. Da 'nodenum', che è l'esprssione in numero intero del MAC del nodo, si ricava 'node_id' senza cercarlo nel corpo del messaggio (anche perché spesso assente) semplicemente traducendolo in espressione esadecimale per poi apporvi in testa un punto esclamativo.
 
-I messaggi testuali ricevuti sotto TEXT_APP vengono controllati nel contenuto e se questo
-contiene qsl? o QSL? o qsl? scritto in qualunque forma allora mesh_controller.py provvede a inviare una risposta automatica sul canale 0. In questo modo si aiuta che fa prove di accesso che vede il suo messaggio passare senza chiedere aiuto a nessuno.
-
-I record sono registrati in tabella avendo come chuave primaria non duplicabile 'nodenum' che è l'identificatico del nodo sorgente del messaggio in arrivo. Da 'nodenum', che è l'esprssione in numero intero del MAC del nodo, si ricava 'node_id' senza cercarlo nel corpo del messaggio (anche perché spesso assente) semplicemente traducendolo in espressione esadecimale per poi apporvi in testa un punto esclamativo.
-
-L'aggiornamento della tabella "meshnodes" ha luogo pr ciascun singolo messaggio di tipo 1. 2. o 3. Infine in tabella avremo le caratteristiche di ciascun nodo visto in rete con data e ora dell'ulima comparsa. Più in dettaglio abbiamo:
+L'aggiornamento della tabella "meshnodes" ha luogo per ciascun singolo messaggio di tipo 1. 2. o 3. Infine in tabella avremo le caratteristiche di ciascun nodo visto in rete con data e ora dell'ulima comparsa. Più in dettaglio abbiamo:
 
  CREATE TABLE "meshnodes" (
  "data" TEXT,
@@ -61,9 +56,26 @@ L'aggiornamento della tabella "meshnodes" ha luogo pr ciascun singolo messaggio 
  "umidita" REAL
  )
 
-    Elementi questi sufficienti e necessari a qualificare il nodo in tutti li aspetti che lo caratterizzano, rappresentabili poi su una mappa geografica tramite ulteriore risorsa che va ad accedere al Db app.db in lettura. Verosimilmente quasta risorsa sarà costituita da un Server accessibile da internet, come nel caso del Python Flask Server che andrò a costruire sullo stile semplificato del già attivo vinmqtt.hopto.org (non fatevi ingannare dal nome, non sitratta di mqtt ma di https, il nome è rimasto quello che anni or sono identivicava davvero mqtt).
+Elementi questi sufficienti e necessari a qualificare il nodo in tutti li aspetti che lo caratterizzano, rappresentabili poi su una mappa geografica tramite ulteriore risorsa che va ad accedere al Db app.db in lettura. Verosimilmente quasta risorsa sarà costituita da un Server accessibile da internet, come nel caso del Python Flask Server che andrò a costruire sullo stile semplificato del già attivo vinmqtt.hopto.org (non fatevi ingannare dal nome, non sitratta di mqtt ma di https, il nome è rimasto quello che anni or sono identivicava davvero mqtt).
 
-    In mappa (OpenStreetMap) avremo quindi la posizione dei nodi in tempo reale così come sono posizionati, fissi o mobili che siano, in stile foto istantanea. Se vogliamo anche identificare i percorsi seguiti nel tempo da nodi mobili dobbiamo allora fare affidamento a una tabella aggiuntiva (che chiamiamo 'tracking') e ad un'elaborazione ulteriore in mesh_controller.py
+In mappa (OpenStreetMap) avremo quindi la posizione dei nodi in tempo reale così come sono posizionati, fissi o mobili che siano, in stile foto istantanea. Se vogliamo anche identificare i percorsi seguiti nel tempo da nodi mobili dobbiamo allora fare affidamento a una tabella aggiuntiva (che chiamiamo 'tracking') e ad un'elaborazione ulteriore in mesh_controller.py
+
+### Risposta automatica a qsl?
+
+I messaggi testuali ricevuti sotto TEXT_APP vengono controllati nel contenuto e se questo
+contiene qsl? o QSL? o qsl? scritto in qualunque forma allora mesh_controller.py provvede a inviare una risposta automatica sul canale 0. In questo modo si aiuta che fa prove di accesso che vede il suo messaggio passare senza chiedere aiuto a nessuno.
+
+### Registrazione messaggi intercosi su ch0
+
+Il Db contiene la tabella 'messaggi' che raccoglie i messaggi intercorsi su ch0 nel corso della
+giornata. Il caricamento dei messaggi intabella avviene da parte di mesh_controller ad ogni
+messaggio testuale ricevuto. Il server poi da parte sua è in grado di accedere a questa tabella
+su richiesta mostrandone il contenuto a video (orario e testo ricevuto). I dati mantenuti in questa tabella riguardano solo il giorno attuale venendo cancellati i dati eventuali di giorni precedenti.
+
+### Invio messaggi su ch0
+
+A questo provvedono il server e mesh_controller insieme. Attraverso il server si invia un messaggio alla tabella 'messaggi' del Db dove al messaggio viene preposto il carattere ^ per
+identificare messaggio che deve essere inviato su cah0. A questo provvede mesh_controller ad ogni ciclo di ricezione di un qualunque messaggio di protocollo ricevuto andando a controllare se l'ultimo messaggio ricevuto contiene ^ nel qual caso esso viene inviato in rete. 
 
 ### Il tracking dei nodi
 
@@ -99,19 +111,16 @@ una volta trovata la seriale connessa lanciare python mesh_controller.py /dev/tt
 
 ## Stato dello sviluppo del progetto
 
-Alla data di oggi 28 Agosto 2025 abbiamo:
+Alla data di oggi 29 Agosto 2025 abbiamo:
 
 1. mesh_controller.py integrato con invio dati a server globale https://vinmqtt.hopto.org 
 ad ogni messaggio di POSITION ricevuto.
 2. mesh_controller.py ora gestisce anche TEXT_MESSAGE_APP nel senso che acqusisce i messaggi di testo ricevuti su ch0 salvandoli in tabella messaggi del Db per poter essere visualizzati su richiesta dal server flask di questo progetto.
 3. mesh_controller.py ora provvede a dare risposta automatica di ricezione ai messaggi testuali che contengono al loro interno la richiesta di qsl?
-4. il server ora permette l'inserimeto e l'aggiornamento dei nodi autorizzati ad apparire in mappa attraverso una pagina dedicata allo scopo.
+4. il server permette l'inserimeto e l'aggiornamento dei nodi autorizzati ad apparire in mappa attraverso una pagina dedicata allo scopo.
 5. il server prevede il tracciamento dei nodi mobili attraverso una richiesta specifica basata su data e nome del nodo che appare già in lista alla pagina Home.
-6. il server ora permette la visualizzazione del log messaggi ricevuti su ch0 in una pagina dedicata elencati in una textarea in ordine cronologico per il giorno corrente.
-
-### Prossimo sviluppo
-
-Aggiungere l'invio di messaggi su ch0
+6. il server permette la visualizzazione del log messaggi ricevuti su ch0 in una pagina dedicata elencati in una textarea in ordine cronologico per il giorno corrente.
+7. il server in associazione con mesh_controller.py permette ora l'invio di messaggi su ch0 attarverso in Db in comune
 
 ## Struttura del Server
 
@@ -163,6 +172,8 @@ in mappa secondo criteri di banda e di appartenenza al gruppo WA 'Lora Lombardia
 
 Il 27 Agosto 2025 inserita risposta automatica in mesh_controller.py
 il 28 Agosto 2025 inserita visibilità della lista messaggi text ricevuti o trasmessi su ch0
+il 29 Agosto 2025 aggiunta possibilità di inveare messaggi su ch0 che appariranno immediatamente 
+nel log messaggi (tabella messaggi in Db)
 
 ### Importante
 Con l'aggiornamento del 28 Agosto è necessario utilizzare il nuovo cloning del repository perchè è necessario utilizzare il nuovo DB che ha modificato la struttura iniziale. Le tabelle originali della propria installazioni possono essere salvate col DB Browser Squlite e poi caricate nel nuovo Db se si vogliono mantenere i propri dati originali. Il Db qui presente contiene la visuale della rete vista dal mio Qth oltre che i messaggi ricevuti il 28 Agosto.
