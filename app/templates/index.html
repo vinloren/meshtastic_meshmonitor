@@ -4,18 +4,21 @@
 <h4>Scelta mappa 'last seen' o tracking nodo mobile</h4>
 <p align=justify>
 I nodi vengono mostrati in mappa con colori diversi in base alle loro caratteristiche e se appartenenti
-omeno a iscritti al gruppo Whatsapp "Rete Lora Lombardia e Ticino".
+o meno a iscritti al gruppo Whatsapp "Rete Lora Lombardia e Ticino".
 <hr>
 <p align=justify>
-La data di riferimeto e la scelta di un singolo nodo attengono al tracking ovvero mostrare 
-in mappa il percorso effettuato dal nodo in quella data. Se in lista nodi si sceglie 'tutti'
-e giorno di tracking = None verrà mostrata la mappa immagine istantanea della posizione attuale dei nodi fissi o mobili 
-che siano, se invece si sceglie un nodo singolo questo appartiene al novero dei nodi mobili 
-e quindi verrà mostrato il tracciamento del percorso fatto o in itinere a partire dal giorno.
+La data di riferimeto e la scelta di un singolo nodo attengono al tracking. Se in lista nodi si 
+sceglie 'tutti' e giorno di tracking = None verrà mostrata la mappa immagine istantanea della 
+posizione attuale dei nodi fissi o mobili che siano, se invece si sceglie un nodo singolo questo appartiene al novero dei nodi mobili 
+e quindi verrà mostrato il tracciamento del percorso secondo opzione tracking.
 </p>
 
-Tracking a partire da giorno<br>
+Tracking<br>
 <form action="{{ url_for('showmap') }}" method="post">
+    <input type="radio" id="da" name="dail" value="da" checked>
+    <label for="Scegli1">a partire da giorno</label>&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="il" name="dail" value="il">
+    <label for="Scegli2">il giorno preciso</label>
     <div class="mb-3">
         <input name="giorno" id="day" type="text" class="form-control" placeholder="Inserisci giorno in formato aa/mm/gg oppure None" required>
     </div>

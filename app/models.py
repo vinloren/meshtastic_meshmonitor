@@ -125,8 +125,11 @@ class Tracking(db.Model):
                 print(nodi)
         return nodi
 
-    def getTrack(data,nome):
-        nodi = db.session.query(Tracking).filter(Tracking.data >= data,Tracking.longname==nome).order_by(Tracking.data.asc(),Tracking.ora.asc()).all()
+    def getTrack(data,nome,dail):
+        if dail == 'da':
+            nodi = db.session.query(Tracking).filter(Tracking.data >= data,Tracking.longname==nome).order_by(Tracking.data.asc(),Tracking.ora.asc()).all()
+        else:
+            nodi = db.session.query(Tracking).filter(Tracking.data == data,Tracking.longname==nome).order_by(Tracking.data.asc(),Tracking.ora.asc()).all()
         return nodi
 
     def __repr__(self):

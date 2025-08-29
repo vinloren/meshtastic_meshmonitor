@@ -104,6 +104,7 @@ def about():
 def showmap():
     oggi = request.form.get("giorno")
     opzione = request.form.get('opzione')
+    da_il = request.form.get('dail')
     print("========")
     print(f"Oggi = {oggi}")
     print(f"opzione = {opzione}")
@@ -118,7 +119,7 @@ def showmap():
     
     if(opzione is not None and oggi is not None and oggi != 'None' and opzione != 'tutti'):
         # siamo in tracking
-        nodes = Tracking.getTrack(oggi,opzione)
+        nodes = Tracking.getTrack(oggi,opzione,da_il)
         numpos = True
         lat = 0.0
         lon = 0.0
@@ -289,8 +290,8 @@ def showmap():
                     popup=node.longname + " giorno " + node.data + " ora " + node.ora,
                     tooltip=node.longname).add_to(mappa) 
             percorso.append([node.lat,node.lon])
-            print(percorso)
-            app.logger.info(f"{opzione}:{percorso}")
+            #print(percorso)
+            #app.logger.info(f"{opzione}:{percorso}")
         print('-' * 40)  # Separator for better readability
     if len(percorso) > 1:
         # Collega i marker con una Polyline blu
