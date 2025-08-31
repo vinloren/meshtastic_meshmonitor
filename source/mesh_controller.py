@@ -224,6 +224,24 @@ class callDB():
         cur.close()
         conn.close()
 
+    def cercaSend(self):
+        # cerca in messaggi ultimo messaggio che inizia con ^
+        qr = "select max(_id) from messaggi"
+        conn = dba.connect(self.Db)
+        cur  = conn.cursor()
+        res = cur.execute(qr)
+        top = res.fetchone()
+        print(f"Max _id: {top[0]}")
+        # ottieni ultimo messaggio in messaggi
+        qr = "select msg from messaggi where _id = '"+str(top[0])+"'"
+        res = cur.execute(qr)
+        msg = res.fetchone()
+        cur.close()
+        conn.close()
+        if msg:
+            return msg[0]
+        else:
+            return '0'
 
 # MAIN
 if __name__ == "__main__":
@@ -464,6 +482,16 @@ if __name__ == "__main__":
                     except:
                         testo = datetime.datetime.now().strftime("%d/%m/%y %T")+" "+msgda+" Dati sporchi in packet[decoded][text]"
                         print(testo)
+            # controlla Db in messaggi per ultimo msg che inizia con ^
+            msg = calldb.cercaSend() # ritorna ultimo messaggio che inizia con ^
+            if msg:
+                # invia messaggio rimuovendo ^
+                if "^" in msg:
+                    msg = msg.replace('^','')
+                    print(f"Invio msg: {msg}")
+                    lancio.sendImmediate(msg)
+                    calldb.insertMsg(msg)
+                 
 
     try:
         while True:
