@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from flask import render_template, flash, redirect, url_for, request, session
 
 #from datetime import datetime
-import folium, json, time, os
+import folium, json, time, os, math
 from folium.plugins import PolyLineTextPath
 from folium import Element
 
@@ -119,6 +119,7 @@ def showmap():
     
     if(opzione is not None and oggi is not None and oggi != 'None' and opzione != 'tutti'):
         # siamo in tracking
+        distanze = []
         nodes = Tracking.getTrack(oggi,opzione,da_il)
         numpos = True
         lat = 0.0
@@ -144,10 +145,18 @@ def showmap():
             day = node.data
             ora = node.ora
             percorso.append([node.lat,node.lon])
-            app.logger.info(f"{opzione}:{percorso}")
-        
+            if not numpos:
+                # calcola distanza fra due punti
+                l = len(percorso)
+                dist = distanze.append(haversine(percorso[l-2],percorso[l-1]))
+            #app.logger.info(f"{opzione}:{percorso}")
+        trip = 0
+        for dist in distanze:
+            trip += dist/1000
+        trip = round(trip,1)
+        app.logger.info(f"Percorsi {trip}Km")
         folium.Marker([lat,lon],icon=folium.Icon(color='darkblue'),
-        popup=longname + " giorno " + day + " ora " + ora,
+        popup=longname + "<br>giorno " + day + "<br>ora " + ora + "<br>percorsi " + str(trip)+"Km",
         tooltip=longname).add_to(mappa)
         
         if len(percorso) > 1:
@@ -330,3 +339,16 @@ def showmap():
     # Renderizziamo la mappa nella pagina
     return render_template('map.html')
 
+#trova distanza fra due punti gps
+def haversine(coord1,coord2):
+    R = 6372800  # Earth radius in meters
+    lat1, lon1 = coord1
+    lat2, lon2 = coord2
+        
+    phi1, phi2 = math.radians(lat1), math.radians(lat2) 
+    dphi       = math.radians(lat2 - lat1)
+    dlambda    = math.radians(lon2 - lon1)
+        
+    a = math.sin(dphi/2)**2 + \
+    math.cos(phi1)*math.cos(phi2)*math.sin(dlambda/2)**2
+    return 2*R*math.atan2(math.sqrt(a), math.sqrt(1 - a))
