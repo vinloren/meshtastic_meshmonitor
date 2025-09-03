@@ -465,8 +465,12 @@ if __name__ == "__main__":
                     return
                 if datas[5]:
                     msgda = datas[5]
-                    snr = packet['rxSnr']
-                    rssi = packet['rxRssi']
+                    try:
+                        snr = packet['rxSnr']
+                        rssi = packet['rxRssi']
+                    except:
+                        snr = 0
+                        rssi = 0
                     try:
                         testo = packet['decoded']['text']+" snr:"+str(snr)+",rssi:"+str(rssi)+" de "+msgda
                         #inserisci messaggio in app.db
