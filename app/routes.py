@@ -8,7 +8,7 @@ from app.models import Messaggi
 from urllib.parse import urlsplit
 from flask import render_template, flash, redirect, url_for, request, session
 
-#from datetime import datetime
+from datetime import datetime, timedelta
 import folium, json, time, os, math
 from folium.plugins import PolyLineTextPath
 from folium import Element
@@ -105,9 +105,18 @@ def showmap():
     oggi = request.form.get("giorno")
     opzione = request.form.get('opzione')
     da_il = request.form.get('dail')
+    opt = request.form.get('opt')
+    today = datetime.now()
+    if opt == 'all':
+        inizio = today - timedelta(days=1)
+        inizio = inizio.strftime('%y/%m/%d')
+    else:
+        inizio = today - timedelta(days=16)
+        inizio = inizio.strftime('%y/%m/%d')
     print("========")
     print(f"Oggi = {oggi}")
     print(f"opzione = {opzione}")
+    print(f"inizio = {inizio}")
     print("========")
     
     percorso = []
@@ -196,7 +205,7 @@ def showmap():
         mappa.save('app/templates/map.html')
         return render_template('map.html')
 
-    nodes = Meshnodes.chiamaNodi()
+    nodes = Meshnodes.chiamaNodi(inizio)
     opzione = "tutti" #forzo tutti per mappa istantanea non tracking
     #print(f"Nodes: {nodes}")
     for node in nodes:

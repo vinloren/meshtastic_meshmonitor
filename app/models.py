@@ -79,11 +79,12 @@ class Meshnodes(db.Model):
             Meshnodes.node_id == node_id).all()
         return target
     
-    def chiamaNodi():
+    def chiamaNodi(inizio):
         nodi_validi = db.session.query(Meshnodes).filter(
             Meshnodes.lat.isnot(None),
             Meshnodes.lon.isnot(None),
-            Meshnodes.longname.isnot(None)
+            Meshnodes.longname.isnot(None),
+            Meshnodes.data > inizio
         ).all()
         return nodi_validi
     

@@ -8,9 +8,9 @@ o meno a iscritti al gruppo Whatsapp "Rete Lora Lombardia e Ticino".
 <hr>
 <p align=justify>
 La data di riferimeto e la scelta di un singolo nodo attengono al tracking. Se in lista nodi si 
-sceglie 'tutti' e giorno di tracking = None verrà mostrata la mappa immagine istantanea della 
-posizione attuale dei nodi fissi o mobili che siano, se invece si sceglie un nodo singolo questo appartiene al novero dei nodi mobili 
-e quindi verrà mostrato il tracciamento del percorso secondo opzione tracking.
+sceglie giorno di tracking = None verrà mostrata la mappa immagine istantanea della 
+posizione attuale dei nodi ('oggi') oppure 'last seen' negli ultimi 15gg, se invece si sceglie un nodo
+singolo verrà mostrato il tracciamento del percorso secondo opzione tracking.
 </p>
 
 Tracking<br>
@@ -23,7 +23,11 @@ Tracking<br>
         <input name="giorno" id="day" type="text" class="form-control" placeholder="Inserisci giorno in formato aa/mm/gg oppure None" required>
     </div>
     <div class="mb-3">
-        <label for="opzioni" class="form-label">Scegli tutti o singolo nodo mobile</label>
+        <label for="opzioni" class="form-label">Scegli nodi</label>&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="u15" name="opt" value="u15" checked>
+        <label for="Scegli3">Ultimi 15gg</label>&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="all" name="opt" value="all">
+        <label for="Scegli4">Oggi</label>
         <select name="opzione" id="opzioni" class="form-control" required>
             <option value="tutti">Tutti i nodi
             {% for nodo in nodi %}
