@@ -4,11 +4,38 @@ from threading import Thread
 from threading import Event
 from pubsub import pub
 import time
-import datetime
 import sys,math
 import queue
 import sqlite3 as dba
-import requests
+import requests 
+from datetime import datetime, timedelta
+
+class purgeDB():
+    Db = '../app.db'
+
+    def elimina_record_vecchi(self):
+        try:
+            conn = dba.connect(self.Db)
+        except dba.Error as er:
+            print('SQLite error: %s' % (' '.join(er.args)))
+            print("Exception class is: ", er.__class__)
+            print("Errore apertura Db")
+            return
+        
+        cursor = conn.cursor()
+        oggi = datetime.now()                       # Data di oggi
+        data_limite = oggi - timedelta(days=15)     # Calcolare la data limite (15 giorni fa)
+        data_limite_str = data_limite.strftime('%y/%m/%d') # Converti la data limite in formato 'yy/mm/dd'
+        query = "DELETE FROM meshnodes WHERE data < ?"
+        cursor.execute(query, (data_limite_str,))
+        conn.commit()
+        # Controlla quante righe sono state eliminate
+        print(f"Righe eliminate in meshnodes: {cursor.rowcount}")
+        query = "DELETE FROM tracking WHERE data < ?"
+        cursor.execute(query, (data_limite_str,))
+        print(f"Righe eliminate in tracking: {cursor.rowcount}")
+        conn.commit()
+        conn.close()
 
 class send_node():
     # Invia la richiesta POST
@@ -69,7 +96,7 @@ class meshInterface(Thread):
             return False
 
     def sendImmediate(self,msg):
-        currTime = datetime.datetime.now().strftime("%H:%M:%S")
+        currTime = datetime.now().strftime("%H:%M:%S")
         msg = currTime+" "+ msg
         self.interface.sendText(msg)
         print("Messaggio mandato su CH0: " + msg)
@@ -89,7 +116,7 @@ class meshInterface(Thread):
         self.stop_event.set()  # ➕ Metodo per richiedere lo stop del thread
 
     def onReceive(self, packet, interface):
-        ts = datetime.datetime.now().strftime("%H:%M:%S.%f")
+        ts = datetime.now().strftime("%H:%M:%S.%f")
         print(f"{ts} Packet ricevuto")
         if self.data_queue:
             self.data_queue.put(packet)
@@ -98,14 +125,14 @@ class callDB():
     Db = '../app.db'
 
     def insertMsg(self,testo):
-        data = datetime.datetime.now().strftime("%y/%m/%d") 
-        ora  = datetime.datetime.now().strftime("%T")    
+        data = datetime.now().strftime("%y/%m/%d") 
+        ora  = datetime.now().strftime("%T")    
         try:
             conn = dba.connect(self.Db)
         except dba.Error as er:
             print('SQLite error: %s' % (' '.join(er.args)))
             print("Exception class is: ", er.__class__)
-            print("Errore ininsertTrackeing")
+            print("Errore apertura Db")
             return
         testo = testo.replace("'", ' ')
         qr = "insert into messaggi (data,ora,msg) values('"+data+"','"+ora+"','"+testo+"')"
@@ -121,15 +148,15 @@ class callDB():
         conn.close()
 
     def insertTracking(self,dati):
-        data = datetime.datetime.now().strftime("%y/%m/%d") 
-        ora  = datetime.datetime.now().strftime("%T")
+        data = datetime.now().strftime("%y/%m/%d") 
+        ora  = datetime.now().strftime("%T")
         try:
             conn = dba.connect(self.Db)
             #print("callDB conn.dba..")
         except dba.Error as er:
             print('SQLite error: %s' % (' '.join(er.args)))
             print("Exception class is: ", er.__class__)
-            print("Errore ininsertTrackeing")
+            print("Errore ininsertTracking")
             return
         
         query = "insert into tracking (data,ora,node_id,lat,lon,alt,batt,temperat,pressione,umidita,longname) values('"
@@ -167,8 +194,8 @@ class callDB():
         chiave = dict['chiave']
         del dict['chiave']
         qr = "select count(*) from meshnodes where nodenum = "+str(chiave)
-        data = datetime.datetime.now().strftime("%y/%m/%d") 
-        ora  = datetime.datetime.now().strftime("%T") 
+        data = datetime.now().strftime("%y/%m/%d") 
+        ora  = datetime.now().strftime("%T") 
         conn = dba.connect(self.Db)
         cur  = conn.cursor()
         rows = cur.execute(qr)
@@ -265,6 +292,7 @@ if __name__ == "__main__":
 
     calldb = callDB()
     sendNode = send_node()
+    purgeDb = purgeDB()
 
     print("🟢 Inizio elaborazione principale")
 
@@ -285,7 +313,7 @@ if __name__ == "__main__":
 
     def onPacketRcv(packet):
         #print(packet)
-        dataora = datetime.datetime.now().strftime("%d/%m/%y %T")
+        dataora = datetime.now().strftime("%d/%m/%y %T")
         from_ = packet['from']
         # trasforma nodenum da decimale a esadecimale = fromid
         node_id = ['!','\0','\0','\0','\0','\0','\0','\0','\0']
@@ -454,7 +482,7 @@ if __name__ == "__main__":
                             pdict.update({'node_id': node_id})
                             calldb.execInsUpdtDB(pdict)
                         except:
-                            testo = datetime.datetime.now().strftime("%d/%m/%y %T")+" Dati sporchi in packet[decoded]telemetry]"
+                            testo = datetime.now().strftime("%d/%m/%y %T")+" Dati sporchi in packet[decoded]telemetry]"
                             print(testo)
 
             elif (packet['decoded']['portnum'] == 'TEXT_MESSAGE_APP'):
@@ -484,7 +512,7 @@ if __name__ == "__main__":
                             lancio.sendImmediate(rmsg)
                             calldb.insertMsg(rmsg)
                     except:
-                        testo = datetime.datetime.now().strftime("%d/%m/%y %T")+" "+msgda+" Dati sporchi in packet[decoded][text]"
+                        testo = datetime.now().strftime("%d/%m/%y %T")+" "+msgda+" Dati sporchi in packet[decoded][text]"
                         print(testo)
             # controlla Db in messaggi per ultimo msg che inizia con ^
             msg = calldb.cercaSend() # ritorna ultimo messaggio che inizia con ^
@@ -495,7 +523,12 @@ if __name__ == "__main__":
                     print(f"Invio msg: {msg}")
                     lancio.sendImmediate(msg)
                     calldb.insertMsg(msg)
-                 
+            # a ore 11:10:01 - 11:12:45 controlla se devo cancellare records vecchi di oltre 15gg in Db
+            orario = datetime.now()
+            orario = orario.strftime('%T')
+            print(f"Orario: {orario}")
+            if orario > "11:10:00" and orario < "11:12:45":
+                purgeDb.elimina_record_vecchi()
 
     try:
         while True:
