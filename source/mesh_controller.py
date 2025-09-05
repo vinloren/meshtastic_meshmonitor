@@ -527,7 +527,7 @@ if __name__ == "__main__":
             orario = datetime.now()
             orario = orario.strftime('%T')
             print(f"Orario: {orario}")
-            if orario > "11:10:00" and orario < "11:12:45":
+            if (orario > "11:10:00" and orario < "11:12:45") or (orario > "18:00:00" and orario < "18:02:00"):
                 purgeDb.elimina_record_vecchi()
 
     try:
