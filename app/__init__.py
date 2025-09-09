@@ -1,7 +1,8 @@
 import logging
 from logging.handlers import RotatingFileHandler
 import os
-from flask import Flask
+from flask import Flask,session
+from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 db = SQLAlchemy()
@@ -12,8 +13,13 @@ basedir = basedir.replace('\\','/')
 basedir = basedir.replace('/app/','/')
 basedir = 'sqlite:///' + basedir
 app.config['SQLALCHEMY_DATABASE_URI'] = basedir
-app.config['SESSION_TYPE'] = 'memcached'
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_FILE_DIR'] = './flask_session_files'  # cartella dove salvare i file di sessione
+app.config['SESSION_PERMANENT'] = False  # oppure True, se vuoi sessioni persistenti
+#app.config['SESSION_TYPE'] = 'memcached'
 app.config['SECRET_KEY'] = 'super secret key'
+# Inizializza Flask-Session
+Session(app)
 #print(basedir)
 db.init_app(app)
 migrate = Migrate(app, db)

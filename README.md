@@ -139,9 +139,11 @@ Avendo attivato ambiente virtuale:
 2. pip install python-dotenv nota: se si ha errore di interpretazione file al lancio di flask run usare notepad++ per leggere .flaslenv e riscriverlo in formato utf-8 (default è utf-16 non supportato da python)
 3. pip install flask_sqlalchemy
 4. pip install flask_migrate
-5. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask ovvero Flask migrate che per il Db presente in questo repositpry è già stato effettuato. Andrà ripetuto qualora si aggiungessere tabelle o si modificasse una presente. Il processo di Flask migrate si attua eseguendo in sequenza flask db init, flask db migrate, flask db upgrade.
-6. pip install folium a supporto del display delle mappe
-7. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
+5. pip install flask_session per sicurezza di sessione che in memoria può saturarsi
+6. pip install mqtt.paho per supporto discrezionale a server mqtt broker.emqx.io
+7. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask ovvero Flask migrate che per il Db presente in questo repositpry è già stato effettuato. Andrà ripetuto qualora si aggiungessere tabelle o si modificasse una presente. Il processo di Flask migrate si attua eseguendo in sequenza flask db init, flask db migrate, flask db upgrade.
+8. pip install folium a supporto del display delle mappe
+9. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
 
 ### Esecuzione
 
@@ -174,6 +176,7 @@ Il 27 Agosto 2025 inserita risposta automatica in mesh_controller.py
 il 28 Agosto 2025 inserita visibilità della lista messaggi text ricevuti o trasmessi su ch0
 il 29 Agosto 2025 aggiunta possibilità di inveare messaggi su ch0 che appariranno immediatamente 
 nel log messaggi (tabella messaggi in Db)
+il 9 Settembre apportato modifica a file __init__.py per modificare la session che in memoria non era più sufficinte a gestire i cookies di sessione necessari alla gestione dei mesaggi testuali su ch0. Passati da sessione in memoria a sessione su filesystem. E' stato necessario aggiungere pip install flask_session che prima non c'era.
 
 ### Importante
 Con l'aggiornamento del 28 Agosto è necessario utilizzare il nuovo cloning del repository perchè è necessario utilizzare il nuovo DB che ha modificato la struttura iniziale. Le tabelle originali della propria installazioni possono essere salvate col DB Browser Squlite e poi caricate nel nuovo Db se si vogliono mantenere i propri dati originali. Il Db qui presente contiene la visuale della rete vista dal mio Qth oltre che i messaggi ricevuti il 28 Agosto.
