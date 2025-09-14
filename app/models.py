@@ -55,8 +55,38 @@ class Modes(db.Model):
     def __repr__(self):
         return f"<Modes node_id={self.node_id}>"
 
+class Loranodes(db.Model):
+    __tablename__ = 'loranodes'
 
-# Definizione nodi in rete con posizione gps
+    data: so.Mapped[str] = so.mapped_column(sa.String(8))
+    ora: so.Mapped[str] = so.mapped_column(sa.String(8))
+    lat: so.Mapped[float] = so.mapped_column(sa.Float)
+    lon: so.Mapped[float] = so.mapped_column(sa.Float)
+    alt: so.Mapped[int] = so.mapped_column(sa.Integer)
+    longname: so.Mapped[str] = so.mapped_column(sa.String(28))
+    batt: so.Mapped[int] = so.mapped_column(sa.Integer)
+    snr: so.Mapped[float] = so.mapped_column(sa.Float)
+    temperat: so.Mapped[float] = so.mapped_column(sa.Float)
+    pressione: so.Mapped[float] = so.mapped_column(sa.Float)
+    umidita: so.Mapped[float] = so.mapped_column(sa.Float)
+    node_id: so.Mapped[str] = so.mapped_column(sa.String(9),primary_key=True)
+    
+    
+    def chiamaNodi():
+        nodi_validi = db.session.query(Loranodes).filter(
+            Loranodes.lat.isnot(None),
+            Loranodes.lon.isnot(None),
+            Loranodes.longname.isnot(None)
+        ).all()
+        return nodi_validi
+    
+
+    def __repr__(self):
+        return '<Loranodes {}>'
+    
+    
+
+# Definizione nodi in rete Lombardia e Ticino con posizione gps
 class Meshnodes(db.Model):
     __tablename__ = 'meshnodes'
 

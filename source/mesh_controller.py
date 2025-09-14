@@ -33,8 +33,13 @@ class purgeDB():
         print(f"Righe eliminate in meshnodes: {cursor.rowcount}")
         query = "DELETE FROM tracking WHERE data < ?"
         cursor.execute(query, (data_limite_str,))
-        print(f"Righe eliminate in tracking: {cursor.rowcount}")
         conn.commit()
+        print(f"Righe eliminate in tracking: {cursor.rowcount}")
+        query = "DELETE FROM loranodes WHERE data < ?"
+        cursor.execute(query, (data_limite_str,))
+        conn.commit()
+        print(f"Righe eliminate in loranodes: {cursor.rowcount}")
+        cursor.close()
         conn.close()
 
 class send_node():
@@ -527,7 +532,7 @@ if __name__ == "__main__":
             orario = datetime.now()
             orario = orario.strftime('%T')
             print(f"Orario: {orario}")
-            if (orario > "11:10:00" and orario < "11:12:45") or (orario > "18:00:00" and orario < "18:02:00"):
+            if (orario > "11:47:00" and orario < "11:48:5") or (orario > "18:00:00" and orario < "18:02:00"):
                 purgeDb.elimina_record_vecchi()
 
     try:

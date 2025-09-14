@@ -2,6 +2,7 @@ import sqlalchemy as sa
 import app as app
 from app import app,db
 from app.models import Meshnodes
+from app.models import Loranodes
 from app.models import Modes
 from app.models import Tracking
 from app.models import Messaggi
@@ -17,6 +18,35 @@ from folium import Element
 @app.route('/index')
 def index():
     return redirect (url_for('listanodi'))
+
+@app.route("/entralog")
+def entralog():
+    loglist = session.pop('entralog', '')  # Rimuove dalla sessione dopo averlo letto
+    return render_template('log.html', log=loglist)
+
+@app.route("/getlog", methods = ['Post'])
+def getlog():
+   acquisito_log = leggiLog()
+   session['entralog'] = acquisito_log
+   return redirect(url_for('entralog'))
+
+def leggiLog():
+    log_path = './logs/Server.log'
+    max_bytes = 1000 * 1024  # 1MB
+
+    try:
+        with open(log_path, 'rb') as file:
+            file.seek(0, os.SEEK_END)  # Vai alla fine del file
+            filesize = file.tell()
+            seek_pos = max(filesize - max_bytes, 0)
+            file.seek(seek_pos)
+            content = file.read()
+            return content.decode(errors='replace')  # Decodifica in testo, sostituendo caratteri non validi
+    except FileNotFoundError:
+        return "Log file non trovato."
+    except Exception as e:
+        return f"Errore nella lettura del log: {str(e)}"
+
 
 @app.route("/messaggi")
 def messaggi():
@@ -99,6 +129,87 @@ def listanodi():
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
+
+@app.route('/mqttmap', methods=['GET'])
+def mqttmap():
+    opzione = "tutti"
+    nodes = Loranodes.chiamaNodi()
+    mappa = folium.Map(location=[45.6412, 9.1149], zoom_start=13)  # Seveso (MB), Italia
+    # Aggiungiamo un marker sulla mappa
+    folium.Marker([45.6412, 9.1149], popup="Home ",icon = folium.Icon(color='black')).add_to(mappa)
+    
+    for node in nodes:
+        modi = Modes.getMode(node.node_id)
+        caract = {}
+        if modi is not None:
+            caract['freq'] = modi[0]   # freq
+            caract['mode'] = modi[1]   # mode
+        else:
+            caract['freq'] = 868
+            caract['mode'] = 'MEDIUM_FAST'
+            app.logger.info(f"Non trovato: {node.node_id} {node.longname}")
+            continue
+
+        if not isinstance(node.lat,float):
+            continue
+        
+        #app.logger.info(f"Nodo: {str(node.lat)} {str(node.lon)} {node.longname}")
+        if opzione == "tutti":
+            if caract['freq'] == 433:
+                folium.Marker([node.lat, node.lon], icon=folium.Icon(color='green'),
+                popup=node.longname + " giorno " + node.data + " ora " + node.ora,
+                tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
+                folium.Marker(location=[node.lat, node.lon],icon=folium.DivIcon(
+                    icon_size=(150,36),icon_anchor=(0,0),
+                    html=f'<div style="font-size: 12px; color: black;">{node.longname}</div>')
+                ).add_to(mappa)
+
+            else:
+                if caract['mode'] =='MEDIUM_FAST':
+                    folium.Marker([node.lat, node.lon], icon=folium.Icon(color='darkblue'),
+                    popup=node.longname + " giorno " + node.data + " ora " + node.ora,
+                    tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
+                    folium.Marker(location=[node.lat, node.lon],icon=folium.DivIcon(
+                    icon_size=(150,36),icon_anchor=(0,0),
+                    html=f'<div style="font-size: 12px; color: black;">{node.longname}</div>')
+                ).add_to(mappa)
+                else:
+                    folium.Marker([node.lat, node.lon], icon=folium.Icon(color='red'),
+                    popup=node.longname + " giorno " + node.data + " ora " + node.ora,
+                    tooltip=node.longname).add_to(mappa)  # Aggiungi la label con il nome del nodo
+                    folium.Marker(location=[node.lat, node.lon],icon=folium.DivIcon(
+                    icon_size=(150,36),icon_anchor=(0,0),
+                    html=f'<div style="font-size: 12px; color: black;">{node.longname}</div>')
+                ).add_to(mappa)       
+    # Riquadro bianco in alto a sinistra
+    html_box = '''
+        <div style="
+            position: fixed;
+            top: 10px;
+            left: 50px;
+            width: 300px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            z-index: 9999;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        ">
+        <h4><b>Mappa Mqtt_map via broker.emqx.io</b></h4>
+        <p align=justify>I dati per questa mappa arrivano da connessione subscribe
+        a topic meshtastic/vinloren dove possono convergere altri meshtastic_monitor
+        situati in zone diverse per inviare dati al topic suddetto al fine di far
+        avere una visione allargata della rete. Le convenzioni sui colori dei marker
+        sono quelle già note.
+        </p> 
+        </div>
+    '''
+    mappa.get_root().html.add_child(Element(html_box)) 
+
+    mappa.save('app/templates/httpmap.html')
+    return render_template('httpmap.html')
+
+        
 
 @app.route('/showmap', methods=['GET','POST'])
 def showmap():
@@ -217,8 +328,7 @@ def showmap():
         else:
             caract['freq'] = 868
             caract['mode'] = 'MEDIUM_FAST'
-            app.logger.info(f'Nodo: {node.longname}')
-            app.logger.info(f"Non trovato in Modes:{node.node_id}")
+            app.logger.info(f"Non trovato: {node.node_id} {node.longname}")
             continue
 
         #print(f"id: {node.nodenum}")

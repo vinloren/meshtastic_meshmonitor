@@ -141,13 +141,13 @@ Avendo attivato ambiente virtuale:
 4. pip install flask_migrate
 5. pip install flask_session per sicurezza di sessione che in memoria può saturarsi
 6. pip install mqtt.paho per supporto discrezionale a server mqtt broker.emqx.io
-7. A questo punto ocorre fissare le caratteristiche delle tabelle del Db nel contesto Flask ovvero Flask migrate che per il Db presente in questo repositpry è già stato effettuato. Andrà ripetuto qualora si aggiungessere tabelle o si modificasse una presente. Il processo di Flask migrate si attua eseguendo in sequenza flask db init, flask db migrate, flask db upgrade.
-8. pip install folium a supporto del display delle mappe
-9. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
+7. pip install folium a supporto del display delle mappe
+8. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
 
 ### Esecuzione
 
 Occorre aprire due terminali, uno per meh_controller.py, l'atro per il server.
+Poi se si decide di accedere a server mqtt pubblico aprire altri due termnali uno per mqtt_send.all.py l'altro per mqtt_subscribe.py
 
 1. si entra da un terminale nella directory base del progetto e si esegue venv/Scripts/activate se in windows, source/bin/activate se il Linux
 2. si va su ./source e da lì si lancia python mesh_controller.py COMx (Windows) o /dev/ttyUSBx o ACMx se in Linux. Ora dobbiamo far partire il server..
@@ -176,7 +176,8 @@ Il 27 Agosto 2025 inserita risposta automatica in mesh_controller.py
 il 28 Agosto 2025 inserita visibilità della lista messaggi text ricevuti o trasmessi su ch0
 il 29 Agosto 2025 aggiunta possibilità di inveare messaggi su ch0 che appariranno immediatamente 
 nel log messaggi (tabella messaggi in Db)
-il 9 Settembre apportato modifica a file __init__.py per modificare la session che in memoria non era più sufficinte a gestire i cookies di sessione necessari alla gestione dei mesaggi testuali su ch0. Passati da sessione in memoria a sessione su filesystem. E' stato necessario aggiungere pip install flask_session che prima non c'era.
+il 9 Settembre apportato aggiornamento a file __init__.py per modificare la session che in memoria non era più sufficinte a gestire i cookies di sessione necessari alla gestione dei mesaggi testuali su ch0. Passati da sessione in memoria a sessione su filesystem. E' stato necessario aggiungere pip install flask_session che prima non c'era.
+il 14 settembre aggiunto supporto a mqtt server per aggiornamento mappa da fonti diverse dalla nostra e possibilità di inviare dati sui nodi visti da noi
+verso il server per condivisione da altri. Leggere ./Doc/*.pdf
 
-### Importante
-Con l'aggiornamento del 28 Agosto è necessario utilizzare il nuovo cloning del repository perchè è necessario utilizzare il nuovo DB che ha modificato la struttura iniziale. Le tabelle originali della propria installazioni possono essere salvate col DB Browser Squlite e poi caricate nel nuovo Db se si vogliono mantenere i propri dati originali. Il Db qui presente contiene la visuale della rete vista dal mio Qth oltre che i messaggi ricevuti il 28 Agosto.
+

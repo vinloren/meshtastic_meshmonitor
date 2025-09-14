@@ -90,21 +90,19 @@
         in movimento (tracking) che prima era solo abbozzata. Per contro, essendo questa versione dipendente 
         da una singola sorgente di alimentazione dati, la visuale sarà quella del singolo nodo di controllo 
         connesso alla seriale della box Linux o Windows.<br><br>
-        E' previsto, per allargare la visuale, che più server possano in futuro comunicare fra loro 
-        allineando reciprocamente i dati nel Db così da permettere una visione allargata a chiunque 
-        si connetta a qualunque server in rete. Il progetto è in itinere e integrazioni e modifiche 
+        Il 15 Settembre però ho fatto un primo passo per allargare la visuale introducendo la connessione
+        a broker.emqx.io (server mqtt pubblico) con topic a scelta dell'utente (default = meshtastic/vinloren)
+        e mqtt_subscribe.py (subscribe a scelta con default meshtastic/vinloren) che una volta lanciato
+        provvede a riempire la tabella 'loranodes' attraverso la quale sarà disponibile la mappa richiamabile
+        col link 'Mostra_Mqtt_map'. Il progetto è in itinere e integrazioni e modifiche 
         sono fattibili anche in funzione della risposta degli associati al gruppo WA sul campo.
        </p>
-       <h4>Assaggio del nuovo server</h4>
-       <p align = justify>
-        Al momento è possibile, per chi volesse provare il nuovo server, accedere all'url che ho 
-        previsto per questo scopo: <b>http://vinmqtt.hopto.org:5000</b> dove si vedrà la 
-        rete Lombardia e Ticino vista da parte del mio qth. Il centro rete, come al solito, è 
-        fissato sul qth di Guido IU2SKJ a Monticello Brianza.
+       <p align = justify>Con l'aggiornamento del 15 Settembre 2025 ho anche introdotto la possibilità di
+        visualizzare il log degli eventi permettendo così all'utente di vedere, e poi decidere di abilitarli, 
+        i nodi che al momento non sono autorizzati alla visibilità in mappa (sia nostra_map che http_map).
        </p>
-
     </div>
     <div class="page-footer">
-        <small>Aggiornamento del 24 Agosto 2025 by IU2RPO</small>
+        <small>Aggiornamento del 15 Settembre 2025 by IU2RPO</small>
     </div>
 {% endblock %}

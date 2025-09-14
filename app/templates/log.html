@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+textarea {
+  font-size: 12px;
+}
+</style>
+
+<h3>Mosta il contenuto del log eventi</h3>
+<p align=justify>Qui puoi vedere il contenuto del log eventi. Ciò può servire a identificare problemi
+    o a controllare i node_id e i nomei dei nodi non entrati in mappa perché non autorizzati.
+    Premere il tasto 'LEGGI' per accedere al log.
+</p>
+<hr>
+<form action="{{ url_for('getlog') }}" method="post">
+    <textarea id="log" name="log" rows="16" cols="93">{{ log }}
+    </textarea>
+    <br><br>
+    <button type="submit" class="btn btn-primary" >LEGGI</button>
+</form>
+{% endblock %}
