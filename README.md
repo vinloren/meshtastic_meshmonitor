@@ -145,7 +145,7 @@ Da directory di base eseguire pip install -r requirements.txt che provvede a ins
 6. pip install paho.mqtt per supporto discrezionale a server mqtt broker.emqx.io
 7. pip install folium a supporto del display delle mappe
 8. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
-git st
+
 ### Esecuzione
 
 Occorre aprire due terminali, uno per meh_controller.py, l'atro per il server.
