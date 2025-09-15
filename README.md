@@ -135,15 +135,17 @@ Ipotizzo un server Flask semplificato con le seguenti caratteristiche di base:
 
 Avendo attivato ambiente virtuale:
 
+Da directory di base eseguire pip install -r requirements.txt che provvede a installare quanto specificato di seguito in dettaglio.
+
 1. pip install flask
 2. pip install python-dotenv nota: se si ha errore di interpretazione file al lancio di flask run usare notepad++ per leggere .flaslenv e riscriverlo in formato utf-8 (default è utf-16 non supportato da python)
 3. pip install flask_sqlalchemy
 4. pip install flask_migrate
 5. pip install flask_session per sicurezza di sessione che in memoria può saturarsi
-6. pip install mqtt.paho per supporto discrezionale a server mqtt broker.emqx.io
+6. pip install paho.mqtt per supporto discrezionale a server mqtt broker.emqx.io
 7. pip install folium a supporto del display delle mappe
 8. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
-
+git st
 ### Esecuzione
 
 Occorre aprire due terminali, uno per meh_controller.py, l'atro per il server.
@@ -179,5 +181,3 @@ nel log messaggi (tabella messaggi in Db)
 il 9 Settembre apportato aggiornamento a file __init__.py per modificare la session che in memoria non era più sufficinte a gestire i cookies di sessione necessari alla gestione dei mesaggi testuali su ch0. Passati da sessione in memoria a sessione su filesystem. E' stato necessario aggiungere pip install flask_session che prima non c'era.
 il 14 settembre aggiunto supporto a mqtt server per aggiornamento mappa da fonti diverse dalla nostra e possibilità di inviare dati sui nodi visti da noi
 verso il server per condivisione da altri. Leggere ./Doc/*.pdf
-
-
