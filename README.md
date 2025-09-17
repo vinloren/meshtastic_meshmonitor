@@ -145,6 +145,9 @@ Da directory di base eseguire pip install -r requirements.txt che provvede a ins
 6. pip install paho.mqtt per supporto discrezionale a server mqtt broker.emqx.io
 7. pip install folium a supporto del display delle mappe
 8. pip install requests a supporto comunicazioni con altri server. Nella fattispecie attuale il server di riferimento è il già noto e attivo https://vinmqtt.hopt.org che verrà così integrato oltre che dagli utenti di broadcast_msg_pyqt5.py anche da chi usasse l'applicazione attuale.
+9. pip install apscheduler per supporto ricezione email
+10. pip install imaplib    per supporto ricezione email
+11. pip install imap_tools per supporto ricezione email
 
 ### Esecuzione
 
@@ -179,5 +182,7 @@ il 28 Agosto 2025 inserita visibilità della lista messaggi text ricevuti o tras
 il 29 Agosto 2025 aggiunta possibilità di inveare messaggi su ch0 che appariranno immediatamente 
 nel log messaggi (tabella messaggi in Db)
 il 9 Settembre apportato aggiornamento a file __init__.py per modificare la session che in memoria non era più sufficinte a gestire i cookies di sessione necessari alla gestione dei mesaggi testuali su ch0. Passati da sessione in memoria a sessione su filesystem. E' stato necessario aggiungere pip install flask_session che prima non c'era.
-il 14 settembre aggiunto supporto a mqtt server per aggiornamento mappa da fonti diverse dalla nostra e possibilità di inviare dati sui nodi visti da noi
-verso il server per condivisione da altri. Leggere ./Doc/*.pdf
+
+il 14 Settembre aggiunto supporto a mqtt server per aggiornamento mappa da fonti diverse dalla nostra e possibilità di inviare dati sui nodi visti da noi verso il server per condivisione da altri. Leggere ./Doc/Meshtastic_meshmonitor_ver1.1.pdf
+
+il 17 Settembre aggiunto supporto a ricezione mail per invio del testo su ch0. Leggere documento in ./Doc/Ricezione_Mail_su_Meshmonitor.pdf

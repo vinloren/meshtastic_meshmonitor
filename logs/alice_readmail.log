@@ -1,0 +1,90 @@
+2025-09-15 19:33:53,375 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-09-15 19:33:53,384 - INFO - Added job "job" to job store "default"
+2025-09-15 19:33:53,385 - INFO - Scheduler started
+2025-09-15 19:33:53,385 - DEBUG - Looking for jobs to run
+2025-09-15 19:33:53,386 - DEBUG - Next wakeup is due at 2025-09-15 19:38:53.374900+02:00 (in 299.988002 seconds)
+2025-09-16 09:46:43,140 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-09-16 09:46:43,146 - INFO - Added job "job" to job store "default"
+2025-09-16 09:46:43,146 - INFO - Added job "job" to job store "default"
+2025-09-16 09:46:43,148 - INFO - Scheduler started
+2025-09-16 09:46:43,148 - INFO - Scheduler started
+2025-09-16 09:46:43,149 - DEBUG - Looking for jobs to run
+2025-09-16 09:46:43,149 - DEBUG - Looking for jobs to run
+2025-09-16 09:46:43,150 - DEBUG - Next wakeup is due at 2025-09-16 09:51:43.140221+02:00 (in 299.989910 seconds)
+2025-09-16 09:46:43,150 - DEBUG - Next wakeup is due at 2025-09-16 09:51:43.140221+02:00 (in 299.989910 seconds)
+2025-09-16 09:51:43,141 - DEBUG - Looking for jobs to run
+2025-09-16 09:51:43,141 - DEBUG - Looking for jobs to run
+2025-09-16 09:51:43,144 - INFO - Running job "job (trigger: interval[0:05:00], next run at: 2025-09-16 09:56:43 CEST)" (scheduled at 2025-09-16 09:51:43.140221+02:00)
+2025-09-16 09:51:43,144 - INFO - Running job "job (trigger: interval[0:05:00], next run at: 2025-09-16 09:56:43 CEST)" (scheduled at 2025-09-16 09:51:43.140221+02:00)
+2025-09-16 09:51:43,145 - DEBUG - Next wakeup is due at 2025-09-16 09:56:43.140221+02:00 (in 299.994650 seconds)
+2025-09-16 09:51:43,145 - DEBUG - Next wakeup is due at 2025-09-16 09:56:43.140221+02:00 (in 299.994650 seconds)
+2025-09-16 09:51:44,376 - INFO - Job "job (trigger: interval[0:05:00], next run at: 2025-09-16 09:56:43 CEST)" executed successfully
+2025-09-16 09:51:44,376 - INFO - Job "job (trigger: interval[0:05:00], next run at: 2025-09-16 09:56:43 CEST)" executed successfully
+2025-09-16 09:56:43,149 - DEBUG - Looking for jobs to run
+2025-09-16 09:56:43,149 - DEBUG - Looking for jobs to run
+2025-09-16 09:56:43,151 - DEBUG - Next wakeup is due at 2025-09-16 10:01:43.140221+02:00 (in 299.989160 seconds)
+2025-09-16 09:56:43,151 - DEBUG - Next wakeup is due at 2025-09-16 10:01:43.140221+02:00 (in 299.989160 seconds)
+2025-09-16 09:56:43,151 - INFO - Running job "job (trigger: interval[0:05:00], next run at: 2025-09-16 10:01:43 CEST)" (scheduled at 2025-09-16 09:56:43.140221+02:00)
+2025-09-16 09:56:43,151 - INFO - Running job "job (trigger: interval[0:05:00], next run at: 2025-09-16 10:01:43 CEST)" (scheduled at 2025-09-16 09:56:43.140221+02:00)
+2025-09-16 09:56:46,161 - INFO - Job "job (trigger: interval[0:05:00], next run at: 2025-09-16 10:01:43 CEST)" executed successfully
+2025-09-16 09:56:46,161 - INFO - Job "job (trigger: interval[0:05:00], next run at: 2025-09-16 10:01:43 CEST)" executed successfully
+2025-09-16 10:02:54,681 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-09-16 10:02:54,689 - INFO - Added job "job" to job store "default"
+2025-09-16 10:02:54,689 - INFO - Added job "job" to job store "default"
+2025-09-16 10:02:54,693 - INFO - Scheduler started
+2025-09-16 10:02:54,693 - INFO - Scheduler started
+2025-09-16 10:02:54,698 - DEBUG - Looking for jobs to run
+2025-09-16 10:02:54,698 - DEBUG - Looking for jobs to run
+2025-09-16 10:02:54,702 - DEBUG - Next wakeup is due at 2025-09-16 10:07:54.681679+02:00 (in 299.980006 seconds)
+2025-09-16 10:02:54,702 - DEBUG - Next wakeup is due at 2025-09-16 10:07:54.681679+02:00 (in 299.980006 seconds)
+2025-09-16 10:07:54,636 - DEBUG - Looking for jobs to run
+2025-09-16 10:07:54,636 - DEBUG - Looking for jobs to run
+2025-09-16 10:07:54,641 - DEBUG - Next wakeup is due at 2025-09-16 10:07:54.681679+02:00 (in 0.040064 seconds)
+2025-09-16 10:07:54,641 - DEBUG - Next wakeup is due at 2025-09-16 10:07:54.681679+02:00 (in 0.040064 seconds)
+2025-09-16 10:07:54,695 - DEBUG - Looking for jobs to run
+2025-09-16 10:07:54,695 - DEBUG - Looking for jobs to run
+2025-09-16 10:07:54,704 - INFO - Running job "job (trigger: interval[0:05:00], next run at: 2025-09-16 10:12:54 CEST)" (scheduled at 2025-09-16 10:07:54.681679+02:00)
+2025-09-16 10:07:54,704 - INFO - Running job "job (trigger: interval[0:05:00], next run at: 2025-09-16 10:12:54 CEST)" (scheduled at 2025-09-16 10:07:54.681679+02:00)
+2025-09-16 10:07:54,705 - DEBUG - Next wakeup is due at 2025-09-16 10:12:54.681679+02:00 (in 299.975887 seconds)
+2025-09-16 10:07:54,705 - DEBUG - Next wakeup is due at 2025-09-16 10:12:54.681679+02:00 (in 299.975887 seconds)
+2025-09-16 10:07:55,950 - INFO - Email ricevuta e salvata nel DB: prova mail alice verso meshcontroller per invio su ch0 meshtastic
+2025-09-16 10:08:01,191 - INFO - Job "job (trigger: interval[0:05:00], next run at: 2025-09-16 10:12:54 CEST)" executed successfully
+2025-09-16 10:08:01,191 - INFO - Job "job (trigger: interval[0:05:00], next run at: 2025-09-16 10:12:54 CEST)" executed successfully
+2025-09-16 12:38:36,042 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-09-16 12:38:36,047 - INFO - Added job "job" to job store "default"
+2025-09-16 12:38:36,047 - INFO - Added job "job" to job store "default"
+2025-09-16 12:38:36,049 - INFO - Scheduler started
+2025-09-16 12:38:36,049 - INFO - Scheduler started
+2025-09-16 12:38:36,051 - DEBUG - Looking for jobs to run
+2025-09-16 12:38:36,051 - DEBUG - Looking for jobs to run
+2025-09-16 12:38:36,053 - DEBUG - Next wakeup is due at 2025-09-16 12:43:36.041670+02:00 (in 299.988000 seconds)
+2025-09-16 12:38:36,053 - DEBUG - Next wakeup is due at 2025-09-16 12:43:36.041670+02:00 (in 299.988000 seconds)
+2025-09-16 12:51:40,612 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-09-16 12:51:40,618 - INFO - Added job "job" to job store "default"
+2025-09-16 12:51:40,618 - INFO - Added job "job" to job store "default"
+2025-09-16 12:51:40,621 - INFO - Scheduler started
+2025-09-16 12:51:40,621 - INFO - Scheduler started
+2025-09-16 12:51:40,624 - DEBUG - Looking for jobs to run
+2025-09-16 12:51:40,624 - DEBUG - Looking for jobs to run
+2025-09-16 12:51:40,626 - DEBUG - Next wakeup is due at 2025-09-16 12:56:40.612421+02:00 (in 299.985995 seconds)
+2025-09-16 12:51:40,626 - DEBUG - Next wakeup is due at 2025-09-16 12:56:40.612421+02:00 (in 299.985995 seconds)
+2025-09-16 15:56:46,986 - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-09-16 15:56:47,002 - INFO - Added job "job" to job store "default"
+2025-09-16 15:56:47,002 - INFO - Added job "job" to job store "default"
+2025-09-16 15:56:47,016 - INFO - Scheduler started
+2025-09-16 15:56:47,016 - INFO - Scheduler started
+2025-09-16 15:56:47,023 - DEBUG - Looking for jobs to run
+2025-09-16 15:56:47,023 - DEBUG - Looking for jobs to run
+2025-09-16 15:56:47,029 - DEBUG - Next wakeup is due at 2025-09-16 16:01:46.985151+02:00 (in 299.956697 seconds)
+2025-09-16 15:56:47,029 - DEBUG - Next wakeup is due at 2025-09-16 16:01:46.985151+02:00 (in 299.956697 seconds)
+2025-09-16 16:01:47,004 - DEBUG - Looking for jobs to run
+2025-09-16 16:01:47,004 - DEBUG - Looking for jobs to run
+2025-09-16 16:01:47,008 - INFO - Running job "job (trigger: interval[0:05:00], next run at: 2025-09-16 16:06:46 CEST)" (scheduled at 2025-09-16 16:01:46.985151+02:00)
+2025-09-16 16:01:47,008 - INFO - Running job "job (trigger: interval[0:05:00], next run at: 2025-09-16 16:06:46 CEST)" (scheduled at 2025-09-16 16:01:46.985151+02:00)
+2025-09-16 16:01:47,009 - DEBUG - Next wakeup is due at 2025-09-16 16:06:46.985151+02:00 (in 299.975175 seconds)
+2025-09-16 16:01:47,009 - DEBUG - Next wakeup is due at 2025-09-16 16:06:46.985151+02:00 (in 299.975175 seconds)
+2025-09-16 16:01:47,962 - INFO - Email ricevuta da: Vincenzo Lorenzale <vinloren@gmail.com>
+2025-09-16 16:01:52,627 - INFO - Email ricevuta da: Vincenzo Lorenzale <vinloren@gmail.com>
+2025-09-16 16:01:52,939 - INFO - Email ricevuta e salvata nel DB: Pare che mail inviate da app android mandino in crisi la ricezione python
+2025-09-16 16:01:53,019 - INFO - Job "job (trigger: interval[0:05:00], next run at: 2025-09-16 16:06:46 CEST)" executed successfully
+2025-09-16 16:01:53,019 - INFO - Job "job (trigger: interval[0:05:00], next run at: 2025-09-16 16:06:46 CEST)" executed successfully
