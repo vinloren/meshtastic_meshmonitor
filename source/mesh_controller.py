@@ -115,7 +115,8 @@ class meshInterface(Thread):
         currTime = datetime.now().strftime("%H:%M:%S")
         msg = currTime+" "+ msg
         self.interface.sendText(msg)
-        print("Messaggio mandato su CH0: " + msg)
+        print("Messaggio mandato su ch0: " + msg)
+        logger.info("Messaggio mandato su ch0: " + msg)
 
     def run(self):
         print("meshInterface started..")
@@ -344,10 +345,16 @@ if __name__ == "__main__":
             math.cos(phi1)*math.cos(phi2)*math.sin(dlambda/2)**2
         return 2*R*math.atan2(math.sqrt(a), math.sqrt(1 - a))
     
+    
+    periodic = False
+    sent = False
+    msgcnt = 0
+    msgPeriodic = ""
 
     def onPacketRcv(packet):
-        #print(packet)
+        global periodic,msgcnt,msgPeriodic,sent
         dataora = datetime.now().strftime("%d/%m/%y %T")
+        print(dataora)
         from_ = packet['from']
         # trasforma nodenum da decimale a esadecimale = fromid
         node_id = ['!','\0','\0','\0','\0','\0','\0','\0','\0']
@@ -557,18 +564,44 @@ if __name__ == "__main__":
             msg = calldb.cercaSend() # ritorna ultimo messaggio che inizia con ^
             if msg:
                 # invia messaggio rimuovendo ^
-                if "^" in msg:
-                    msg = msg.replace('^','')
-                    print(f"Invio msg: {msg}")
-                    logger.info(f"Invio msg: {msg}")
-                    lancio.sendImmediate(msg)
-                    calldb.insertMsg(msg)
+                if msg[0:1] == "^":
+                    if msg[1:2] != '/' and msg[1:2] != '_':
+                        msg = msg.replace('^','')
+                        print(f"Invio msg: {msg}")
+                        logger.info(f"Invio msg: {msg}")
+                        lancio.sendImmediate(msg)
+                        calldb.insertMsg(msg)
+                    elif msg[1:2] == '/':
+                        # imposta inizio messaggi periodici
+                        msgPeriodic = msg.replace('^/','')
+                        msgcnt = 0
+                        periodic = True
+                        sent = False
+                        logger.info("Inizio messaggi periodici")
+                        calldb.insertMsg("Inizio msg periodici")
+                    elif msg[1:2] == '_':
+                        # stop messaggi periodici
+                        periodic = False
+                        logger.info("Stop messaggi periodici")
+                        calldb.insertMsg("Stop msg periodici")
+
             # a ore 11:10:01 - 11:12:45 controlla se devo cancellare records vecchi di oltre 15gg in Db
             orario = datetime.now()
             orario = orario.strftime('%T')
             print(f"Orario: {orario}")
             if (orario > "11:47:00" and orario < "11:48:5") or (orario > "18:00:00" and orario < "18:02:00"):
                 purgeDb.elimina_record_vecchi()
+            # verifica ogni 10 minuti
+            #print(f"minuto: {orario[3:5]}")
+            if int(orario[3:5])%10 == 0:
+                if periodic and not sent:
+                    msgcnt += 1
+                    testo = f"{str(msgcnt)} {msgPeriodic}"
+                    lancio.sendImmediate(testo)
+                    sent = True
+            else:
+                sent = False
+
 
     try:
         while True:

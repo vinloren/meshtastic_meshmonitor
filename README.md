@@ -186,3 +186,7 @@ il 9 Settembre apportato aggiornamento a file __init__.py per modificare la sess
 il 14 Settembre aggiunto supporto a mqtt server per aggiornamento mappa da fonti diverse dalla nostra e possibilità di inviare dati sui nodi visti da noi verso il server per condivisione da altri. Leggere ./Doc/Meshtastic_meshmonitor_ver1.1.pdf
 
 il 17 Settembre aggiunto supporto a ricezione mail per invio del testo su ch0. Leggere documento in ./Doc/Ricezione_Mail_su_Meshmonitor.pdf
+
+il 18 Settembre aggiunto supporto per invio messaggi periodici cadenzati ogni 10 minuti da parte di mesh_controller.py sulla base del testo inviato dal server come messaggio su ch0 che inizia con / seguito dal testo del messaggio periodico.
+
+Lo stop all'invio messaggi periodici si attua inviando invece il carattere _ come messaggio. Questa parte che attiene all'invio dei messaggi è gestita da una pagina specifica sul Server. 
