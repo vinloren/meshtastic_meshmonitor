@@ -4,11 +4,13 @@ from threading import Thread
 from threading import Event
 from pubsub import pub
 import time
-import sys,math
+import os,sys,math
 import queue
 import sqlite3 as dba
 import requests 
 from datetime import datetime, timedelta
+import logging
+from logging.handlers import RotatingFileHandler
 
 class purgeDB():
     Db = '../app.db'
@@ -31,14 +33,17 @@ class purgeDB():
         conn.commit()
         # Controlla quante righe sono state eliminate
         print(f"Righe eliminate in meshnodes: {cursor.rowcount}")
+        logger.info(f"Righe eliminate in meshnodes: {cursor.rowcount}")
         query = "DELETE FROM tracking WHERE data < ?"
         cursor.execute(query, (data_limite_str,))
         conn.commit()
         print(f"Righe eliminate in tracking: {cursor.rowcount}")
+        logger.info(f"Righe eliminate in tracking: {cursor.rowcount}")
         query = "DELETE FROM loranodes WHERE data < ?"
         cursor.execute(query, (data_limite_str,))
         conn.commit()
         print(f"Righe eliminate in loranodes: {cursor.rowcount}")
+        logger.info(f"Righe eliminate in loranodes: {cursor.rowcount}")
         cursor.close()
         conn.close()
 
@@ -56,12 +61,15 @@ class send_node():
         nodo['nome']    = datas[5]
         nodo['node_id'] = datas[10]
         print(f"Nodo= {nodo}")
+        logger.info(f"Inviato: {nodo}")
         response = requests.post(url, json=nodo,verify=False)
         # Controlla la risposta
         if response.status_code == 200:
             print("Richiesta inviata con successo!")
             print("Risposta del server:", response.json())  # Se la risposta è in formato JSON
+            logger.info(f"Risposta del server: {response.json()}")
         else:
+            logger.error(f"Errore {response.text} su invio: {nodo}") 
             print(f"Errore nella richiesta: {response.status_code}")
             print("Dettagli errore:", response.text)
     
@@ -74,10 +82,13 @@ class send_node():
                     self.manda_nodo(datas)
                 except Exception as e:
                     print("Errore in callFlask: ",e)
+                    logger.error(f"Errore in callFlask: {e}")
             else:
                 print("Invio dati non fatto per assenza longname.")
+                logger.error("Invio dati non fatto per assenza longname.")
         else:
             print("Invio dati non fatto per assenza record in mesh_nodes.")
+            logger.error("Invio dati non fatto per assenza record in mesh_nodes.")
 
 
 class meshInterface(Thread):
@@ -138,6 +149,7 @@ class callDB():
             print('SQLite error: %s' % (' '.join(er.args)))
             print("Exception class is: ", er.__class__)
             print("Errore apertura Db")
+            logger.error("Errore apertura Db")
             return
         testo = testo.replace("'", ' ')
         qr = "insert into messaggi (data,ora,msg) values('"+data+"','"+ora+"','"+testo+"')"
@@ -161,7 +173,8 @@ class callDB():
         except dba.Error as er:
             print('SQLite error: %s' % (' '.join(er.args)))
             print("Exception class is: ", er.__class__)
-            print("Errore ininsertTracking")
+            print("Errore connessione Db")
+            logger.error("Errore connessione Db")
             return
         
         query = "insert into tracking (data,ora,node_id,lat,lon,alt,batt,temperat,pressione,umidita,longname) values('"
@@ -244,6 +257,7 @@ class callDB():
             #print("callDB conn.dba..")
         except:
             print("conn time-out in InsUpdtDB")
+            logger.error("conn time-out in InsUpdtDB")
             return
         cur = conn.cursor()
         try:
@@ -252,6 +266,7 @@ class callDB():
         except dba.Error as er:
             print('SQLite error: %s' % (' '.join(er.args)))
             print("Exception class is: ", er.__class__)
+            logger.error(f"Query: {query}")
             print(query)
         cur.close()
         conn.close()
@@ -300,6 +315,20 @@ if __name__ == "__main__":
     purgeDb = purgeDB()
 
     print("🟢 Inizio elaborazione principale")
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    log_file_path = os.path.join(basedir, '../logs/mesh_controller.log')
+    print(f"log_file_path: {log_file_path}")
+
+    handler = RotatingFileHandler(
+        log_file_path, maxBytes=1_048_576, backupCount=5, encoding='utf-8'
+    )
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
 
     #trova distanza fra due punti gps
     def haversine(coord1,coord2):
@@ -460,6 +489,7 @@ if __name__ == "__main__":
                                 calldb.execInsUpdtDB(pdict)
                             except:
                                 print("Update saltata per campi nulli in Telemetry")
+                                logger.info("Update saltata per campi nulli in Telemetry")
                             
                     if('environmentMetrics' in packet['decoded']['telemetry']):
                         temperatura = 0
@@ -488,6 +518,7 @@ if __name__ == "__main__":
                             calldb.execInsUpdtDB(pdict)
                         except:
                             testo = datetime.now().strftime("%d/%m/%y %T")+" Dati sporchi in packet[decoded]telemetry]"
+                            logger.info(testo)
                             print(testo)
 
             elif (packet['decoded']['portnum'] == 'TEXT_MESSAGE_APP'):
@@ -507,6 +538,7 @@ if __name__ == "__main__":
                     try:
                         testo = packet['decoded']['text']+" snr:"+str(snr)+",rssi:"+str(rssi)+" de "+msgda
                         #inserisci messaggio in app.db
+                        logger.info(f"Ricevuto txt: {testo}")
                         calldb.insertMsg(testo)
 
                         if('QSL?' in testo.upper()):
@@ -515,10 +547,12 @@ if __name__ == "__main__":
                             rmsg = rmsg + packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" da "+msgda
                             rmsg = rmsg.replace('?',' ')  #replace ? with ' ' to avoid mesh flooding if 2+ broadcast_msg_pyq5 running in mesh
                             lancio.sendImmediate(rmsg)
+                            logger.info(f"Risposto: {rmsg}")
                             calldb.insertMsg(rmsg)
                     except:
                         testo = datetime.now().strftime("%d/%m/%y %T")+" "+msgda+" Dati sporchi in packet[decoded][text]"
                         print(testo)
+                        logger.info(testo)
             # controlla Db in messaggi per ultimo msg che inizia con ^
             msg = calldb.cercaSend() # ritorna ultimo messaggio che inizia con ^
             if msg:
@@ -526,6 +560,7 @@ if __name__ == "__main__":
                 if "^" in msg:
                     msg = msg.replace('^','')
                     print(f"Invio msg: {msg}")
+                    logger.info(f"Invio msg: {msg}")
                     lancio.sendImmediate(msg)
                     calldb.insertMsg(msg)
             # a ore 11:10:01 - 11:12:45 controlla se devo cancellare records vecchi di oltre 15gg in Db
