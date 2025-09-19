@@ -11,6 +11,10 @@ import requests
 from datetime import datetime, timedelta
 import logging
 from logging.handlers import RotatingFileHandler
+import mailout as sendMail
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class purgeDB():
     Db = '../app.db'
@@ -547,6 +551,14 @@ if __name__ == "__main__":
                         #inserisci messaggio in app.db
                         logger.info(f"Ricevuto txt: {testo}")
                         calldb.insertMsg(testo)
+
+                        # controlla se è msg Alert se sì invialo a sendGmail
+                        if 'Alert' in testo:
+                            mittente = os.getenv("MITTENTE")
+                            destinatario = os.getenv("DESTINATARIO")
+                            password = os.getenv("GMAIL_PASS")
+                            sendMail.sendGmail(testo,password,mittente,destinatario)
+                            return
 
                         if('QSL?' in testo.upper()):
                             print(lancio.MyName)
