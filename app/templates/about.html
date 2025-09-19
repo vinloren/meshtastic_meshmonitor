@@ -94,15 +94,20 @@
         a broker.emqx.io (server mqtt pubblico) con topic a scelta dell'utente (default = meshtastic/vinloren)
         e mqtt_subscribe.py (subscribe a scelta con default meshtastic/vinloren) che una volta lanciato
         provvede a riempire la tabella 'loranodes' attraverso la quale sarà disponibile la mappa richiamabile
-        col link 'Mostra_Mqtt_map'. Il progetto è in itinere e integrazioni e modifiche 
+        col link 'Mqtt_map'. Il progetto è in itinere e integrazioni e modifiche 
         sono fattibili anche in funzione della risposta degli associati al gruppo WA sul campo.
        </p>
        <p align = justify>Con l'aggiornamento del 15 Settembre 2025 ho anche introdotto la possibilità di
         visualizzare il log degli eventi permettendo così all'utente di vedere, e poi decidere di abilitarli, 
         i nodi che al momento non sono autorizzati alla visibilità in mappa (sia nostra_map che http_map).
        </p>
+       <p align = justify>Con l'aggiornamento del 18 Settembre 2025 ho anche introdotto la possibilità di
+        inviare messaggi via gmail o alice mail al proprio account di posta e tramite un'applicazione
+        python concorrente con mesh_controller pubblicarne il testo su ch0. Altra integrazione con questa release
+        è quella di permettere invio di messaggi periodici in rete per valutarne la risposta.
+       </p>
     </div>
     <div class="page-footer">
-        <small>Aggiornamento del 15 Settembre 2025 by IU2RPO</small>
+        <small>Aggiornamento del 19 Settembre 2025 by IU2RPO</small>
     </div>
 {% endblock %}
