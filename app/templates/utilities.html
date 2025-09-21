@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Cose utili</title>
+    
+</head>
+    <h3 align = center>Funzioni accessorie disponibili </h3>
+    <div>
+        <h4>Invio messaggi periodici su ch0</h4>
+        <p align = justify>
+        L'invio di un messaggio a passo cadenzato (ogni 10 minuti) con numero di sequenza e orario di invio
+        in rete può avere diverse utilità quali la misura della bontà del nostro collegamenteo verificando,
+        ad esempio, quanti dei messaggi inviati sono stati recepiti dal noto bot loraitalia-watcher oppure
+        da uno dei nostri corrispondenti abituali.
+        </p>
+        <p align = justify>Per eseguire questa funzione basta inviare dalla pagina 'Messaggi_ch0'
+            un messaggio che inizia con / seguito dal testo che voglimo sia trasmesso in rete ogni 10 
+            minuti. Per terminare l'invio di questi messaggi occorre poi trasmettere un nuovo messaggio da
+            pagina 'Messaggi_ch0' che inizia con _ o semplicemente il solo carattere _
+        </p>
+        <hr>
+       <h4>Ricezione messaggi via Alice mail o Gmail</h4>
+        <p align = justify>E' possibile inviare una mail al sistema meshtastic_meshmonitor affinché 
+            il suo testo venga girato in rete su ch0 permettendo così anche a chi è lontano dalla propria
+            stazione di controllo di inviare messaggi in rete. La cosa è gestita attraverso un file 
+            .env contenente le credenziali di accesso al mail dal programma accessorio Alice_ReadMail.py 
+            o ReadMail_gmail.py lanciato in concorrenza con mesh_controller.py. Ogni 5 minuti questa
+            applicazione python va a vedere se ci sono messaggi nuovi da leggere in casella mail e se sì
+            va a controllare se l'oggetto è = /^ nel qual caso il testo della mail viene pubblicato su ch0.
+        </p>
+        <hr>
+       <h4>Invio messaggi di Alert da ch0 a mail Alice o Gmail</h4>
+       <p align = justify>Ogni volta che mesh_controller.py intercetta un messaggio testuale su ch0
+        contenente la parola Alert esso si prende cura di inviare da account email configurato in file
+        .env come MITTENTE verso DESTINATARIO con password = MAILOUT_PASS una mail con Oggetto = 
+        'Alarm ch0' il testo contenente la parola Alert. In questo modo è quindi possibile allertare
+        tutta la rete, da remoto, circa eventi di interesse generale oppure questo può essere anche
+        un modo per colloquiare in rete grazie anche alla funzione descritta prima.
+       </p>
+       <hr>
+       <h4>Accesso a server MQTT broker.emqx.io</h4>
+       <p align= justify>Con la finalità di permettere la mappatura della rete vista da altri 
+        utenti e permettere ad altri utenti di accedere alla nostra visibilità, abbiamo due programmi
+        accessori che stanno im ./source: mqtt_subscribe.py e mqtt_send_all.py ciascun dei quali
+        sottoscrive o invia il topic meshtastic/vinloren (default dove vinlore può essere sostituito nei
+        parametri di lancio). Il primo sottoscrive il topic e va ad alimentare coi dati ricevuti 
+        il Db ndlla tabella 'loranodes' permettendo così di visualizzare la mappa risultante dal link
+        Mqtt_map, il secondo (mqtt_send_all.py) invia al server broker.emqx.io i dati dei nodi visti
+        da noi sicché altri utenti che avesserero con mqtt_subscribe.py sottoscritto il nostro 
+        topic potrebbero vedere la rete che vediamo noi.<br><br>
+        Per lanciare topic diversi dal default abbiamo per mqtt_send_all.py il nome che sostituirà il 
+        default 'vinloren' come parametro mentre per mqtt_subscribe.py abbiamo:<br>
+        python mqtt_subscribe.py --channel=meshtastic/abcde dove abcde il il subtopic che vogliamo usare.
+        <br><br>
+        mqtt_send_all.py con passo di 5 minuti invia tutta la consistenza di 'meshnodes' della nostra installazione 
+        al server MQTT, si tratta di circa 300 nodi (quelli che vedo dal mio punto di vista) di cui
+        appariranno in mappa solo quelli registrati in tabella 'modes' come autorizzati. Ad ogni
+        conclusione di ricezione mqtt_subscribe.py va ad aggiornare la tabella 'loranodes' 
+        che attiene ai dati mqtt con data/ora ed eventuali nuovi inserimenti.
+       </p>
+       
+    </div>
+    <div class="page-footer">
+        <small>Aggiornamento del 21 Settembre 2025 by IU2RPO</small>
+    </div>
+{% endblock %}

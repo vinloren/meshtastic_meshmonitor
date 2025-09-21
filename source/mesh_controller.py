@@ -556,7 +556,8 @@ if __name__ == "__main__":
                         if 'Alert' in testo:
                             mittente = os.getenv("MITTENTE")
                             destinatario = os.getenv("DESTINATARIO")
-                            password = os.getenv("GMAIL_PASS")
+                            password = os.getenv("MAILOUT_PASS")
+                            #print(f"{mittente} {destinatario} {password}")
                             sendMail.sendGmail(testo,password,mittente,destinatario)
                             return
 

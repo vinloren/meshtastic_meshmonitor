@@ -19,6 +19,10 @@ from folium import Element
 def index():
     return redirect (url_for('listanodi'))
 
+@app.route("/utilities")
+def utilities():
+    return render_template('utilities.html')
+
 @app.route("/entralog")
 def entralog():
     loglist = session.pop('entralog', '')  # Rimuove dalla sessione dopo averlo letto
