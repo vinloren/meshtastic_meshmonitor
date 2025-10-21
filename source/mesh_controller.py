@@ -462,9 +462,9 @@ if __name__ == "__main__":
                             else:
                                 pdict.update({'alt': 0})
                             calldb.execInsUpdtDB(pdict)
-                        #vai a leggere record di from_ in meshnodes e se longname,node_id,lat,lon,alt, presenti
-                        #invia dati a server vinmqtt.hopto.org
-                        sendNode.checkNodo(from_)
+                #vai a leggere record di from_ in meshnodes e se longname,node_id,lat,lon,alt, presenti
+                #invia dati a server vinmqtt.hopto.org
+                sendNode.checkNodo(from_)
 
 
                 if('rxSnr' in packet):
@@ -531,7 +531,10 @@ if __name__ == "__main__":
                             testo = datetime.now().strftime("%d/%m/%y %T")+" Dati sporchi in packet[decoded]telemetry]"
                             logger.info(testo)
                             print(testo)
-
+                    #vai a leggere record di from_ in meshnodes e se longname,node_id,lat,lon,alt, presenti
+                    #invia dati a server vinmqtt.hopto.org
+                    sendNode.checkNodo(from_)    
+            
             elif (packet['decoded']['portnum'] == 'TEXT_MESSAGE_APP'):
                 tipmsg = 'TEXT_MESSAGE_APP'
                 #data,ora,lat,lon,alt,longname,batt,temperat,pressione,umidita,node_id
@@ -557,7 +560,8 @@ if __name__ == "__main__":
                             mittente = os.getenv("MITTENTE")
                             destinatario = os.getenv("DESTINATARIO")
                             password = os.getenv("MAILOUT_PASS")
-                            #print(f"{mittente} {destinatario} {password}")
+                            #print(f"{destinatario} {testo}")
+                            #sendMail.send_email(destinatario,'Alert ch0',testo,[])
                             sendMail.sendGmail(testo,password,mittente,destinatario)
                             return
 
