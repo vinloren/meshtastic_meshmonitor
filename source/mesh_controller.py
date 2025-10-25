@@ -118,6 +118,7 @@ class meshInterface(Thread):
     def sendImmediate(self,msg):
         currTime = datetime.now().strftime("%H:%M:%S")
         msg = currTime+" "+ msg
+        msg = msg[0:200]
         self.interface.sendText(msg)
         print("Messaggio mandato su ch0: " + msg)
         logger.info("Messaggio mandato su ch0: " + msg)
