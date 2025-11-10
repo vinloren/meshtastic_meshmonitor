@@ -13,6 +13,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import mailout as sendMail
 from dotenv import load_dotenv
+import meteo
 
 load_dotenv()
 
@@ -81,15 +82,15 @@ class send_node():
         print("Tento invio dati a server globale")
         datas = calldb.getCoord(nodnum)
         if datas:
-            if(datas[5] is not None):
+            if(isinstance(datas[5],str) and isinstance(datas[2],float) and isinstance(datas[3],float)):
                 try:
                     self.manda_nodo(datas)
                 except Exception as e:
-                    print("Errore in callFlask: ",e)
-                    logger.error(f"Errore in callFlask: {e}")
+                    print("Errore in mabda_nodo: ",e)
+                    logger.error(f"Errore in manda_nodo: {e}")
             else:
-                print("Invio dati non fatto per assenza longname.")
-                logger.error("Invio dati non fatto per assenza longname.")
+                print("Invio dati non fatto per assenza longname o coord gps.")
+                logger.error("Invio dati non fatto per assenza longname o coord gps.")
         else:
             print("Invio dati non fatto per assenza record in mesh_nodes.")
             logger.error("Invio dati non fatto per assenza record in mesh_nodes.")
@@ -315,6 +316,7 @@ if __name__ == "__main__":
     # Avvio thread
     lancio = meshInterface(port=port, data_queue=data_queue, MyName=MyName)
     lancio.start()
+    
 
     calldb = callDB()
     sendNode = send_node()
@@ -334,7 +336,6 @@ if __name__ == "__main__":
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-
 
     #trova distanza fra due punti gps
     def haversine(coord1,coord2):
@@ -534,7 +535,7 @@ if __name__ == "__main__":
                             print(testo)
                     #vai a leggere record di from_ in meshnodes e se longname,node_id,lat,lon,alt, presenti
                     #invia dati a server vinmqtt.hopto.org
-                    sendNode.checkNodo(from_)    
+                    #sendNode.checkNodo(from_)    
             
             elif (packet['decoded']['portnum'] == 'TEXT_MESSAGE_APP'):
                 tipmsg = 'TEXT_MESSAGE_APP'
@@ -562,10 +563,19 @@ if __name__ == "__main__":
                             destinatario = os.getenv("DESTINATARIO")
                             password = os.getenv("MAILOUT_PASS")
                             #print(f"{destinatario} {testo}")
-                            #sendMail.send_email(destinatario,'Alert ch0',testo,[])
+                            #sendMail.send_email(destinatario,'Aler0t ch0',testo,[])
                             sendMail.sendGmail(testo,password,mittente,destinatario)
                             return
-
+                        
+                        # controlla se testo[0:2] == wx per richesta meteo
+                        if testo[0:2] == 'wx':
+                            print("****** LANCIO WX ******")
+                            prev = meteo.getMeteo(datas[2],datas[3])
+                            prev = "@"+msgda+"\n"+prev
+                            print('Previsioni',prev)
+                            lancio.sendImmediate(prev)
+                            
+                        
                         if('QSL?' in testo.upper()):
                             print(lancio.MyName)
                             rmsg = "RX qsl da "+lancio.MyName+" a: "
