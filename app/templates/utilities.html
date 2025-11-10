@@ -63,9 +63,15 @@
         conclusione di ricezione mqtt_subscribe.py va ad aggiornare la tabella 'loranodes' 
         che attiene ai dati mqtt con data/ora ed eventuali nuovi inserimenti.
        </p>
-       
+       <hr>
+       <h4>Stato meteo del qth provincia richiedente</h4>
+       <p align= justify>Alla ricezione del messaggio 'wx' (senza apici) su ch0 viene 
+        inviata risposta delle condizioni meteo della provincia cui il qth richiedente
+        fa riferimento. La risposta meteo viene da https://api.open-meteo.com/v1/forecast
+        con elaborazione ad hoc del risultato.
+       </p>
     </div>
     <div class="page-footer">
-        <small>Aggiornamento del 21 Settembre 2025 by IU2RPO</small>
+        <small>Aggiornamento del 10 Novembre 2025 by IU2RPO</small>
     </div>
 {% endblock %}
