@@ -19,9 +19,9 @@ def getMeteo(lat,lon):
              57:'Pioviggine2 gelida',61:'Pioggia leggera',63:'Pioggia moderata',
              65:'Forte pioggia',66:'Leggera pioggia gelata',67:'Intensa pioggia gelata',
              71:'Leggera nevicata',73:'Discreta nevicata',75:'Intensa nevicata',77:'Nevischio',
-             80:'Leggero acquazzone',81:'Discreto acquazzoni',82:'Forte acquazzone',85:'Tempesta di neve',
-             86:'Leggere pioggia di neve',87:'Forte pioggia di neve',95:'Temporale',96:'Discreto temporale',
-             99:'Forte temporale'}
+             80:'Leggeri rovesci',81:'Discreti rovesci',82:'Forti rovesci',85:'Tempesta di neve',
+             86:'Leggere pioggia di neve',87:'Forte pioggia di neve',95:'Temporali',96:'Discreti temporali',
+             99:'Forti temporale'}
     
     url = "https://api.open-meteo.com/v1/forecast"
     nuvolosita = {0:'Libero',1:'1/8',2:'2/8',3:'3/8',4:'4/8',
