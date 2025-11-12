@@ -11,6 +11,8 @@ cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
 retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
 openmeteo = openmeteo_requests.Client(session = retry_session)
 
+Tempo = False
+
 # Make sure all required weather variables are listed here
 # The order of variables in hourly or daily is important to assign them correctly below
 def getMeteo(lat,lon):
@@ -99,7 +101,8 @@ def findProvince(coord):
             'Brescia':[45.547, 10.222],'Sondrio':[46.175, 9.848],'Cremona':[45.131, 9.962],'Lecco':[45.854, 9.392],
             'Piacenza':[45.057, 9.71],'Mantova':[45.1625,10.794],'Parma':[44.803,10.327],'Modena':[44.644, 10.913],
             'Vercelli':[45.323, 8.4213],'Asti':[44.902,8.208],'Cuneo':[44.3988, 7.536],'Alessandria':[44.906, 8.59],
-            'Torino':[45.072, 7.6824],'Ivrea':[45.4673, 7.8796],'Lugano':[46.0053, 8.95],'Chiasso':[45.841, 9.009]}
+            'Torino':[45.072, 7.6824],'Ivrea':[45.4673, 7.8796],'Lugano':[46.0053, 8.95],'Chiasso':[45.841, 9.009],
+            'Seveso(MB)':[45.641,9.12]}
 
     for prv in prov:
         d = haversine(prov[prv],coord)

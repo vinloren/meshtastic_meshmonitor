@@ -353,6 +353,7 @@ if __name__ == "__main__":
     
     
     periodic = False
+    Tempo = False
     sent = False
     msgcnt = 0
     msgPeriodic = ""
@@ -548,9 +549,14 @@ if __name__ == "__main__":
                     try:
                         snr = packet['rxSnr']
                         rssi = packet['rxRssi']
-                    except:
+                        hoplimit = packet['hopLimit']
+                        hopstart = packet['hopStart']
+                        hops = str(hoplimit-hopstart)
+                    except Exception as err:
                         snr = 0
                         rssi = 0
+                        hops = "3"
+                        print(f"Errore: {err}")
                     try:
                         testo = packet['decoded']['text']+" snr:"+str(snr)+",rssi:"+str(rssi)+" de "+msgda
                         #inserisci messaggio in app.db
@@ -575,11 +581,10 @@ if __name__ == "__main__":
                             print('Previsioni',prev)
                             lancio.sendImmediate(prev)
                             
-                        
                         if('QSL?' in testo.upper()):
                             print(lancio.MyName)
                             rmsg = "RX qsl da "+lancio.MyName+" a: "
-                            rmsg = rmsg + packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" da "+msgda
+                            rmsg = rmsg + packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" da "+msgda + " in "+hops+" hop"
                             rmsg = rmsg.replace('?',' ')  #replace ? with ' ' to avoid mesh flooding if 2+ broadcast_msg_pyq5 running in mesh
                             lancio.sendImmediate(rmsg)
                             logger.info(f"Risposto: {rmsg}")
@@ -629,6 +634,18 @@ if __name__ == "__main__":
                     sent = True
             else:
                 sent = False
+            # invia ogni ora meteo
+            if int(orario[3:5])%30 == 0 and int(orario[3:5]) > 0:
+                if os.getenv("LAT"):
+                    if meteo.Tempo == False:
+                        print("****** LANCIO WX PERIODICO ******")
+                        prev = "\n"+meteo.getMeteo(os.getenv("LAT"),os.getenv("LON"))
+                        print('Previsioni',prev)
+                        lancio.sendImmediate(prev)
+                        meteo.Tempo = True
+            else:
+                meteo.Tempo = False    
+
 
 
     try:
