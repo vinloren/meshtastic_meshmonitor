@@ -551,7 +551,8 @@ if __name__ == "__main__":
                         rssi = packet['rxRssi']
                         hoplimit = packet['hopLimit']
                         hopstart = packet['hopStart']
-                        hops = str(hoplimit-hopstart)
+                        hp = abs(hoplimit-hopstart)
+                        hops = " in "+str(hp)+" hop dei "+str(hopstart)+" iniziali"
                     except Exception as err:
                         snr = 0
                         rssi = 0
@@ -584,7 +585,7 @@ if __name__ == "__main__":
                         if('QSL?' in testo.upper()):
                             print(lancio.MyName)
                             rmsg = "RX qsl da "+lancio.MyName+" a: "
-                            rmsg = rmsg + packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" da "+msgda + " in "+hops+" hop"
+                            rmsg = rmsg + packet['decoded']['text']+"snr:"+str(snr)+",rssi:"+str(rssi)+" da "+msgda + hops
                             rmsg = rmsg.replace('?',' ')  #replace ? with ' ' to avoid mesh flooding if 2+ broadcast_msg_pyq5 running in mesh
                             lancio.sendImmediate(rmsg)
                             logger.info(f"Risposto: {rmsg}")
